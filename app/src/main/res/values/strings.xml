@@ -4,5 +4,12 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="curry">Currently: </string>
+    <string name="go">go!</string>
+    <string name="onString">ON</string>
+    <string name="offString">OFF</string>
+    <string name="turnOnString">Turn on by: </string>
+    <string name="turnOffString">Turn off by: </string>
+    <string name="bck">back</string>
     <string name="action_settings">Settings</string>
 </resources>
