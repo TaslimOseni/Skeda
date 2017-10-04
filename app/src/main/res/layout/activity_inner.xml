@@ -16,6 +16,7 @@
 
         <ImageButton
             android:id="@+id/back"
+            android:contentDescription="@string/bck"
             android:background="#2b4a54"
             android:layout_width="30dp"
             android:layout_height="60dp" />
