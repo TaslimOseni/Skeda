@@ -11,5 +11,6 @@
     <string name="turnOnString">Turn on by: </string>
     <string name="turnOffString">Turn off by: </string>
     <string name="bck">back</string>
+    <string name="togg">on/off icon</string>
     <string name="action_settings">Settings</string>
 </resources>

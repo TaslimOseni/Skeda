@@ -16,9 +16,9 @@ import java.util.ArrayList;
 public class Display extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    private AdapterForExpandableListView ExpAdapter;
-    private ArrayList<Group> ExpListItems;
-    private ExpandableListView ExpandList;
+    AdapterForExpandableListView foreignAdapter;
+    ArrayList<Group> listToPaste;
+    ExpandableListView theListViewGanGan;
 
 
 
@@ -30,10 +30,14 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
         setSupportActionBar(toolbar);
 
 
-        ExpandList = (ExpandableListView) findViewById(R.id.expansionSlot);
-        ExpListItems = setStandardGroups();
-        ExpAdapter = new AdapterForExpandableListView(Display.this, ExpListItems);
-        ExpandList.setAdapter(ExpAdapter);
+        theListViewGanGan = (ExpandableListView) findViewById(R.id.expansionSlot);
+        listToPaste = doTheArrangement();
+        foreignAdapter = new AdapterForExpandableListView(Display.this, listToPaste);
+        theListViewGanGan.setAdapter(foreignAdapter);
+
+        theListViewGanGan.expandGroup(0);
+        theListViewGanGan.expandGroup(1);
+        theListViewGanGan.expandGroup(2);
 
 
 
@@ -50,9 +54,9 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
 
 
-    private ArrayList<Group> setStandardGroups(){
+    private ArrayList<Group> doTheArrangement(){
 
-        ArrayList<Group> list = new ArrayList<Group>();
+        ArrayList<Group> list = new ArrayList<>();
 
 
 
@@ -129,6 +133,7 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
 
 
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -141,12 +146,14 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
 
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.display, menu);
         return true;
     }
+
 
 
 
@@ -167,9 +174,10 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
 
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item){
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -191,6 +199,8 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
 
 }
