@@ -1,6 +1,12 @@
 package com.dabinu.apps.skeda;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +25,50 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
     AdapterForExpandableListView foreignAdapter;
     ArrayList<Group> listToPaste;
     ExpandableListView theListViewGanGan;
+
+
+
+
+    public int[] sortAllCommIcons(){
+
+        int[] icons = new int[5];
+
+        WifiManager wifiManager = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if(wifiManager.getWifiState() == 1) {
+                    icons[0] = R.drawable.wifioff;
+                }
+                else{
+                    icons[0] = R.drawable.wifion;
+                }
+
+
+
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(bluetoothAdapter.isEnabled()){
+                    icons[1] = R.drawable.blueon;
+                }
+                else{
+                    icons[1] = R.drawable.blueoff;
+                }
+
+
+
+        if (Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1) {
+                    icons[2] = R.drawable.flighton;
+                }
+                else if (Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 1) {
+                    icons[2] = R.drawable.flightoff;
+                }
+
+
+                icons[3] = R.drawable.hotspotoff;
+                icons[4] = R.drawable.dataoff;
+
+
+
+                return icons;
+    }
+
 
 
 
@@ -57,12 +107,12 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
     private ArrayList<Group> doTheArrangement(){
 
         ArrayList<Group> list = new ArrayList<>();
+        int allImages[] = sortAllCommIcons();
 
 
 
-
-        Group settingsGroup = new Group();
-        settingsGroup.setName("Settings");
+        Group commGroup = new Group();
+        commGroup.setName("Communication");
 
         ArrayList<Child> settingsChild = new ArrayList<>();
 
@@ -74,39 +124,44 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
         ch1.setName("SMS");
         settingsChild.add(ch1);
 
-        settingsGroup.setItems(settingsChild);
-        list.add(settingsGroup);
+        commGroup.setItems(settingsChild);
+        list.add(commGroup);
 
 
 
 
-        Group commGroup = new Group();
-        commGroup.setName("Communication");
+        Group connGroup = new Group();
+        connGroup.setName("Connectivity");
 
         ArrayList<Child> commChild = new ArrayList<>();
 
         Child omo0 = new Child();
         omo0.setName("WiFi");
+        omo0.setImage(allImages[0]);
         commChild.add(omo0);
 
         Child omo1 = new Child();
         omo1.setName("Bluetooth");
+        omo1.setImage(allImages[1]);
         commChild.add(omo1);
 
         Child omo2 = new Child();
         omo2.setName("Flight mode");
+        omo2.setImage(allImages[2]);
         commChild.add(omo2);
 
         Child omo3 = new Child();
         omo3.setName("Hotspot");
+        omo3.setImage(allImages[3]);
         commChild.add(omo3);
 
         Child omo4 = new Child();
         omo4.setName("Data Connection");
+        omo4.setImage(allImages[4]);
         commChild.add(omo4);
 
-        commGroup.setItems(commChild);
-        list.add(commGroup);
+        connGroup.setItems(commChild);
+        list.add(connGroup);
 
 
 

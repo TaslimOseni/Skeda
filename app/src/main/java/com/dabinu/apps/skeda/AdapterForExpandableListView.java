@@ -2,6 +2,7 @@ package com.dabinu.apps.skeda;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,23 +35,57 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition,
-                             boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition,
+                             boolean isLastChild, View theViewWeWant, ViewGroup parent) {
 
         Child child = (Child) getChild(groupPosition, childPosition);
-        if (convertView == null) {
+        if (theViewWeWant == null) {
             LayoutInflater infalInflater = (LayoutInflater) context
                     .getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.itemsguy, null);
+            theViewWeWant = infalInflater.inflate(R.layout.itemsguy, null);
         }
-        TextView tv = (TextView) convertView.findViewById(R.id.textItem);
-        ImageView iv = (ImageView) convertView.findViewById(R.id.imageItem);
+        TextView tv = (TextView) theViewWeWant.findViewById(R.id.textItem);
+        ImageView iv = (ImageView) theViewWeWant.findViewById(R.id.imageItem);
 
 
         tv.setText(child.getName());
         iv.setImageResource(child.getImage());
 
-        return convertView;
+        final Intent intent = new Intent(context, Inner.class);
+
+        theViewWeWant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(groupPosition == 1){
+                    switch(childPosition){
+                        case 0:
+                            intent.putExtra("NAME", "WiFi");
+                            context.startActivity(intent);
+                            break;
+                        case 1:
+                            intent.putExtra("NAME", "Bluetooth");
+                            context.startActivity(intent);
+                            break;
+                        case 2:
+                            intent.putExtra("NAME", "Flight mode");
+                            context.startActivity(intent);
+                            break;
+                        case 3:
+                            intent.putExtra("NAME", "Hotspot");
+                            context.startActivity(intent);
+                            break;
+                        case 4:
+                            intent.putExtra("NAME", "Data Conn.");
+                            context.startActivity(intent);
+                            break;
+
+                    }
+                }
+            }
+        });
+
+
+        return theViewWeWant;
     }
 
     @Override

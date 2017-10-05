@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
+    android:layout_height="120dp"
     android:orientation="horizontal"
+    android:background="#ffffff"
+    android:layout_marginTop="20dp"
     android:id="@+id/listItemOfList">
 
     <TextView
-        android:textSize="25sp"
+        android:textSize="23sp"
         android:textColor="#000000"
+        android:background="#ffffff"
         android:id="@+id/textItem"
+        android:height="50dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:layout_width="match_parent"
+        android:layout_width="270dp"
         android:layout_marginStart="10dp"
         android:layout_height="match_parent" />
 
     <ImageButton
-        android:layout_width="wrap_content"
+        android:layout_width="30dp"
         android:layout_height="match_parent"
         android:id="@+id/imageItem"
         android:contentDescription="@string/togg"
         android:background="#ffffff"
-        android:scaleType="fitXY"/>
+        android:scaleType="centerInside"/>
 
 </LinearLayout>
