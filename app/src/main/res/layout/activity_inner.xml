@@ -10,15 +10,16 @@
     <LinearLayout
         android:id="@+id/first"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="#0e490d"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/back"
-            android:layout_width="30dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
             android:background="#0e490d"
+            android:layout_gravity="center"
             android:src="@drawable/back"
             android:contentDescription="@string/bck" />
 
@@ -29,17 +30,17 @@
             android:layout_marginStart="30dp"
             android:background="#0e490d"
             android:gravity="center|start"
+            android:textStyle="bold"
             android:textAllCaps="false"
-            android:textColor="#151415"
+            android:textColor="#dfe6ed"
             android:textIsSelectable="false"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textSize="25sp" />
 
         <Switch
             android:id="@+id/state"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="15dp"
             android:background="#0e490d" />
     </LinearLayout>
 
@@ -67,7 +68,8 @@
 
         <TextView
             android:textSize="30sp"
-            android:textColor="#000"
+            android:textColor="@android:color/holo_red_dark"
+            android:id="@+id/stateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"/>
