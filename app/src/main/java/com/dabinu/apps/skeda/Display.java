@@ -9,10 +9,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.widget.ExpandableListView;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 
 public class Display extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    private LinkedHashMap<String, GroupInfo> subjects = new LinkedHashMap<String, GroupInfo>();
+    private ArrayList<GroupInfo> deptList = new ArrayList<GroupInfo>();
+    private AdapterForExpandableListView listAdapter;
+    private ExpandableListView simpleExpandableListView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +30,20 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
         setContentView(R.layout.activity_display);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        // add data for displaying in expandable list view
+        loadData();
+
+        simpleExpandableListView = (ExpandableListView) findViewById(R.id.expansionSlot);
+        // create the adapter by passing your ArrayList data
+        listAdapter = new AdapterForExpandableListView(MainActivity.this, deptList);
+        // attach the adapter to the expandable list view
+        simpleExpandableListView.setAdapter(listAdapter);
+
+        //expand all the Groups
+        expandAll();
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -30,6 +54,11 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void loadData(){
+
+
     }
 
     @Override
