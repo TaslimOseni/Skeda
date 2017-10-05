@@ -1,34 +1,31 @@
 package com.dabinu.apps.skeda;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 
-public class AdapterForExpandableListView extends BaseExpandableListAdapter{
+class AdapterForExpandableListView extends BaseExpandableListAdapter{
 
 
     private Context context;
-    private ArrayList<GroupInfo> deptList;
+    private ArrayList<Group> groups;
 
-
-
-    public AdapterForExpandableListView(Context context, ArrayList<GroupInfo> deptList) {
+    AdapterForExpandableListView(Context context, ArrayList<Group> groups) {
         this.context = context;
-        this.deptList = deptList;
+        this.groups = groups;
     }
-
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        ArrayList<ChildInfo> productList = deptList.get(groupPosition).getProductList();
-        return productList.get(childPosition);
+        ArrayList<Child> chList = groups.get(groupPosition).getItems();
+        return chList.get(childPosition);
     }
 
     @Override
@@ -37,38 +34,39 @@ public class AdapterForExpandableListView extends BaseExpandableListAdapter{
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
+    public View getChildView(int groupPosition, int childPosition,
+                             boolean isLastChild, View convertView, ViewGroup parent) {
 
-        ChildInfo detailInfo = (ChildInfo) getChild(groupPosition, childPosition);
-        if (view == null) {
-            LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = infalInflater.inflate(R.layout.itemguy, null);
+        Child child = (Child) getChild(groupPosition, childPosition);
+        if (convertView == null) {
+            LayoutInflater infalInflater = (LayoutInflater) context
+                    .getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.itemsguy, null);
         }
+        TextView tv = (TextView) convertView.findViewById(R.id.textItem);
+        ImageView iv = (ImageView) convertView.findViewById(R.id.imageItem);
 
-        TextView text = (TextView) view.findViewById(R.id.textItem);
-        ImageButton image = (ImageButton) view.findViewById(R.id.imageItem);
-        text.setText(detailInfo.getName().trim());
-        image.setImageDrawable(detailInfo.getImage());
 
-        return view;
+        tv.setText(child.getName());
+        iv.setImageResource(child.getImage());
+
+        return convertView;
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-
-        ArrayList<ChildInfo> productList = deptList.get(groupPosition).getProductList();
-        return productList.size();
-
+        ArrayList<Child> chList = groups.get(groupPosition).getItems();
+        return chList.size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return deptList.get(groupPosition);
+        return groups.get(groupPosition);
     }
 
     @Override
     public int getGroupCount() {
-        return deptList.size();
+        return groups.size();
     }
 
     @Override
@@ -77,18 +75,17 @@ public class AdapterForExpandableListView extends BaseExpandableListAdapter{
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isLastChild, View view, ViewGroup parent) {
-
-        GroupInfo headerInfo = (GroupInfo) getGroup(groupPosition);
-        if (view == null) {
-            LayoutInflater inf = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inf.inflate(R.layout.groupsguy, null);
+    public View getGroupView(int groupPosition, boolean isExpanded,
+                             View convertView, ViewGroup parent) {
+        Group group = (Group) getGroup(groupPosition);
+        if (convertView == null) {
+            LayoutInflater inf = (LayoutInflater) context
+                    .getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            convertView = inf.inflate(R.layout.groupsguy, null);
         }
-
-        TextView heading = (TextView) view.findViewById(R.id.headerOfList);
-        heading.setText(headerInfo.getName().trim());
-
-        return view;
+        TextView tv = (TextView) convertView.findViewById(R.id.headerOfList);
+        tv.setText(group.getName());
+        return convertView;
     }
 
     @Override
