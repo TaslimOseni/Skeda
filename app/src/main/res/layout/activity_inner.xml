@@ -19,17 +19,20 @@
             android:layout_width="30dp"
             android:layout_height="60dp"
             android:background="#0e490d"
+            android:src="@drawable/back"
             android:contentDescription="@string/bck" />
 
         <TextView
             android:id="@+id/nameOfCarrierIntent"
-            android:layout_width="250dp"
+            android:layout_width="230dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="30dp"
             android:background="#0e490d"
+            android:gravity="center|start"
             android:textAllCaps="false"
-            android:textColor="#000"
-            android:textSize="25sp"
+            android:textColor="#151415"
+            android:textIsSelectable="false"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <Switch
@@ -57,7 +60,7 @@
         <TextView
             android:textSize="30sp"
             android:textStyle="italic"
-            android:textColor="#000000"
+            android:textColor="@android:color/holo_blue_dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/curry"/>
@@ -86,7 +89,7 @@
         <TextView
             android:textSize="30sp"
             android:textStyle="italic"
-            android:textColor="#000000"
+            android:textColor="@android:color/holo_blue_dark"
             android:id="@+id/turner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

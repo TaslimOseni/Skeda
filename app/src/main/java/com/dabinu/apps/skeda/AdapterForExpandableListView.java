@@ -18,6 +18,7 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
     private Context context;
     private ArrayList<Group> groups;
 
+
     AdapterForExpandableListView(Context context, ArrayList<Group> groups) {
         this.context = context;
         this.groups = groups;
@@ -110,8 +111,7 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded,
-                             View convertView, ViewGroup parent) {
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         Group group = (Group) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater inf = (LayoutInflater) context
