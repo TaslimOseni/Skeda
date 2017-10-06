@@ -79,7 +79,7 @@
         android:layout_below="@+id/second"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="120dp"
         android:background="#f9f6f6"
         android:elevation="30dp">
 
@@ -113,13 +113,13 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginBottom="17dp"
-        android:text="@string/go"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:textSize="25sp"
         android:id="@+id/process"
         android:background="@android:color/holo_green_dark"
+        android:visibility="invisible"
         android:textAllCaps="false"/>
 
 
