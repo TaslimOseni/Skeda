@@ -9,10 +9,8 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -20,11 +18,9 @@ public class Inner extends AppCompatActivity{
 
 
     TextView head, turner, stateText;
-    Spinner hour, minute, ampm;
     ImageButton back;
     Button process;
     Switch stateSwitch;
-    ArrayAdapter<CharSequence> hourAdapt, minAdapt, ampmAdapt;
 
 
     @Override
@@ -41,9 +37,6 @@ public class Inner extends AppCompatActivity{
         head = (TextView) findViewById(R.id.nameOfCarrierIntent);
         turner = (TextView) findViewById(R.id.turner);
         stateText = (TextView) findViewById(R.id.stateText);
-        hour = (Spinner) findViewById(R.id.hourSpin);
-        minute = (Spinner) findViewById(R.id.minSpin);
-        ampm = (Spinner) findViewById(R.id.ampmSpin);
         back = (ImageButton) findViewById(R.id.back);
         stateSwitch = (Switch) findViewById(R.id.state);
         process = (Button) findViewById(R.id.process);
@@ -97,14 +90,6 @@ public class Inner extends AppCompatActivity{
                 break;
         }
 
-
-
-        hourAdapt = ArrayAdapter.createFromResource(this, R.array.hour, R.layout.timespinner);
-        minAdapt = ArrayAdapter.createFromResource(this, R.array.minute, R.layout.timespinner);
-        ampmAdapt = ArrayAdapter.createFromResource(this, R.array.apm, R.layout.timespinner);
-        hour.setAdapter(hourAdapt);
-        minute.setAdapter(minAdapt);
-        ampm.setAdapter(ampmAdapt);
 
 
 

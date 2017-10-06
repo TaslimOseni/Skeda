@@ -53,7 +53,7 @@
         android:id="@+id/second"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/first"
         android:layout_marginStart="10dp">
 
@@ -71,7 +71,7 @@
             android:id="@+id/stateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="40dp"/>
 
     </LinearLayout>
 
@@ -84,7 +84,8 @@
         android:id="@+id/third"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="280dp"
+        android:layout_below="@+id/second"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="10dp">
 
         <TextView
@@ -95,29 +96,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <Spinner
-            android:id="@+id/hourSpin"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp">
 
-        </Spinner>
-        <Spinner
-            android:id="@+id/minSpin"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp">
-
-        </Spinner>
-        <Spinner
-            android:id="@+id/ampmSpin"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp">
-
-        </Spinner>
     </LinearLayout>
 
+
+    <TimePicker
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/third"
+        android:layout_marginTop="40dp"
+        android:timePickerMode="spinner">
+
+    </TimePicker>
 
 
     <Button
