@@ -44,10 +44,6 @@
     </LinearLayout>
 
 
-
-
-
-
     <LinearLayout
         android:orientation="horizontal"
         android:id="@+id/second"
@@ -76,38 +72,34 @@
     </LinearLayout>
 
 
-
-
-
     <LinearLayout
-        android:orientation="horizontal"
         android:id="@+id/third"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/second"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="10dp">
-
-        <TextView
-            android:textSize="30sp"
-            android:textStyle="italic"
-            android:textColor="@android:color/holo_blue_dark"
-            android:id="@+id/turner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-
-    </LinearLayout>
-
-
-    <TimePicker
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/third"
-        android:layout_marginTop="40dp"
-        android:timePickerMode="spinner">
+        android:layout_below="@+id/second"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="70dp"
+        android:background="#f9f6f6"
+        android:elevation="30dp"
+        android:orientation="vertical">
 
-    </TimePicker>
+        <TextView
+            android:id="@+id/turner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="30sp"
+            android:textStyle="italic" />
+
+        <TimePicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/timePicker"
+            android:timePickerMode="spinner">
+
+        </TimePicker>
+    </LinearLayout>
 
 
     <Button
@@ -122,5 +114,6 @@
         android:id="@+id/process"
         android:background="@android:color/holo_green_dark"
         android:textAllCaps="false"/>
+
 
 </RelativeLayout>
