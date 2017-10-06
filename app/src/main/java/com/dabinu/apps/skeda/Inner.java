@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +20,7 @@ public class Inner extends AppCompatActivity{
 
     TextView head, turner, stateText;
     ImageButton back;
-    Button process;
+    Button process, timeSelector;
     Switch stateSwitch;
 
 
@@ -40,6 +41,9 @@ public class Inner extends AppCompatActivity{
         back = (ImageButton) findViewById(R.id.back);
         stateSwitch = (Switch) findViewById(R.id.state);
         process = (Button) findViewById(R.id.process);
+        timeSelector = (Button) findViewById(R.id.timeSelector);
+
+
 
         String leadString = getIntent().getStringExtra("NAME");
 
@@ -110,11 +114,26 @@ public class Inner extends AppCompatActivity{
         });
 
 
+        timeSelector.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTimePickerDialog(view);
+            }
+        });
+
+
+
     }
 
 
     @Override
     public void onBackPressed() {
         back.performClick();
+    }
+
+
+    public void showTimePickerDialog(View v) {
+        DialogFragment tpFragment = new TimePicker();
+        tpFragment.show(getSupportFragmentManager(), "timePicker");
     }
 }
