@@ -2,8 +2,6 @@ package com.dabinu.apps.skeda;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -29,7 +27,7 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
 
 
-    public int[] sortAllCommIcons(){
+    public int[] sortAllConnIcons(){
 
         int[] icons = new int[5];
 
@@ -53,7 +51,7 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
 
 
-        if (Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1) {
+        if(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1){
                     icons[2] = R.drawable.flighton;
                 }
                 else if (Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 1) {
@@ -107,7 +105,7 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
     private ArrayList<Group> doTheArrangement(){
 
         ArrayList<Group> list = new ArrayList<>();
-        int allImages[] = sortAllCommIcons();
+        int allImages[] = sortAllConnIcons();
 
 
 
