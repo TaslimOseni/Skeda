@@ -2,6 +2,8 @@ package com.dabinu.apps.skeda;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -75,7 +77,17 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
         }
 
 
-                icons[4] = R.drawable.dataoff;
+
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
+
+        if (isConnected){
+            icons[4] = R.drawable.dataon;
+            }
+        else{
+            icons[4] = R.drawable.dataoff;
+            }
 
 
 

@@ -4,6 +4,8 @@ package com.dabinu.apps.skeda;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
 import android.support.v4.app.DialogFragment;
@@ -15,8 +17,6 @@ import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Arrays;
 
 public class Inner extends AppCompatActivity{
 
@@ -95,6 +95,46 @@ public class Inner extends AppCompatActivity{
                     stateSwitch.setChecked(false);
                 }
                 break;
+
+
+            case "Hotspot":
+                head.setText(leadString);
+                try{
+                    final int hotspotState = (Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager);
+
+                    if(hotspotState == 13) {
+                        stateText.setText(R.string.onString);
+                        turner.setText(R.string.turnOffString);
+                        stateSwitch.setChecked(true);
+                    }
+                    else{
+                        stateText.setText(R.string.offString);
+                        turner.setText(R.string.turnOnString);
+                        stateSwitch.setChecked(false);
+                    }
+                }
+                catch(Exception e){
+
+                }
+                break;
+
+
+
+            case "Data Conn.":
+                ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetwork = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
+
+                if (isConnected){
+                    stateText.setText(R.string.onString);
+                    turner.setText(R.string.turnOffString);
+                    stateSwitch.setChecked(true);
+                }
+                else{
+                    stateText.setText(R.string.offString);
+                    turner.setText(R.string.turnOnString);
+                    stateSwitch.setChecked(false);
+                }
         }
 
 
