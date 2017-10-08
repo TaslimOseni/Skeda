@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Arrays;
 
 public class Inner extends AppCompatActivity{
 
@@ -22,7 +25,6 @@ public class Inner extends AppCompatActivity{
     ImageButton back;
     Button process, timeSelector;
     Switch stateSwitch;
-    String papapa;
 
 
     @Override
@@ -110,7 +112,7 @@ public class Inner extends AppCompatActivity{
         process.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                processFeedBack();
             }
         });
 
@@ -134,13 +136,34 @@ public class Inner extends AppCompatActivity{
 
 
     public void showTimePickerDialog(View v) {
-        DialogFragment tpFragment = new TimePicker();
-        tpFragment.show(getSupportFragmentManager(), "timePicker");
+        DialogFragment timeFragment = new TimePicker();
+        timeFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
 
-    public void setProcessableStrings(String timo){
-        papapa = timo;
+    public void processFeedBack(){
+        char[] rawData = process.getText().toString().toCharArray();
+
+
+        String step1 = "";
+        String step2 = "";
+
+        if(rawData[6] == 'f'){
+            for(int i = 12; i < rawData.length; i++){
+                step1 += (Character.toString(rawData[i]));
+                    }
+            Toast.makeText(getApplicationContext(), step1, Toast.LENGTH_LONG).show();
+                }
+
+
+
+        else if(rawData[6] == 'n'){
+            for(int i = 11; i < rawData.length; i++){
+                step1 += (Character.toString(rawData[i]));
+                    }
+            Toast.makeText(getApplicationContext(), step1, Toast.LENGTH_LONG).show();
+                }
+
     }
 
 
