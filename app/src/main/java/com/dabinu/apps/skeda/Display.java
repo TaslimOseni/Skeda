@@ -59,7 +59,22 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
                 }
 
 
-                icons[3] = R.drawable.hotspotoff;
+
+        try{
+                final int hotspotState = (Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager);
+
+                if(hotspotState == 13) {
+                    icons[3] = R.drawable.hotspoton;
+                }
+                else{
+                    icons[3] = R.drawable.hotspotoff;
+                }
+            }
+        catch(Exception e){
+
+        }
+
+
                 icons[4] = R.drawable.dataoff;
 
 
