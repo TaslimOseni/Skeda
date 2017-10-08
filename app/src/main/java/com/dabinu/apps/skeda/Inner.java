@@ -22,6 +22,7 @@ public class Inner extends AppCompatActivity{
     ImageButton back;
     Button process, timeSelector;
     Switch stateSwitch;
+    String papapa;
 
 
     @Override
@@ -136,4 +137,11 @@ public class Inner extends AppCompatActivity{
         DialogFragment tpFragment = new TimePicker();
         tpFragment.show(getSupportFragmentManager(), "timePicker");
     }
+
+
+    public void setProcessableStrings(String timo){
+        papapa = timo;
+    }
+
+
 }

@@ -27,7 +27,7 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
 
 
-    public int[] sortAllConnIcons(){
+    public int[] sortAllConnectivityIcons(){
 
         int[] icons = new int[5];
 
@@ -105,7 +105,7 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
     private ArrayList<Group> doTheArrangement(){
 
         ArrayList<Group> list = new ArrayList<>();
-        int allImages[] = sortAllConnIcons();
+        int allImages[] = sortAllConnectivityIcons();
 
 
 

@@ -25,12 +25,30 @@ public class TimePicker extends DialogFragment implements TimePickerDialog.OnTim
     }
 
 
+
+
     @Override
     public void onTimeSet(android.widget.TimePicker timePicker, int i, int i1){
+
+        String ampm;
+        int hour = timePicker.getCurrentHour();
+        int min = timePicker.getCurrentMinute();
+
         Button process = (Button) getActivity().findViewById(R.id.process);
         TextView getOnOff = (TextView) getActivity().findViewById(R.id.turner);
-        String onoff = getOnOff.getText().toString().replace(':', ' ');
+
         process.setVisibility(View.VISIBLE);
-        process.setText(String.format("%s%s:%s?", onoff, timePicker.getCurrentHour(), timePicker.getCurrentMinute()));
+
+        if(timePicker.getCurrentHour() > 12){
+            ampm = "PM";
+            hour -= 12;
+        }
+        else{
+            ampm = "AM";
+        }
+
+        String onoff = getOnOff.getText().toString().replace(':', ' ');
+        process.setText(String.format("%s%d:%02d%s", onoff, timePicker.getCurrentHour(), timePicker.getCurrentMinute(), ampm));
+
     }
 }

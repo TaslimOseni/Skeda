@@ -96,26 +96,25 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
     }
 
     @Override
-    public Object getGroup(int groupPosition) {
+    public Object getGroup(int groupPosition){
         return groups.get(groupPosition);
     }
 
     @Override
-    public int getGroupCount() {
+    public int getGroupCount(){
         return groups.size();
     }
 
     @Override
-    public long getGroupId(int groupPosition) {
+    public long getGroupId(int groupPosition){
         return groupPosition;
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent){
         Group group = (Group) getGroup(groupPosition);
         if (convertView == null) {
-            LayoutInflater inf = (LayoutInflater) context
-                    .getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inf = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             convertView = inf.inflate(R.layout.groupsguy, null);
         }
         TextView tv = (TextView) convertView.findViewById(R.id.headerOfList);
