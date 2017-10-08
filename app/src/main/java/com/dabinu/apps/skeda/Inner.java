@@ -32,6 +32,8 @@ public class Inner extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inner);
 
+        overridePendingTransition(0, 0);
+
 
         WifiManager wifiManager = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();

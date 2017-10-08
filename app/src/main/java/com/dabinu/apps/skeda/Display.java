@@ -105,6 +105,9 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
         setSupportActionBar(toolbar);
 
 
+        overridePendingTransition(0, 0);
+
+
         theListViewGanGan = (ExpandableListView) findViewById(R.id.expansionSlot);
         listToPaste = doTheArrangement();
         foreignAdapter = new AdapterForExpandableListView(Display.this, listToPaste);
