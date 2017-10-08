@@ -39,7 +39,7 @@ public class TimePicker extends DialogFragment implements TimePickerDialog.OnTim
 
         process.setVisibility(View.VISIBLE);
 
-        if(timePicker.getCurrentHour() > 12){
+        if(timePicker.getCurrentHour() >= 12){
             ampm = "PM";
             hour -= 12;
         }

@@ -154,7 +154,7 @@ public class Inner extends AppCompatActivity{
         process.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                processFeedBack();
+                convertTimeStringsToTime(returnStringFromTextView());
             }
         });
 
@@ -177,50 +177,49 @@ public class Inner extends AppCompatActivity{
     }
 
 
+
     public void showTimePickerDialog(View v) {
         DialogFragment timeFragment = new TimePicker();
         timeFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
 
-    public void processFeedBack(){
-        char[] rawData = process.getText().toString().toCharArray();
-        int result;
 
-        String step1 = "";
-        String step2 = "";
+    public String returnStringFromTextView(){
+        char[] rawData = process.getText().toString().trim().toCharArray();
+        String ourStandardTime = "";
 
         if(rawData[6] == 'f'){
             for(int i = 12; i < rawData.length; i++){
-                step1 += (Character.toString(rawData[i]));
-                    }
-                    char rawData2[] = step1.trim().toCharArray();
-                        if(rawData2[6] == 'A'){
-                            result = (Integer.parseInt(Character.toString(rawData2[0]).concat(Character.toString(rawData2[1]))) * 1000) + (Integer.parseInt(Character.toString(rawData2[3]).concat(Character.toString(rawData2[4]))));
-                            Toast.makeText(getApplicationContext(), Integer.toString(result), Toast.LENGTH_LONG).show();
-                        }
-                        else if(rawData2[6] == 'P'){
-                            result = ((Integer.parseInt(Character.toString(rawData2[0]).concat(Character.toString(rawData2[1]))) + 12) * 1000) + (Integer.parseInt(Character.toString(rawData2[3]).concat(Character.toString(rawData2[4]))));
-                            Toast.makeText(getApplicationContext(), Integer.toString(result), Toast.LENGTH_LONG).show();
-                        }
-                }
-
+                ourStandardTime += (Character.toString(rawData[i]));
+            }
+        }
 
 
         else if(rawData[6] == 'n'){
             for(int i = 11; i < rawData.length; i++){
-                step1 += (Character.toString(rawData[i]));
-                    }
-                    char rawData2[] = step1.trim().toCharArray();
-                        if(rawData2[6] == 'A'){
-                            result = (Integer.parseInt(Character.toString(rawData2[0]).concat(Character.toString(rawData2[1]))) * 1000) + (Integer.parseInt(Character.toString(rawData2[3]).concat(Character.toString(rawData2[4]))));
-                            Toast.makeText(getApplicationContext(), Integer.toString(result), Toast.LENGTH_LONG).show();
-                        }
-                        else if(rawData2[6] == 'P'){
-                            result = ((Integer.parseInt(Character.toString(rawData2[0]).concat(Character.toString(rawData2[1]))) + 12) * 1000) + (Integer.parseInt(Character.toString(rawData2[3]).concat(Character.toString(rawData2[4]))));
-                            Toast.makeText(getApplicationContext(), Integer.toString(result), Toast.LENGTH_LONG).show();
-                        }
-                }
+                ourStandardTime += (Character.toString(rawData[i]));
+            }
+        }
+
+        return ourStandardTime.trim();
+    }
+
+
+
+    public void convertTimeStringsToTime(String timeFormattedString){
+        int result;
+
+        char rawFormOfTime[] = timeFormattedString.toCharArray();
+
+            if(rawFormOfTime[6] == 'A'){
+                result = (Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+                Toast.makeText(getApplicationContext(), Integer.toString(result), Toast.LENGTH_LONG).show();
+            }
+            else if(rawFormOfTime[6] == 'P'){
+                result = ((Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) + 12) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+                Toast.makeText(getApplicationContext(), Integer.toString(result), Toast.LENGTH_LONG).show();
+            }
 
     }
 
