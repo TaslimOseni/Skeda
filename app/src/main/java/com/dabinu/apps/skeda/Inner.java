@@ -143,7 +143,7 @@ public class Inner extends AppCompatActivity{
 
     public void processFeedBack(){
         char[] rawData = process.getText().toString().toCharArray();
-
+        int result;
 
         String step1 = "";
         String step2 = "";
@@ -152,7 +152,15 @@ public class Inner extends AppCompatActivity{
             for(int i = 12; i < rawData.length; i++){
                 step1 += (Character.toString(rawData[i]));
                     }
-            Toast.makeText(getApplicationContext(), step1, Toast.LENGTH_LONG).show();
+                    char rawData2[] = step1.trim().toCharArray();
+                        if(rawData2[6] == 'A'){
+                            result = (Integer.parseInt(Character.toString(rawData2[0]).concat(Character.toString(rawData2[1]))) * 1000) + (Integer.parseInt(Character.toString(rawData2[3]).concat(Character.toString(rawData2[4]))));
+                            Toast.makeText(getApplicationContext(), Integer.toString(result), Toast.LENGTH_LONG).show();
+                        }
+                        else if(rawData2[6] == 'P'){
+                            result = ((Integer.parseInt(Character.toString(rawData2[0]).concat(Character.toString(rawData2[1]))) + 12) * 1000) + (Integer.parseInt(Character.toString(rawData2[3]).concat(Character.toString(rawData2[4]))));
+                            Toast.makeText(getApplicationContext(), Integer.toString(result), Toast.LENGTH_LONG).show();
+                        }
                 }
 
 
@@ -161,7 +169,15 @@ public class Inner extends AppCompatActivity{
             for(int i = 11; i < rawData.length; i++){
                 step1 += (Character.toString(rawData[i]));
                     }
-            Toast.makeText(getApplicationContext(), step1, Toast.LENGTH_LONG).show();
+                    char rawData2[] = step1.trim().toCharArray();
+                        if(rawData2[6] == 'A'){
+                            result = (Integer.parseInt(Character.toString(rawData2[0]).concat(Character.toString(rawData2[1]))) * 1000) + (Integer.parseInt(Character.toString(rawData2[3]).concat(Character.toString(rawData2[4]))));
+                            Toast.makeText(getApplicationContext(), Integer.toString(result), Toast.LENGTH_LONG).show();
+                        }
+                        else if(rawData2[6] == 'P'){
+                            result = ((Integer.parseInt(Character.toString(rawData2[0]).concat(Character.toString(rawData2[1]))) + 12) * 1000) + (Integer.parseInt(Character.toString(rawData2[3]).concat(Character.toString(rawData2[4]))));
+                            Toast.makeText(getApplicationContext(), Integer.toString(result), Toast.LENGTH_LONG).show();
+                        }
                 }
 
     }
