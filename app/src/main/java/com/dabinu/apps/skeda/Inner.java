@@ -21,9 +21,10 @@ import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+
 
 public class Inner extends AppCompatActivity{
 
@@ -181,9 +182,10 @@ public class Inner extends AppCompatActivity{
             @Override
             public void onClick(View view){
                 String currentTime = new SimpleDateFormat("hh:mm a").format(new Date());
-                Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
+                long diff = convertTimeStringsToTime(returnStringFromTextView()) - convertTimeStringsToTime(currentTime);
+                Toast.makeText(getApplicationContext(), Long.toString(diff), Toast.LENGTH_LONG).show();
 
-                CountDownTimer ticker = new CountDownTimer((convertTimeStringsToTime(returnStringFromTextView()) - convertTimeStringsToTime(currentTime)), 1000){
+                CountDownTimer ticker = new CountDownTimer(5000, 1000){
                     @Override
                     public void onTick(long millisUntilFinished) {
                         final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle("Bleep").setContentText(Long.toString(millisUntilFinished / 1000)).setAutoCancel(false).build();
