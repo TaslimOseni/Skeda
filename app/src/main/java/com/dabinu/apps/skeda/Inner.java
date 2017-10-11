@@ -41,10 +41,10 @@ public class Inner extends AppCompatActivity{
 
         char rawFormOfTime[] = timeFormattedString.trim().toCharArray();
 
-        if(rawFormOfTime[6] == 'A'){
+        if(rawFormOfTime[6] == 'A' || rawFormOfTime[6] == 'a'){
             result = (Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
         }
-        else if(rawFormOfTime[6] == 'P'){
+        else if(rawFormOfTime[6] == 'P' || rawFormOfTime[6] == 'p'){
             result = ((Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) + 12) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
         }
 
@@ -61,6 +61,7 @@ public class Inner extends AppCompatActivity{
 
         overridePendingTransition(0, 0);
 
+        Toast.makeText(getApplicationContext(), Long.toString(convertTimeStringsToTime(new SimpleDateFormat("hh:mm a").format(new Date()))), Toast.LENGTH_LONG).show();
 
         WifiManager wifiManager = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -183,21 +184,27 @@ public class Inner extends AppCompatActivity{
             public void onClick(View view){
                 String currentTime = new SimpleDateFormat("hh:mm a").format(new Date());
                 long diff = convertTimeStringsToTime(returnStringFromTextView()) - convertTimeStringsToTime(currentTime);
-                Toast.makeText(getApplicationContext(), Long.toString(diff), Toast.LENGTH_LONG).show();
 
-                CountDownTimer ticker = new CountDownTimer(5000, 1000){
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle("Bleep").setContentText(Long.toString(millisUntilFinished / 1000)).setAutoCancel(false).build();
-                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                        mng.notify(0, notification);
-                    }
+                if(diff < 0){
+                    Toast.makeText(getApplicationContext(), "Negative time", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Right time: "+ diff, Toast.LENGTH_LONG).show();
+                }
 
-                    @Override
-                    public void onFinish() {
-                        Toast.makeText(getApplicationContext(), "Whatever, boss", Toast.LENGTH_LONG).show();
-                    }
-                }.start();
+//                CountDownTimer ticker = new CountDownTimer(5000, 1000){
+//                    @Override
+//                    public void onTick(long millisUntilFinished) {
+//                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle("Bleep").setContentText(Long.toString(millisUntilFinished / 1000)).setAutoCancel(false).build();
+//                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//                        mng.notify(0, notification);
+//                    }
+//
+//                    @Override
+//                    public void onFinish() {
+//                        Toast.makeText(getApplicationContext(), "Whatever, boss", Toast.LENGTH_LONG).show();
+//                    }
+//                }.start();
             }
         });
 
