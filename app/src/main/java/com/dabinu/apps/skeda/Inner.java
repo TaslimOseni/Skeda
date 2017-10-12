@@ -61,7 +61,6 @@ public class Inner extends AppCompatActivity{
 
         overridePendingTransition(0, 0);
 
-        Toast.makeText(getApplicationContext(), Long.toString(convertTimeStringsToTime(new SimpleDateFormat("hh:mm a").format(new Date()))), Toast.LENGTH_LONG).show();
 
         WifiManager wifiManager = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -182,13 +181,18 @@ public class Inner extends AppCompatActivity{
         process.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+
                 String currentTime = new SimpleDateFormat("hh:mm a").format(new Date());
                 long diff = convertTimeStringsToTime(returnStringFromTextView()) - convertTimeStringsToTime(currentTime);
 
-                if(diff < 0){
+                if(convertTimeStringsToTime(returnStringFromTextView()) < convertTimeStringsToTime(currentTime)){
+                    Toast.makeText(getApplicationContext(), Long.toString(convertTimeStringsToTime(returnStringFromTextView())), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), Long.toString(convertTimeStringsToTime(currentTime)), Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), "Negative time", Toast.LENGTH_LONG).show();
                 }
                 else{
+                    Toast.makeText(getApplicationContext(), Long.toString(convertTimeStringsToTime(returnStringFromTextView())), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), Long.toString(convertTimeStringsToTime(currentTime)), Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), "Right time: "+ diff, Toast.LENGTH_LONG).show();
                 }
 
