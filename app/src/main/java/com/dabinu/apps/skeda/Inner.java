@@ -190,6 +190,9 @@ public class Inner extends AppCompatActivity{
                     Toast.makeText(getApplicationContext(), Long.toString(convertTimeStringsToTime(currentTime)), Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), "Negative time", Toast.LENGTH_LONG).show();
                 }
+                else if(convertTimeStringsToTime(returnStringFromTextView()) == convertTimeStringsToTime(currentTime)){
+                    Toast.makeText(getApplication(), "Equal", Toast.LENGTH_LONG).show();
+                }
                 else{
                     Toast.makeText(getApplicationContext(), Long.toString(convertTimeStringsToTime(returnStringFromTextView())), Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), Long.toString(convertTimeStringsToTime(currentTime)), Toast.LENGTH_LONG).show();
