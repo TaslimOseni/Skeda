@@ -15,6 +15,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
+import android.util.ArraySet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -22,8 +23,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class Inner extends AppCompatActivity{
@@ -168,7 +171,6 @@ public class Inner extends AppCompatActivity{
 
 
 
-
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,16 +188,12 @@ public class Inner extends AppCompatActivity{
                 long diff = convertTimeStringsToTime(returnStringFromTextView()) - convertTimeStringsToTime(currentTime);
 
                 if(convertTimeStringsToTime(returnStringFromTextView()) < convertTimeStringsToTime(currentTime)){
-                    Toast.makeText(getApplicationContext(), Long.toString(convertTimeStringsToTime(returnStringFromTextView())), Toast.LENGTH_LONG).show();
-                    Toast.makeText(getApplicationContext(), Long.toString(convertTimeStringsToTime(currentTime)), Toast.LENGTH_LONG).show();
-                    Toast.makeText(getApplicationContext(), "Negative time", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Negative time "+ diff, Toast.LENGTH_LONG).show();
                 }
                 else if(convertTimeStringsToTime(returnStringFromTextView()) == convertTimeStringsToTime(currentTime)){
                     Toast.makeText(getApplication(), "Equal", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), Long.toString(convertTimeStringsToTime(returnStringFromTextView())), Toast.LENGTH_LONG).show();
-                    Toast.makeText(getApplicationContext(), Long.toString(convertTimeStringsToTime(currentTime)), Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), "Right time: "+ diff, Toast.LENGTH_LONG).show();
                 }
 
