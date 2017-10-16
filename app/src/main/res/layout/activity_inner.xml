@@ -54,7 +54,7 @@
         android:layout_marginStart="10dp">
 
         <TextView
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textStyle="italic"
             android:textColor="@android:color/holo_blue_dark"
             android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
             android:text="@string/curry"/>
 
         <TextView
-            android:textSize="30sp"
+            android:textSize="35sp"
             android:textColor="@android:color/holo_red_dark"
             android:id="@+id/stateText"
             android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:textColor="@android:color/holo_blue_dark"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textStyle="italic" />
 
 
@@ -103,7 +103,7 @@
             android:textStyle="normal"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="@android:color/holo_red_dark"/>
 
     </RelativeLayout>
