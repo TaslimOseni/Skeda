@@ -256,6 +256,12 @@ public class Inner extends AppCompatActivity{
                                         final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
                                         NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                         mng.notify(0, finalNotif);
+                                        if(wifiManager.getWifiState() != 1){
+                                            wifiManager.setWifiEnabled(false);
+                                        }
+                                        else{
+                                            wifiManager.setWifiEnabled(true);
+                                        }
                                     }
                                     else{
                                         final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
@@ -315,6 +321,12 @@ public class Inner extends AppCompatActivity{
                                         final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
                                         NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                         mng.notify(0, finalNotif);
+                                        if(bluetoothAdapter.isEnabled()){
+                                            bluetoothAdapter.disable();
+                                        }
+                                        else{
+                                            bluetoothAdapter.enable();
+                                        }
                                     }
                                     else{
                                         final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
@@ -374,6 +386,12 @@ public class Inner extends AppCompatActivity{
                                         final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
                                         NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                         mng.notify(0, finalNotif);
+                                        if(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1){
+                                            //PUT CODE HERE
+                                        }
+                                        else{
+                                            //PUT CODE HERE
+                                        }
                                     }
                                     else{
                                         final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
@@ -443,6 +461,7 @@ public class Inner extends AppCompatActivity{
                                         final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
                                         NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                         mng.notify(0, finalNotif);
+
                                     }
                                     else{
                                         final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
