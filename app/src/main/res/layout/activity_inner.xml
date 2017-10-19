@@ -80,31 +80,31 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="120dp"
-        android:background="#f9f6f6"
+        android:background="@android:color/darker_gray"
         android:elevation="30dp">
 
         <TextView
             android:id="@+id/turner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="25sp"
             android:textStyle="italic" />
 
 
         <Button
+            android:id="@+id/timeSelector"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
             android:text="@string/choose"
             android:textAllCaps="false"
-            android:id="@+id/timeSelector"
-            android:textStyle="normal"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
+            android:textColor="@android:color/holo_red_dark"
             android:textSize="20sp"
-            android:textColor="@android:color/holo_red_dark"/>
+            android:textStyle="normal" />
 
     </RelativeLayout>
 

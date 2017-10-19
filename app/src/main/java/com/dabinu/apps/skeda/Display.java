@@ -150,10 +150,12 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
         Child ch0 = new Child();
         ch0.setName("Calls");
+        ch0.setImage(R.drawable.clls);
         settingsChild.add(ch0);
 
         Child ch1 = new Child();
         ch1.setName("SMS");
+        ch1.setImage(R.drawable.esemes);
         settingsChild.add(ch1);
 
         commGroup.setItems(settingsChild);

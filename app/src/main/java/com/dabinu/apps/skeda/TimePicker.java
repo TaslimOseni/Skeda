@@ -49,7 +49,7 @@ public class TimePicker extends DialogFragment implements TimePickerDialog.OnTim
         }
 
         String onoff = getOnOff.getText().toString().replace(':', ' ');
-        process.setText(String.format("%s%02d:%02d %s", onoff, timePicker.getCurrentHour(), timePicker.getCurrentMinute(), ampm));
+        process.setText(String.format("%s%02d:%02d %s", onoff, hour, min, ampm));
     }
 
 }
