@@ -206,138 +206,147 @@ public class Inner extends AppCompatActivity{
                 else{
                     switch(head.getText().toString().trim()){
                         case "WiFi":
+                            if(wifiManager.getWifiState() == 1){
+                                notificationTitle = "Turning WiFi on by "+returnStringFromTextView();
+                                userTerminatedText = "Terminated. WiFi has been turned on by user";
+                                normalTerminatedText = "WiFi has been turned on";
+                            }
+                            else{
+                                notificationTitle = "Turning WiFi off by "+returnStringFromTextView();
+                                userTerminatedText = "Terminated. WiFi has been turned off by user";
+                                normalTerminatedText = "WiFi has been turned off";
+                            }
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
-                                    if(wifiManager.getWifiState() == 1){
-                                        notificationTitle = "Turning WiFi on by "+returnStringFromTextView();
-                                        userTerminatedText = "Terminated. WiFi has been turned on by user";
-                                        normalTerminatedText = "WiFi has been turned on";
-                                    }
-                                    else{
-                                        notificationTitle = "Turning WiFi off by "+returnStringFromTextView();
-                                        userTerminatedText = "Terminated. WiFi has been turned off by user";
-                                        normalTerminatedText = "WiFi has been turned off";
-                                    }
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle("Bleep").setContentText(Long.toString(millisUntilFinished / 1000)).setAutoCancel(false).build();
+                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
                                     NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                     mng.notify(0, notification);
                                 }
 
                                 @Override
                                 public void onFinish() {
-                                    Toast.makeText(getApplicationContext(), "Whatever, boss", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), normalTerminatedText, Toast.LENGTH_LONG).show();
                                 }
                             }.start();
                             break;
+
+
 
                         case "Bluetooth":
+                            if(bluetoothAdapter.isEnabled()){
+                                notificationTitle = "Turning Bluetooth on by "+returnStringFromTextView();
+                                userTerminatedText = "Terminated. Bluetooth has been turned on by user";
+                                normalTerminatedText = "Bluetooth has been turned on";
+                            }
+                            else{
+                                notificationTitle = "Turning Bluetooth off by "+returnStringFromTextView();
+                                userTerminatedText = "Terminated. Bluetooth has been turned off by user";
+                                normalTerminatedText = "Bluetooth has been turned off";
+                            }
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
-                                    if(bluetoothAdapter.isEnabled()){
-                                        notificationTitle = "Turning Bluetooth on by "+returnStringFromTextView();
-                                        userTerminatedText = "Terminated. Bluetooth has been turned on by user";
-                                        normalTerminatedText = "Bluetooth has been turned on";
-                                    }
-                                    else{
-                                        notificationTitle = "Turning Bluetooth off by "+returnStringFromTextView();
-                                        userTerminatedText = "Terminated. Bluetooth has been turned off by user";
-                                        normalTerminatedText = "Bluetooth has been turned off";
-                                    }
-
-
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle("Bleep").setContentText(Long.toString(millisUntilFinished / 1000)).setAutoCancel(false).build();
+                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
                                     NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                     mng.notify(0, notification);
                                 }
 
                                 @Override
                                 public void onFinish() {
-                                    Toast.makeText(getApplicationContext(), "Whatever, boss", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), normalTerminatedText, Toast.LENGTH_LONG).show();
                                 }
                             }.start();
                             break;
+
+
+
 
                         case "Flight mode":
+                            if(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1) {
+                                notificationTitle = "Turning Flight mode off by "+returnStringFromTextView();
+                                userTerminatedText = "Terminated. Flight mode has been turned off by user";
+                                normalTerminatedText = "Flight mode has been turned off";
+                            }
+                            else{
+                                notificationTitle = "Turning Flight mode on by "+returnStringFromTextView();
+                                userTerminatedText = "Terminated. Flight mode has been turned on by user";
+                                normalTerminatedText = "Flight mode has been turned on";
+                            }
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
-                                    if(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1) {
-                                        notificationTitle = "Turning Flight mode off by "+returnStringFromTextView();
-                                        userTerminatedText = "Terminated. Flight mode has been turned off by user";
-                                        normalTerminatedText = "Flight mode has been turned off";
-                                    }
-                                    else{
-                                        notificationTitle = "Turning Flight mode on by "+returnStringFromTextView();
-                                        userTerminatedText = "Terminated. Flight mode has been turned on by user";
-                                        normalTerminatedText = "Flight mode has been turned on";
-                                    }
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle("Bleep").setContentText(Long.toString(millisUntilFinished / 1000)).setAutoCancel(false).build();
+                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
                                     NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                     mng.notify(0, notification);
                                 }
 
                                 @Override
                                 public void onFinish() {
-                                    Toast.makeText(getApplicationContext(), "Whatever, boss", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), normalTerminatedText, Toast.LENGTH_LONG).show();
                                 }
                             }.start();
                             break;
+
+
+
 
                         case "Hotspot":
+                            try{
+                                if((Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13) {
+                                    notificationTitle = "Turning Hotspot off by "+returnStringFromTextView();
+                                    userTerminatedText = "Terminated. Hotspot has been turned off by user";
+                                    normalTerminatedText = "Hotspot has been turned off";
+                                }
+                                else{
+                                    notificationTitle = "Turning Hotspot on by "+returnStringFromTextView();
+                                    userTerminatedText = "Terminated. Hotspot has been turned on by user";
+                                    normalTerminatedText = "Hotspot has been turned on";
+                                }
+                            }
+                            catch(Exception e){
+
+                            }
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
-                                    try{
-                                        if((Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13) {
-                                            notificationTitle = "Turning Hotspot off by "+returnStringFromTextView();
-                                            userTerminatedText = "Terminated. Hotspot has been turned off by user";
-                                            normalTerminatedText = "Hotspot has been turned off";
-                                        }
-                                        else{
-                                            notificationTitle = "Turning Hotspot on by "+returnStringFromTextView();
-                                            userTerminatedText = "Terminated. Hotspot has been turned on by user";
-                                            normalTerminatedText = "Hotspot has been turned on";
-                                        }
-                                    }
-                                    catch(Exception e){
-
-                                    }
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle("Bleep").setContentText(Long.toString(millisUntilFinished / 1000)).setAutoCancel(false).build();
+                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
                                     NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                     mng.notify(0, notification);
                                 }
 
                                 @Override
                                 public void onFinish() {
-                                    Toast.makeText(getApplicationContext(), "Whatever, boss", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), normalTerminatedText, Toast.LENGTH_LONG).show();
                                 }
                             }.start();
                             break;
 
+
+
+
                         case "Data Conn.":
+                            if(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()){
+                                notificationTitle = "Turning Data Conn. off by "+returnStringFromTextView();
+                                userTerminatedText = "Terminated. Data Connection has been turned off by user";
+                                normalTerminatedText = "Data Conn. has been turned off";
+                            }
+                            else{
+                                notificationTitle = "Turning Data Conn. on by "+returnStringFromTextView();
+                                userTerminatedText = "Terminated. Data Conn. has been turned on by user";
+                                normalTerminatedText = "Data Conn. has been turned on";
+                            }
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
-                                    if(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()){
-                                        notificationTitle = "Turning Data Connection off by "+returnStringFromTextView();
-                                        userTerminatedText = "Terminated. Data Connection has been turned off by user";
-                                        normalTerminatedText = "Data Connection has been turned off";
-                                    }
-                                    else{
-                                        notificationTitle = "Turning Data Connection on by "+returnStringFromTextView();
-                                        userTerminatedText = "Terminated. Data Connection has been turned on by user";
-                                        normalTerminatedText = "Data Connection has been turned on";
-                                    }
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle("Bleep").setContentText(Long.toString(millisUntilFinished / 1000)).setAutoCancel(false).build();
+                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
                                     NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                     mng.notify(0, notification);
                                 }
 
                                 @Override
                                 public void onFinish() {
-                                    Toast.makeText(getApplicationContext(), "Whatever, boss", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), normalTerminatedText, Toast.LENGTH_LONG).show();
                                 }
                             }.start();
                             break;
