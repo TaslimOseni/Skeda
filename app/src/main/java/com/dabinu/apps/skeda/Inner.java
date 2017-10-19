@@ -45,10 +45,24 @@ public class Inner extends AppCompatActivity{
         char rawFormOfTime[] = timeFormattedString.trim().toCharArray();
 
         if(rawFormOfTime[6] == 'A' || rawFormOfTime[6] == 'a'){
-            result = (Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+            if(rawFormOfTime[0] == '1' && rawFormOfTime[1] == '2'){
+                result = (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+            }
+            else{
+                result = (Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+            }
         }
+
+
+
         else if(rawFormOfTime[6] == 'P' || rawFormOfTime[6] == 'p'){
-            result = ((Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) + 12) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+            if(rawFormOfTime[0] == '1' && rawFormOfTime[1] == '2'){
+                result = (12 * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+            }
+            else{
+                result = ((Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) + 12) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+            }
+
         }
 
         return result;
@@ -194,22 +208,30 @@ public class Inner extends AppCompatActivity{
                     Toast.makeText(getApplication(), "Equal", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Right time: "+ diff, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), Long.toString(diff), Toast.LENGTH_LONG).show();
+                    CountDownTimer ticker = new CountDownTimer(diff * 1000, 1000){
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle("Bleep").setContentText(Long.toString(millisUntilFinished / 1000)).setAutoCancel(false).build();
+                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        mng.notify(0, notification);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        Toast.makeText(getApplicationContext(), "Whatever, boss", Toast.LENGTH_LONG).show();
+                    }
+                }.start();
+
+                    Toast.makeText(getApplicationContext(), "Successful!!!", Toast.LENGTH_LONG).show();
+
+                    
                 }
 
-//                CountDownTimer ticker = new CountDownTimer(5000, 1000){
-//                    @Override
-//                    public void onTick(long millisUntilFinished) {
-//                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle("Bleep").setContentText(Long.toString(millisUntilFinished / 1000)).setAutoCancel(false).build();
-//                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//                        mng.notify(0, notification);
-//                    }
-//
-//                    @Override
-//                    public void onFinish() {
-//                        Toast.makeText(getApplicationContext(), "Whatever, boss", Toast.LENGTH_LONG).show();
-//                    }
-//                }.start();
+
+
+
+
             }
         });
 
@@ -241,7 +263,6 @@ public class Inner extends AppCompatActivity{
         DialogFragment timeFragment = new TimePicker();
         timeFragment.show(getSupportFragmentManager(), "timePicker");
     }
-
 
 
 
