@@ -7,7 +7,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.CountDownTimer;
 import android.provider.Settings;
@@ -36,6 +35,8 @@ public class Inner extends AppCompatActivity{
     String notificationTitle = "";
     String userTerminatedText = "";
     String normalTerminatedText = "";
+    boolean terminator;
+    boolean happyEnding = true;
 
 
 
@@ -205,32 +206,62 @@ public class Inner extends AppCompatActivity{
                 }
                 else{
                     switch(head.getText().toString().trim()){
+
+
+                        //WiFi......................................................................
+
+
                         case "WiFi":
                             if(wifiManager.getWifiState() == 1){
                                 notificationTitle = "Turning WiFi on by "+returnStringFromTextView();
                                 userTerminatedText = "Terminated. WiFi has been turned on by user";
                                 normalTerminatedText = "WiFi has been turned on";
+                                terminator = false;
                             }
                             else{
                                 notificationTitle = "Turning WiFi off by "+returnStringFromTextView();
                                 userTerminatedText = "Terminated. WiFi has been turned off by user";
                                 normalTerminatedText = "WiFi has been turned off";
+                                terminator = true;
                             }
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
+                                    if(terminator){
+                                        if(!(terminator && wifiManager.getWifiState() != 1)){
+                                            happyEnding = false;
+                                            ticker.onFinish();
+                                        }
+                                    }
+                                    else{
+                                        if(!(!terminator && wifiManager.getWifiState() == 1)){
+                                            happyEnding = false;
+                                            ticker.onFinish();
+                                        }
+                                    }
                                     final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
                                     NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                     mng.notify(0, notification);
                                 }
 
                                 @Override
-                                public void onFinish() {
-                                    Toast.makeText(getApplicationContext(), normalTerminatedText, Toast.LENGTH_LONG).show();
+                                public void onFinish(){
+                                    if(happyEnding){
+                                        final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
+                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        mng.notify(0, finalNotif);
+                                    }
+                                    else{
+                                        final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
+                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        mng.notify(0, finalNotiff);
+                                    }
                                 }
                             }.start();
                             break;
 
+
+                        //Bluetooth.................................................................
 
 
                         case "Bluetooth":
@@ -238,15 +269,29 @@ public class Inner extends AppCompatActivity{
                                 notificationTitle = "Turning Bluetooth on by "+returnStringFromTextView();
                                 userTerminatedText = "Terminated. Bluetooth has been turned on by user";
                                 normalTerminatedText = "Bluetooth has been turned on";
+                                terminator = true;
                             }
                             else{
                                 notificationTitle = "Turning Bluetooth off by "+returnStringFromTextView();
                                 userTerminatedText = "Terminated. Bluetooth has been turned off by user";
                                 normalTerminatedText = "Bluetooth has been turned off";
+                                terminator = false;
                             }
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
+                                    if(terminator){
+                                        if(!(terminator && bluetoothAdapter.isEnabled())){
+                                            happyEnding = false;
+                                            ticker.onFinish();
+                                        }
+                                    }
+                                    else{
+                                        if(!(!terminator && !bluetoothAdapter.isEnabled())){
+                                            happyEnding = false;
+                                            ticker.onFinish();
+                                        }
+                                    }
                                     final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
                                     NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                     mng.notify(0, notification);
@@ -254,12 +299,22 @@ public class Inner extends AppCompatActivity{
 
                                 @Override
                                 public void onFinish() {
-                                    Toast.makeText(getApplicationContext(), normalTerminatedText, Toast.LENGTH_LONG).show();
+                                    if(happyEnding){
+                                        final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
+                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        mng.notify(0, finalNotif);
+                                    }
+                                    else{
+                                        final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
+                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        mng.notify(0, finalNotiff);
+                                    }
                                 }
                             }.start();
                             break;
 
 
+                        //Flight mode...............................................................
 
 
                         case "Flight mode":
