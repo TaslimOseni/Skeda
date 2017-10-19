@@ -322,15 +322,29 @@ public class Inner extends AppCompatActivity{
                                 notificationTitle = "Turning Flight mode off by "+returnStringFromTextView();
                                 userTerminatedText = "Terminated. Flight mode has been turned off by user";
                                 normalTerminatedText = "Flight mode has been turned off";
+                                terminator = true;
                             }
                             else{
                                 notificationTitle = "Turning Flight mode on by "+returnStringFromTextView();
                                 userTerminatedText = "Terminated. Flight mode has been turned on by user";
                                 normalTerminatedText = "Flight mode has been turned on";
+                                terminator = false;
                             }
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
+                                    if(terminator){
+                                        if(!(terminator && Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1)){
+                                            happyEnding = false;
+                                            ticker.onFinish();
+                                        }
+                                    }
+                                    else{
+                                        if(!(!terminator && !(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1))){
+                                            happyEnding = false;
+                                            ticker.onFinish();
+                                        }
+                                    }
                                     final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
                                     NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                     mng.notify(0, notification);
@@ -338,12 +352,22 @@ public class Inner extends AppCompatActivity{
 
                                 @Override
                                 public void onFinish() {
-                                    Toast.makeText(getApplicationContext(), normalTerminatedText, Toast.LENGTH_LONG).show();
+                                    if(happyEnding){
+                                        final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
+                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        mng.notify(0, finalNotif);
+                                    }
+                                    else{
+                                        final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
+                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        mng.notify(0, finalNotiff);
+                                    }
                                 }
                             }.start();
                             break;
 
 
+                        //Hotspot.......................................................................
 
 
                         case "Hotspot":
@@ -352,11 +376,13 @@ public class Inner extends AppCompatActivity{
                                     notificationTitle = "Turning Hotspot off by "+returnStringFromTextView();
                                     userTerminatedText = "Terminated. Hotspot has been turned off by user";
                                     normalTerminatedText = "Hotspot has been turned off";
+                                    terminator = true;
                                 }
                                 else{
                                     notificationTitle = "Turning Hotspot on by "+returnStringFromTextView();
                                     userTerminatedText = "Terminated. Hotspot has been turned on by user";
                                     normalTerminatedText = "Hotspot has been turned on";
+                                    terminator = false;
                                 }
                             }
                             catch(Exception e){
@@ -365,6 +391,23 @@ public class Inner extends AppCompatActivity{
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
+                                    try{
+                                        if(terminator){
+                                            if(!(terminator && (Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13)){
+                                                happyEnding = false;
+                                                ticker.onFinish();
+                                            }
+                                        }
+                                        else{
+                                            if(!(!terminator && !((Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13))){
+                                                happyEnding = false;
+                                                ticker.onFinish();
+                                            }
+                                        }
+                                    }
+                                    catch(Exception e){
+
+                                    }
                                     final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
                                     NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                     mng.notify(0, notification);
@@ -372,12 +415,22 @@ public class Inner extends AppCompatActivity{
 
                                 @Override
                                 public void onFinish() {
-                                    Toast.makeText(getApplicationContext(), normalTerminatedText, Toast.LENGTH_LONG).show();
+                                    if(happyEnding){
+                                        final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
+                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        mng.notify(0, finalNotif);
+                                    }
+                                    else{
+                                        final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
+                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        mng.notify(0, finalNotiff);
+                                    }
                                 }
                             }.start();
                             break;
 
 
+                        //Data Conn.................................................................
 
 
                         case "Data Conn.":
@@ -385,15 +438,29 @@ public class Inner extends AppCompatActivity{
                                 notificationTitle = "Turning Data Conn. off by "+returnStringFromTextView();
                                 userTerminatedText = "Terminated. Data Connection has been turned off by user";
                                 normalTerminatedText = "Data Conn. has been turned off";
+                                terminator = true;
                             }
                             else{
                                 notificationTitle = "Turning Data Conn. on by "+returnStringFromTextView();
                                 userTerminatedText = "Terminated. Data Conn. has been turned on by user";
                                 normalTerminatedText = "Data Conn. has been turned on";
+                                terminator = false;
                             }
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
+                                    if(terminator){
+                                        if(!(terminator && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected())){
+                                            happyEnding = false;
+                                            ticker.onFinish();
+                                        }
+                                    }
+                                    else{
+                                        if(!(!terminator && !(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()))){
+                                            happyEnding = false;
+                                            ticker.onFinish();
+                                        }
+                                    }
                                     final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
                                     NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                     mng.notify(0, notification);
@@ -401,7 +468,16 @@ public class Inner extends AppCompatActivity{
 
                                 @Override
                                 public void onFinish() {
-                                    Toast.makeText(getApplicationContext(), normalTerminatedText, Toast.LENGTH_LONG).show();
+                                    if(happyEnding){
+                                        final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
+                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        mng.notify(0, finalNotif);
+                                    }
+                                    else{
+                                        final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
+                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        mng.notify(0, finalNotiff);
+                                    }
                                 }
                             }.start();
                             break;
@@ -410,7 +486,8 @@ public class Inner extends AppCompatActivity{
 
                     Toast.makeText(getApplicationContext(), "Successful!!!", Toast.LENGTH_LONG).show();
 
-                    
+                    Intent kissTent = new Intent(getApplicationContext(), Display.class);
+                    startActivity(kissTent);
                 }
 
 
