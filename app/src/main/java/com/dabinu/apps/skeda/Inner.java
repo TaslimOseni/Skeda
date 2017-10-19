@@ -227,21 +227,27 @@ public class Inner extends AppCompatActivity{
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
+
+                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
+                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                    mng.notify(0, notification);
+
                                     if(terminator){
                                         if(!(terminator && wifiManager.getWifiState() != 1)){
                                             happyEnding = false;
+                                            ticker.cancel();
+                                            mng.cancel(0);
                                             ticker.onFinish();
                                         }
                                     }
                                     else{
                                         if(!(!terminator && wifiManager.getWifiState() == 1)){
                                             happyEnding = false;
+                                            ticker.cancel();
+                                            mng.cancel(0);
                                             ticker.onFinish();
                                         }
                                     }
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
-                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                    mng.notify(0, notification);
                                 }
 
                                 @Override
@@ -266,35 +272,41 @@ public class Inner extends AppCompatActivity{
 
                         case "Bluetooth":
                             if(bluetoothAdapter.isEnabled()){
-                                notificationTitle = "Turning Bluetooth on by "+returnStringFromTextView();
-                                userTerminatedText = "Terminated. Bluetooth has been turned on by user";
-                                normalTerminatedText = "Bluetooth has been turned on";
-                                terminator = true;
-                            }
-                            else{
                                 notificationTitle = "Turning Bluetooth off by "+returnStringFromTextView();
                                 userTerminatedText = "Terminated. Bluetooth has been turned off by user";
                                 normalTerminatedText = "Bluetooth has been turned off";
+                                terminator = true;
+                            }
+                            else{
+                                notificationTitle = "Turning Bluetooth on by "+returnStringFromTextView();
+                                userTerminatedText = "Terminated. Bluetooth has been turned on by user";
+                                normalTerminatedText = "Bluetooth has been turned on";
                                 terminator = false;
                             }
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
+
+                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
+                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                    mng.notify(0, notification);
+
                                     if(terminator){
                                         if(!(terminator && bluetoothAdapter.isEnabled())){
                                             happyEnding = false;
+                                            ticker.cancel();
+                                            mng.cancel(0);
                                             ticker.onFinish();
                                         }
                                     }
                                     else{
                                         if(!(!terminator && !bluetoothAdapter.isEnabled())){
                                             happyEnding = false;
+                                            ticker.cancel();
+                                            mng.cancel(0);
                                             ticker.onFinish();
                                         }
                                     }
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
-                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                    mng.notify(0, notification);
                                 }
 
                                 @Override
@@ -333,21 +345,27 @@ public class Inner extends AppCompatActivity{
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
+
+                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
+                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                    mng.notify(0, notification);
+
                                     if(terminator){
                                         if(!(terminator && Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1)){
                                             happyEnding = false;
+                                            ticker.cancel();
+                                            mng.cancel(0);
                                             ticker.onFinish();
                                         }
                                     }
                                     else{
                                         if(!(!terminator && !(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1))){
                                             happyEnding = false;
+                                            ticker.cancel();
+                                            mng.cancel(0);
                                             ticker.onFinish();
                                         }
                                     }
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
-                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                    mng.notify(0, notification);
                                 }
 
                                 @Override
@@ -391,16 +409,25 @@ public class Inner extends AppCompatActivity{
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
+
+                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
+                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                    mng.notify(0, notification);
+
                                     try{
                                         if(terminator){
                                             if(!(terminator && (Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13)){
                                                 happyEnding = false;
+                                                ticker.cancel();
+                                                mng.cancel(0);
                                                 ticker.onFinish();
                                             }
                                         }
                                         else{
                                             if(!(!terminator && !((Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13))){
                                                 happyEnding = false;
+                                                ticker.cancel();
+                                                mng.cancel(0);
                                                 ticker.onFinish();
                                             }
                                         }
@@ -408,9 +435,6 @@ public class Inner extends AppCompatActivity{
                                     catch(Exception e){
 
                                     }
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
-                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                    mng.notify(0, notification);
                                 }
 
                                 @Override
@@ -449,21 +473,27 @@ public class Inner extends AppCompatActivity{
                             ticker = new CountDownTimer(diff * 1000, 1000){
                                 @Override
                                 public void onTick(long millisUntilFinished){
+
+                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
+                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                    mng.notify(0, notification);
+
                                     if(terminator){
                                         if(!(terminator && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected())){
                                             happyEnding = false;
+                                            ticker.cancel();
+                                            mng.cancel(0);
                                             ticker.onFinish();
                                         }
                                     }
                                     else{
                                         if(!(!terminator && !(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()))){
                                             happyEnding = false;
+                                            ticker.cancel();
+                                            mng.cancel(0);
                                             ticker.onFinish();
                                         }
                                     }
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
-                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                    mng.notify(0, notification);
                                 }
 
                                 @Override
