@@ -20,6 +20,8 @@ import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -381,7 +383,7 @@ public class Inner extends AppCompatActivity{
                                 }
 
                                 @Override
-                                public void onFinish() {
+                                public void onFinish(){
                                     if(happyEnding){
                                         final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
                                         NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -521,6 +523,29 @@ public class Inner extends AppCompatActivity{
                                         final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
                                         NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                         mng.notify(0, finalNotif);
+                                        if(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()){
+                                            try{
+                                                ConnectivityManager dataManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                                                Method dataMtd = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
+                                                dataMtd.setAccessible(true);
+                                                dataMtd.invoke(dataManager, false);
+                                            }
+                                            catch(Exception e){
+                                                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                        else{
+                                            try{
+                                                ConnectivityManager dataManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                                                Method dataMtd = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
+                                                dataMtd.setAccessible(true);
+                                                dataMtd.invoke(dataManager, true);
+                                            }
+                                            catch(Exception e){
+                                                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+//
                                     }
                                     else{
                                         final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
