@@ -202,7 +202,7 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
 
         Group netGroup = new Group();
-        netGroup.setName("Networks");
+        netGroup.setName("Phone settings");
 
         ArrayList<Child> netChild = new ArrayList<>();
 
@@ -212,6 +212,10 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
         Child aligo1 = new Child();
         aligo1.setName("Battery saver");
+        netChild.add(aligo1);
+
+        Child aligo2 = new Child();
+        aligo1.setName("Silent mode");
         netChild.add(aligo1);
 
         netGroup.setItems(netChild);
