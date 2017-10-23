@@ -13,6 +13,7 @@
         android:id="@+id/imageItem"
         android:contentDescription="@string/togg"
         android:background="#ffffff"
+        android:layout_marginStart="15dp"
         android:layout_alignParentStart="true"
         android:scaleType="centerInside"/>
 
@@ -25,7 +26,8 @@
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:textColor="#000000"
-        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/imageItem"
+        android:layout_marginStart="20dp"
         android:textSize="23sp" />
 
 
