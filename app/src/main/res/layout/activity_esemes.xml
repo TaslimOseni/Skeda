@@ -32,19 +32,21 @@
             android:textColor="#a6bd9f"
             android:textSize="30dp"
             android:textStyle="bold" />
+
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="15dp"
             android:src="@drawable/ahead"
+            android:id="@+id/ahead"
             android:background="#0e490d"/>
     </RelativeLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/header"
         android:layout_marginTop="30dp"
         android:id="@+id/lay1">
@@ -52,7 +54,7 @@
         <EditText
             android:id="@+id/numb"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:background="#ffffff"
@@ -88,11 +90,13 @@
         android:layout_marginEnd="10dp"
         android:background="#ffffff"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
+        android:textIsSelectable="true"
+        android:layout_marginTop="50dp"
         android:fontFamily="casual"
         android:padding="5dp"
         android:gravity="top"
-        android:shadowColor="#FFFFFF"
+        android:selectAllOnFocus="true"
+        android:shadowColor="#ffffff"
         android:text="Text"
         android:textStyle="italic" />
 
@@ -100,7 +104,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="110dp"
         android:layout_below="@+id/text"
         android:layout_marginTop="30dp">
 
@@ -130,6 +134,9 @@
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_alignEnd="@+id/chooseTime"
+            android:spinnerMode="dropdown"
+            android:popupElevation="10dp"
+            android:dropDownSelector="@android:color/holo_green_light"
             android:layout_alignParentBottom="true"
             android:background="?attr/colorButtonNormal">
 
