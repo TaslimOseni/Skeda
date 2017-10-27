@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dabinu.apps.skeda.CallsActivity">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="Number"
+        android:id="@+id/numb"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/process"
+        android:text="Done"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="70dp"
+        android:text="Choose time"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:id="@+id/choose"
+        android:layout_below="@+id/text"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

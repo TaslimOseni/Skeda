@@ -14,4 +14,9 @@
     <string name="action_settings">Settings</string>
     <string name="choose">Choose time</string>
 
+    <string-array name="today">
+        <item>Today</item>
+        <item>Tomorrow</item>
+    </string-array>
+
 </resources>

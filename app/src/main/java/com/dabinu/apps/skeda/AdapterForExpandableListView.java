@@ -53,6 +53,9 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
         iv.setImageResource(child.getImage());
 
         final Intent intent = new Intent(context, Inner.class);
+        final Intent intentSms = new Intent(context, Esemes.class);
+        final Intent intentCalls = new Intent(context, CallsActivity.class);
+
 
         theViewWeWant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +84,16 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
                             break;
 
                     }
+                }
+                else if(groupPosition == 0){
+                        switch(childPosition){
+                            case 1:
+                                context.startActivity(intentSms);
+                                break;
+                            case 0:
+                                context.startActivity(intentCalls);
+                                break;
+                        }
                 }
             }
         });

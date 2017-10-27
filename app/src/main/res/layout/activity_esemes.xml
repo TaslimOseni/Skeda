@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eee6e6"
+    tools:context="com.dabinu.apps.skeda.Esemes">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/header"
+        android:background="#0e490d">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/cancel"
+            android:id="@+id/cancel"
+            android:background="#0e490d"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="SMS"
+            android:textColor="#a6bd9f"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ahead"
+            android:background="#0e490d"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="30dp"
+        android:id="@+id/lay1">
+
+        <EditText
+            android:id="@+id/numb"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:background="#ffffff"
+            android:fontFamily="casual"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:inputType="phone"
+            android:selectAllOnFocus="true"
+            android:shadowColor="#ffffff"
+            android:text="Number"
+            android:textIsSelectable="true"
+            android:textStyle="italic" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/contact"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="10dp"
+            android:id="@+id/goToContacts"
+            android:padding="10dp"
+            android:layout_toStartOf="@+id/numb"
+            android:layout_alignParentEnd="true"
+            android:background="#eee6e6"/>
+    </RelativeLayout>
+
+
+    <EditText
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_below="@+id/lay1"
+        android:layout_marginEnd="10dp"
+        android:background="#ffffff"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="casual"
+        android:padding="5dp"
+        android:gravity="top"
+        android:shadowColor="#FFFFFF"
+        android:text="Text"
+        android:textStyle="italic" />
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_below="@+id/text"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Send text by: "
+            android:textSize="30sp"
+            android:id="@+id/dummytext"
+            android:layout_marginStart="10dp" />
+
+        <Button
+            android:id="@+id/chooseTime"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:textStyle="normal"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/dummytext"
+            android:textColor="@android:color/holo_green_dark"
+            android:text="Choose time"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/today"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_alignEnd="@+id/chooseTime"
+            android:layout_alignParentBottom="true"
+            android:background="?attr/colorButtonNormal">
+
+        </Spinner>
+    </RelativeLayout>
+
+
+</RelativeLayout>

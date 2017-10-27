@@ -20,7 +20,6 @@ import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -75,7 +74,7 @@ public class Inner extends AppCompatActivity{
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inner);
 
@@ -198,12 +197,12 @@ public class Inner extends AppCompatActivity{
             public void onClick(View view){
 
                 String currentTime = new SimpleDateFormat("hh:mm a").format(new Date());
-                long diff = convertTimeStringsToTime(returnStringFromTextView()) - convertTimeStringsToTime(currentTime);
+                long diff = convertTimeStringsToTime(returnStringFromTextView(process)) - convertTimeStringsToTime(currentTime);
 
-                if(convertTimeStringsToTime(returnStringFromTextView()) < convertTimeStringsToTime(currentTime)){
+                if(convertTimeStringsToTime(returnStringFromTextView(process)) < convertTimeStringsToTime(currentTime)){
                     Toast.makeText(getApplicationContext(), "Negative time "+ diff, Toast.LENGTH_LONG).show();
                 }
-                else if(convertTimeStringsToTime(returnStringFromTextView()) == convertTimeStringsToTime(currentTime)){
+                else if(convertTimeStringsToTime(returnStringFromTextView(process)) == convertTimeStringsToTime(currentTime)){
                     Toast.makeText(getApplication(), "Equal", Toast.LENGTH_LONG).show();
                 }
                 else{
@@ -215,13 +214,13 @@ public class Inner extends AppCompatActivity{
 
                         case "WiFi":
                             if(wifiManager.getWifiState() == 1){
-                                notificationTitle = "Turning WiFi on by "+returnStringFromTextView();
+                                notificationTitle = "Turning WiFi on by "+returnStringFromTextView(process);
                                 userTerminatedText = "Terminated. WiFi has been turned on by user";
                                 normalTerminatedText = "WiFi has been turned on";
                                 terminator = false;
                             }
                             else{
-                                notificationTitle = "Turning WiFi off by "+returnStringFromTextView();
+                                notificationTitle = "Turning WiFi off by "+returnStringFromTextView(process);
                                 userTerminatedText = "Terminated. WiFi has been turned off by user";
                                 normalTerminatedText = "WiFi has been turned off";
                                 terminator = true;
@@ -280,13 +279,13 @@ public class Inner extends AppCompatActivity{
 
                         case "Bluetooth":
                             if(bluetoothAdapter.isEnabled()){
-                                notificationTitle = "Turning Bluetooth off by "+returnStringFromTextView();
+                                notificationTitle = "Turning Bluetooth off by "+returnStringFromTextView(process);
                                 userTerminatedText = "Terminated. Bluetooth has been turned off by user";
                                 normalTerminatedText = "Bluetooth has been turned off";
                                 terminator = true;
                             }
                             else{
-                                notificationTitle = "Turning Bluetooth on by "+returnStringFromTextView();
+                                notificationTitle = "Turning Bluetooth on by "+returnStringFromTextView(process);
                                 userTerminatedText = "Terminated. Bluetooth has been turned on by user";
                                 normalTerminatedText = "Bluetooth has been turned on";
                                 terminator = false;
@@ -345,13 +344,13 @@ public class Inner extends AppCompatActivity{
 
                         case "Flight mode":
                             if(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1) {
-                                notificationTitle = "Turning Flight mode off by "+returnStringFromTextView();
+                                notificationTitle = "Turning Flight mode off by "+returnStringFromTextView(process);
                                 userTerminatedText = "Terminated. Flight mode has been turned off by user";
                                 normalTerminatedText = "Flight mode has been turned off";
                                 terminator = true;
                             }
                             else{
-                                notificationTitle = "Turning Flight mode on by "+returnStringFromTextView();
+                                notificationTitle = "Turning Flight mode on by "+returnStringFromTextView(process);
                                 userTerminatedText = "Terminated. Flight mode has been turned on by user";
                                 normalTerminatedText = "Flight mode has been turned on";
                                 terminator = false;
@@ -411,13 +410,13 @@ public class Inner extends AppCompatActivity{
                         case "Hotspot":
                             try{
                                 if((Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13) {
-                                    notificationTitle = "Turning Hotspot off by "+returnStringFromTextView();
+                                    notificationTitle = "Turning Hotspot off by "+returnStringFromTextView(process);
                                     userTerminatedText = "Terminated. Hotspot has been turned off by user";
                                     normalTerminatedText = "Hotspot has been turned off";
                                     terminator = true;
                                 }
                                 else{
-                                    notificationTitle = "Turning Hotspot on by "+returnStringFromTextView();
+                                    notificationTitle = "Turning Hotspot on by "+returnStringFromTextView(process);
                                     userTerminatedText = "Terminated. Hotspot has been turned on by user";
                                     normalTerminatedText = "Hotspot has been turned on";
                                     terminator = false;
@@ -480,13 +479,13 @@ public class Inner extends AppCompatActivity{
 
                         case "Data Conn.":
                             if(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()){
-                                notificationTitle = "Turning Data Conn. off by "+returnStringFromTextView();
+                                notificationTitle = "Turning Data Conn. off by "+returnStringFromTextView(process);
                                 userTerminatedText = "Terminated. Data Connection has been turned off by user";
                                 normalTerminatedText = "Data Conn. has been turned off";
                                 terminator = true;
                             }
                             else{
-                                notificationTitle = "Turning Data Conn. on by "+returnStringFromTextView();
+                                notificationTitle = "Turning Data Conn. on by "+returnStringFromTextView(process);
                                 userTerminatedText = "Terminated. Data Conn. has been turned on by user";
                                 normalTerminatedText = "Data Conn. has been turned on";
                                 terminator = false;
@@ -570,7 +569,7 @@ public class Inner extends AppCompatActivity{
         });
 
 
-        timeSelector.setOnClickListener(new View.OnClickListener() {
+        timeSelector.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 showTimePickerDialog(view);
@@ -585,7 +584,7 @@ public class Inner extends AppCompatActivity{
 
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed(){
         back.performClick();
     }
 
@@ -593,7 +592,7 @@ public class Inner extends AppCompatActivity{
 
 
 
-    public void showTimePickerDialog(View v) {
+    public void showTimePickerDialog(View v){
         DialogFragment timeFragment = new TimePicker();
         timeFragment.show(getSupportFragmentManager(), "timePicker");
     }
@@ -601,8 +600,8 @@ public class Inner extends AppCompatActivity{
 
 
 
-    public String returnStringFromTextView(){
-        char[] rawData = process.getText().toString().trim().toCharArray();
+    public String returnStringFromTextView(Button button){
+        char[] rawData = button.getText().toString().trim().toCharArray();
         String ourStandardTime = "";
 
         if(rawData[6] == 'f'){
