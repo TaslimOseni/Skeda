@@ -4,123 +4,119 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="#eee6e6"
     tools:context="com.dabinu.apps.skeda.AllNetworks">
 
-    <LinearLayout
-        android:id="@+id/first"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#0e490d"
-        android:orientation="horizontal">
+        android:id="@+id/header"
+        android:background="#0e490d">
 
         <ImageButton
-            android:id="@+id/back"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:background="#0e490d"
-            android:layout_gravity="center"
-            android:src="@drawable/back"
-            android:contentDescription="@string/bck" />
-
-        <TextView
-            android:id="@+id/nameOfCarrierIntent"
-            android:layout_width="230dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:background="#0e490d"
-            android:gravity="center|start"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:textColor="#dfe6ed"
-            android:textIsSelectable="false"
-            android:textSize="25sp" />
-
-        <Switch
-            android:id="@+id/state"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="#0e490d" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:id="@+id/second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/first"
-        android:layout_marginStart="10dp">
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/cancel"
+            android:id="@+id/cancel"
+            android:background="#0e490d"/>
 
         <TextView
-            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:id="@+id/nameOfCarrierIntent"
+            android:textColor="#a6bd9f"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ahead"
+            android:id="@+id/ahead"
+            android:background="#0e490d"/>
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/second"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/header"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+        <TextView
+            android:textSize="30sp"
             android:textStyle="italic"
             android:textColor="@android:color/holo_blue_dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/curry"/>
+            android:text="@string/curry"
+            android:id="@+id/textView2"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
 
-        <TextView
-            android:textSize="35sp"
-            android:textColor="@android:color/holo_red_dark"
-            android:id="@+id/stateText"
+        <Switch
+            android:id="@+id/state"
             android:layout_width="wrap_content"
+            android:gravity="center"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"/>
-
-    </LinearLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/third"
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:layout_below="@+id/second"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="120dp"
-        android:background="@android:color/darker_gray"
-        android:elevation="30dp">
-
-        <TextView
-            android:id="@+id/turner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="25sp"
-            android:textStyle="italic" />
-
-
-        <Button
-            android:id="@+id/timeSelector"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:text="@string/choose"
-            android:textAllCaps="false"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="20sp"
-            android:textStyle="normal" />
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
 
-    <Button
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="17dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="110dp"
+        android:layout_below="@+id/second"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:textSize="25sp"
-        android:id="@+id/process"
-        android:background="@android:color/holo_green_dark"
-        android:visibility="invisible"
-        android:textAllCaps="false"/>
+        android:layout_marginTop="100dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="30sp"
+            android:id="@+id/turnonofftext"
+            android:layout_marginStart="10dp" />
+
+        <Button
+            android:id="@+id/chooseTime"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:textStyle="normal"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/dummytext"
+            android:textColor="@android:color/holo_green_dark"
+            android:text="Choose time"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/today"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_alignEnd="@+id/chooseTime"
+            android:spinnerMode="dropdown"
+            android:popupElevation="10dp"
+            android:dropDownSelector="@android:color/holo_green_light"
+            android:layout_alignParentBottom="true"
+            android:background="?attr/colorButtonNormal">
+
+        </Spinner>
+    </RelativeLayout>
 
 
 </RelativeLayout>

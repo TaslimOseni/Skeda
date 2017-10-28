@@ -118,4 +118,11 @@ public class Esemes extends AppCompatActivity{
 
         return ourStandardTime.trim();
     }
+
+
+
+    @Override
+    public void onBackPressed(){
+        cancel.performClick();
+    }
 }

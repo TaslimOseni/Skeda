@@ -34,7 +34,6 @@ public class TimePicker extends DialogFragment implements TimePickerDialog.OnTim
         int min = timePicker.getCurrentMinute();
 
         Button process = (Button) getActivity().findViewById(R.id.chooseTime);
-        TextView getOnOff = (TextView) getActivity().findViewById(R.id.turner);
 
         if(timePicker.getCurrentHour() >= 12){
             ampm = "PM";
@@ -50,5 +49,6 @@ public class TimePicker extends DialogFragment implements TimePickerDialog.OnTim
         process.setText(String.format("%02d:%02d %s", hour, min, ampm));
 
     }
+
 
 }

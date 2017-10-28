@@ -15,8 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,16 +30,15 @@ import java.util.Date;
 public class AllNetworks extends AppCompatActivity{
 
 
-    TextView head, turner, stateText;
-    ImageButton back;
-    Button process, timeSelector;
+    TextView head, turner;
+    ImageButton cancel, ahead;
+    Button process;
     Switch stateSwitch;
     CountDownTimer ticker;
-    String notificationTitle = "";
-    String userTerminatedText = "";
-    String normalTerminatedText = "";
-    boolean terminator;
-    boolean happyEnding = true;
+    String notificationTitle = "", userTerminatedText = "", normalTerminatedText = "";
+    boolean terminator, happyEnding = true;
+    Spinner today;
+    ArrayAdapter tod;
 
 
 
@@ -85,14 +86,18 @@ public class AllNetworks extends AppCompatActivity{
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
 
+        today = (Spinner) findViewById(R.id.today);
+        tod = ArrayAdapter.createFromResource(this, R.array.today, android.R.layout.simple_spinner_item);
+        tod.setDropDownViewResource(R.layout.spin);
+        today.setAdapter(tod);
+
 
         head = (TextView) findViewById(R.id.nameOfCarrierIntent);
-        turner = (TextView) findViewById(R.id.turner);
-        stateText = (TextView) findViewById(R.id.stateText);
-        back = (ImageButton) findViewById(R.id.back);
+        turner = (TextView) findViewById(R.id.turnonofftext);
+        cancel = (ImageButton) findViewById(R.id.cancel);
+        ahead = (ImageButton) findViewById(R.id.ahead);
         stateSwitch = (Switch) findViewById(R.id.state);
-        process = (Button) findViewById(R.id.process);
-        timeSelector = (Button) findViewById(R.id.timeSelector);
+        process = (Button) findViewById(R.id.chooseTime);
 
 
 
@@ -103,12 +108,10 @@ public class AllNetworks extends AppCompatActivity{
             case "WiFi":
                 head.setText(leadString);
                 if(wifiManager.getWifiState() == 1){
-                    stateText.setText(R.string.offString);
                     turner.setText(R.string.turnOnString);
                     stateSwitch.setChecked(false);
                 }
                 else{
-                    stateText.setText(R.string.onString);
                     turner.setText(R.string.turnOffString);
                     stateSwitch.setChecked(true);
                 }
@@ -118,12 +121,10 @@ public class AllNetworks extends AppCompatActivity{
             case "Bluetooth":
                 head.setText(leadString);
                 if(bluetoothAdapter.isEnabled()){
-                    stateText.setText(R.string.onString);
                     turner.setText(R.string.turnOffString);
                     stateSwitch.setChecked(true);
                 }
                 else{
-                    stateText.setText(R.string.offString);
                     turner.setText(R.string.turnOnString);
                     stateSwitch.setChecked(false);
                 }
@@ -132,13 +133,11 @@ public class AllNetworks extends AppCompatActivity{
 
             case "Flight mode":
                 head.setText(leadString);
-                if(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1) {
-                    stateText.setText(R.string.onString);
+                if(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1){
                     turner.setText(R.string.turnOffString);
                     stateSwitch.setChecked(true);
                 }
                 else{
-                    stateText.setText(R.string.offString);
                     turner.setText(R.string.turnOnString);
                     stateSwitch.setChecked(false);
                 }
@@ -148,13 +147,11 @@ public class AllNetworks extends AppCompatActivity{
             case "Hotspot":
                 head.setText(leadString);
                 try{
-                    if((Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13) {
-                        stateText.setText(R.string.onString);
+                    if((Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13){
                         turner.setText(R.string.turnOffString);
                         stateSwitch.setChecked(true);
                     }
                     else{
-                        stateText.setText(R.string.offString);
                         turner.setText(R.string.turnOnString);
                         stateSwitch.setChecked(false);
                     }
@@ -170,12 +167,10 @@ public class AllNetworks extends AppCompatActivity{
                 head.setText(leadString);
 
                 if (((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()){
-                    stateText.setText(R.string.onString);
                     turner.setText(R.string.turnOffString);
                     stateSwitch.setChecked(true);
                 }
                 else{
-                    stateText.setText(R.string.offString);
                     turner.setText(R.string.turnOnString);
                     stateSwitch.setChecked(false);
                 }
@@ -183,7 +178,7 @@ public class AllNetworks extends AppCompatActivity{
 
 
 
-        back.setOnClickListener(new View.OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent goBack = new Intent(getApplicationContext(), Display.class);
@@ -192,7 +187,7 @@ public class AllNetworks extends AppCompatActivity{
         });
 
 
-        process.setOnClickListener(new View.OnClickListener(){
+        ahead.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
@@ -570,7 +565,7 @@ public class AllNetworks extends AppCompatActivity{
 
 
 
-        timeSelector.setOnClickListener(new View.OnClickListener(){
+        process.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 showTimePickerDialog(view);
@@ -585,7 +580,7 @@ public class AllNetworks extends AppCompatActivity{
 
     @Override
     public void onBackPressed(){
-        back.performClick();
+        cancel.performClick();
     }
 
 
