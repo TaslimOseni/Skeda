@@ -1,5 +1,6 @@
 package com.dabinu.apps.skeda;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,16 +18,19 @@ public class CallsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calls);
 
-        number = (EditText) findViewById(R.id.numb);
-        process = (Button) findViewById(R.id.process);
-        choose = (Button) findViewById(R.id.choose);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
-        process.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
+//        number = (EditText) findViewById(R.id.numb);
+//        process = (Button) findViewById(R.id.process);
+//        choose = (Button) findViewById(R.id.choose);
 
-            }
-        });
+//        process.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v){
+//
+//            }
+//        });
 
 
     }

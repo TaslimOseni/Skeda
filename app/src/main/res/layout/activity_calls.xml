@@ -4,31 +4,124 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#eee6e6"
     tools:context="com.dabinu.apps.skeda.CallsActivity">
 
-    <EditText
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="Number"
-        android:id="@+id/numb"/>
+        android:layout_height="60dp"
+        android:id="@+id/header"
+        android:background="#0e490d">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/cancel"
+            android:id="@+id/cancel"
+            android:background="#0e490d"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Phone call"
+            android:textColor="#a6bd9f"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ahead"
+            android:id="@+id/ahead"
+            android:background="#0e490d"/>
+    </RelativeLayout>
 
 
-    <Button
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/process"
-        android:text="Done"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="250dp"
-        android:layout_height="70dp"
+        android:layout_below="@+id/header"
         android:layout_marginTop="70dp"
-        android:text="Choose time"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:id="@+id/choose"
-        android:layout_below="@+id/text"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/lay1">
+
+        <EditText
+            android:id="@+id/numb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:background="#ffffff"
+            android:fontFamily="casual"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:inputType="phone"
+            android:shadowColor="#ffffff"
+            android:text="Number"
+            android:textStyle="italic" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/contact"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="10dp"
+            android:id="@+id/goToContacts"
+            android:padding="10dp"
+            android:layout_toStartOf="@+id/numb"
+            android:layout_alignParentEnd="true"
+            android:background="#eee6e6"/>
+    </RelativeLayout>
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginTop="108dp"
+        android:layout_below="@+id/lay1"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Call by: "
+            android:textSize="30sp"
+            android:id="@+id/dummytext"
+            android:layout_marginStart="10dp" />
+
+        <Button
+            android:id="@+id/chooseTime"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:textStyle="normal"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/dummytext"
+            android:textColor="@android:color/holo_green_dark"
+            android:text="Choose time"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/today"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_alignEnd="@+id/chooseTime"
+            android:spinnerMode="dropdown"
+            android:popupElevation="10dp"
+            android:dropDownSelector="@android:color/holo_green_light"
+            android:layout_alignParentBottom="true"
+            android:background="?attr/colorButtonNormal">
+
+        </Spinner>
+    </RelativeLayout>
+
 </RelativeLayout>
