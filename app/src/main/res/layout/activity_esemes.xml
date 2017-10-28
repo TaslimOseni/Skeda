@@ -62,10 +62,8 @@
             android:maxLines="1"
             android:padding="5dp"
             android:inputType="phone"
-            android:selectAllOnFocus="true"
             android:shadowColor="#ffffff"
             android:text="Number"
-            android:textIsSelectable="true"
             android:textStyle="italic" />
 
         <ImageButton
@@ -90,12 +88,10 @@
         android:layout_marginEnd="10dp"
         android:background="#ffffff"
         android:layout_marginStart="10dp"
-        android:textIsSelectable="true"
         android:layout_marginTop="50dp"
         android:fontFamily="casual"
         android:padding="5dp"
         android:gravity="top"
-        android:selectAllOnFocus="true"
         android:shadowColor="#ffffff"
         android:text="Text"
         android:textStyle="italic" />

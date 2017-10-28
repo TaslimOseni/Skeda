@@ -52,7 +52,7 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
         tv.setText(child.getName());
         iv.setImageResource(child.getImage());
 
-        final Intent intent = new Intent(context, Inner.class);
+        final Intent intent = new Intent(context, AllNetworks.class);
         final Intent intentSms = new Intent(context, Esemes.class);
         final Intent intentCalls = new Intent(context, CallsActivity.class);
 

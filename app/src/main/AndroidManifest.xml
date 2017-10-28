@@ -10,6 +10,7 @@
         android:required="false" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -38,7 +39,7 @@
 
 
         <activity
-            android:name=".Inner"
+            android:name=".AllNetworks"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 

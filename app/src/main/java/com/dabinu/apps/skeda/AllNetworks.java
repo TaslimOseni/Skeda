@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class Inner extends AppCompatActivity{
+public class AllNetworks extends AppCompatActivity{
 
 
     TextView head, turner, stateText;
@@ -76,7 +76,7 @@ public class Inner extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inner);
+        setContentView(R.layout.allnetworks);
 
         overridePendingTransition(0, 0);
 
@@ -569,13 +569,13 @@ public class Inner extends AppCompatActivity{
         });
 
 
+
         timeSelector.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 showTimePickerDialog(view);
             }
         });
-
 
 
     }
