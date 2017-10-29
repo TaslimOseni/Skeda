@@ -191,246 +191,115 @@ public class AllNetworks extends AppCompatActivity{
             @Override
             public void onClick(View view){
 
-                String currentTime = new SimpleDateFormat("hh:mm a").format(new Date());
-                long diff = convertTimeStringsToTime(returnStringFromTextView(process)) - convertTimeStringsToTime(currentTime);
-
-                if(convertTimeStringsToTime(returnStringFromTextView(process)) < convertTimeStringsToTime(currentTime)){
-                    Toast.makeText(getApplicationContext(), "Negative time "+ diff, Toast.LENGTH_LONG).show();
-                }
-                else if(convertTimeStringsToTime(returnStringFromTextView(process)) == convertTimeStringsToTime(currentTime)){
-                    Toast.makeText(getApplication(), "Equal", Toast.LENGTH_LONG).show();
+                if(process.getText().toString().equals("Choose time")){
+                    Toast.makeText(getApplicationContext(), "Choose a valid time", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    switch(head.getText().toString().trim()){
+                    String currentTime = new SimpleDateFormat("hh:mm a").format(new Date());
+
+                    long diff = convertTimeStringsToTime(process.getText().toString().trim()) - convertTimeStringsToTime(currentTime);
+
+                    if(convertTimeStringsToTime(process.getText().toString().trim()) < convertTimeStringsToTime(currentTime)){
+                        Toast.makeText(getApplicationContext(), "Sorry.. Can't go back in time.", Toast.LENGTH_LONG).show();
+                    }
+                    else if(convertTimeStringsToTime(process.getText().toString().trim()) == convertTimeStringsToTime(currentTime)){
+                        Toast.makeText(getApplication(), String.format("It's already %s!", process.getText().toString()), Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        switch(head.getText().toString().trim()){
 
 
-                        //WiFi......................................................................
+                            //WiFi......................................................................
 
 
-                        case "WiFi":
-                            if(wifiManager.getWifiState() == 1){
-                                notificationTitle = "Turning WiFi on by "+returnStringFromTextView(process);
-                                userTerminatedText = "Terminated. WiFi has been turned on by user";
-                                normalTerminatedText = "WiFi has been turned on";
-                                terminator = false;
-                            }
-                            else{
-                                notificationTitle = "Turning WiFi off by "+returnStringFromTextView(process);
-                                userTerminatedText = "Terminated. WiFi has been turned off by user";
-                                normalTerminatedText = "WiFi has been turned off";
-                                terminator = true;
-                            }
-                            ticker = new CountDownTimer(diff * 1000, 1000){
-                                @Override
-                                public void onTick(long millisUntilFinished){
-
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
-                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                    mng.notify(0, notification);
-
-                                    if(terminator){
-                                        if(!(terminator && wifiManager.getWifiState() != 1)){
-                                            happyEnding = false;
-                                            ticker.cancel();
-                                            mng.cancel(0);
-                                            ticker.onFinish();
-                                        }
-                                    }
-                                    else{
-                                        if(!(!terminator && wifiManager.getWifiState() == 1)){
-                                            happyEnding = false;
-                                            ticker.cancel();
-                                            mng.cancel(0);
-                                            ticker.onFinish();
-                                        }
-                                    }
+                            case "WiFi":
+                                if(wifiManager.getWifiState() == 1){
+                                    notificationTitle = "Turning WiFi on by "+ process.getText().toString().trim();
+                                    userTerminatedText = "Terminated. WiFi has been turned on by user";
+                                    normalTerminatedText = "WiFi has been turned on";
+                                    terminator = false;
                                 }
+                                else{
+                                    notificationTitle = "Turning WiFi off by "+ process.getText().toString().trim();
+                                    userTerminatedText = "Terminated. WiFi has been turned off by user";
+                                    normalTerminatedText = "WiFi has been turned off";
+                                    terminator = true;
+                                }
+                                ticker = new CountDownTimer(diff * 1000, 1000){
+                                    @Override
+                                    public void onTick(long millisUntilFinished){
 
-                                @Override
-                                public void onFinish(){
-                                    if(happyEnding){
-                                        final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
+                                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
                                         NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                        mng.notify(0, finalNotif);
-                                        if(wifiManager.getWifiState() != 1){
-                                            wifiManager.setWifiEnabled(false);
+                                        mng.notify(0, notification);
+
+                                        if(terminator){
+                                            if(!(terminator && wifiManager.getWifiState() != 1)){
+                                                happyEnding = false;
+                                                ticker.cancel();
+                                                mng.cancel(0);
+                                                ticker.onFinish();
+                                            }
                                         }
                                         else{
-                                            wifiManager.setWifiEnabled(true);
+                                            if(!(!terminator && wifiManager.getWifiState() == 1)){
+                                                happyEnding = false;
+                                                ticker.cancel();
+                                                mng.cancel(0);
+                                                ticker.onFinish();
+                                            }
                                         }
                                     }
-                                    else{
-                                        final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
-                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                        mng.notify(0, finalNotiff);
-                                    }
-                                }
-                            }.start();
-                            break;
 
-
-                        //Bluetooth.................................................................
-
-
-                        case "Bluetooth":
-                            if(bluetoothAdapter.isEnabled()){
-                                notificationTitle = "Turning Bluetooth off by "+returnStringFromTextView(process);
-                                userTerminatedText = "Terminated. Bluetooth has been turned off by user";
-                                normalTerminatedText = "Bluetooth has been turned off";
-                                terminator = true;
-                            }
-                            else{
-                                notificationTitle = "Turning Bluetooth on by "+returnStringFromTextView(process);
-                                userTerminatedText = "Terminated. Bluetooth has been turned on by user";
-                                normalTerminatedText = "Bluetooth has been turned on";
-                                terminator = false;
-                            }
-                            ticker = new CountDownTimer(diff * 1000, 1000){
-                                @Override
-                                public void onTick(long millisUntilFinished){
-
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
-                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                    mng.notify(0, notification);
-
-                                    if(terminator){
-                                        if(!(terminator && bluetoothAdapter.isEnabled())){
-                                            happyEnding = false;
-                                            ticker.cancel();
-                                            mng.cancel(0);
-                                            ticker.onFinish();
-                                        }
-                                    }
-                                    else{
-                                        if(!(!terminator && !bluetoothAdapter.isEnabled())){
-                                            happyEnding = false;
-                                            ticker.cancel();
-                                            mng.cancel(0);
-                                            ticker.onFinish();
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFinish() {
-                                    if(happyEnding){
-                                        final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
-                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                        mng.notify(0, finalNotif);
-                                        if(bluetoothAdapter.isEnabled()){
-                                            bluetoothAdapter.disable();
+                                    @Override
+                                    public void onFinish(){
+                                        if(happyEnding){
+                                            final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
+                                            NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                            mng.notify(0, finalNotif);
+                                            if(wifiManager.getWifiState() != 1){
+                                                wifiManager.setWifiEnabled(false);
+                                            }
+                                            else{
+                                                wifiManager.setWifiEnabled(true);
+                                            }
                                         }
                                         else{
-                                            bluetoothAdapter.enable();
+                                            final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
+                                            NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                            mng.notify(0, finalNotiff);
                                         }
                                     }
-                                    else{
-                                        final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
-                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                        mng.notify(0, finalNotiff);
-                                    }
-                                }
-                            }.start();
-                            break;
+                                }.start();
+                                break;
 
 
-                        //Flight mode...............................................................
+                            //Bluetooth.................................................................
 
 
-                        case "Flight mode":
-                            if(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1) {
-                                notificationTitle = "Turning Flight mode off by "+returnStringFromTextView(process);
-                                userTerminatedText = "Terminated. Flight mode has been turned off by user";
-                                normalTerminatedText = "Flight mode has been turned off";
-                                terminator = true;
-                            }
-                            else{
-                                notificationTitle = "Turning Flight mode on by "+returnStringFromTextView(process);
-                                userTerminatedText = "Terminated. Flight mode has been turned on by user";
-                                normalTerminatedText = "Flight mode has been turned on";
-                                terminator = false;
-                            }
-                            ticker = new CountDownTimer(diff * 1000, 1000){
-                                @Override
-                                public void onTick(long millisUntilFinished){
-
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
-                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                    mng.notify(0, notification);
-
-                                    if(terminator){
-                                        if(!(terminator && Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1)){
-                                            happyEnding = false;
-                                            ticker.cancel();
-                                            mng.cancel(0);
-                                            ticker.onFinish();
-                                        }
-                                    }
-                                    else{
-                                        if(!(!terminator && !(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1))){
-                                            happyEnding = false;
-                                            ticker.cancel();
-                                            mng.cancel(0);
-                                            ticker.onFinish();
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFinish(){
-                                    if(happyEnding){
-                                        final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
-                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                        mng.notify(0, finalNotif);
-                                        if(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1){
-                                            //PUT CODE HERE
-                                        }
-                                        else{
-                                            //PUT CODE HERE
-                                        }
-                                    }
-                                    else{
-                                        final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
-                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                        mng.notify(0, finalNotiff);
-                                    }
-                                }
-                            }.start();
-                            break;
-
-
-                        //Hotspot.......................................................................
-
-
-                        case "Hotspot":
-                            try{
-                                if((Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13) {
-                                    notificationTitle = "Turning Hotspot off by "+returnStringFromTextView(process);
-                                    userTerminatedText = "Terminated. Hotspot has been turned off by user";
-                                    normalTerminatedText = "Hotspot has been turned off";
+                            case "Bluetooth":
+                                if(bluetoothAdapter.isEnabled()){
+                                    notificationTitle = "Turning Bluetooth off by "+ process.getText().toString().trim();
+                                    userTerminatedText = "Terminated. Bluetooth has been turned off by user";
+                                    normalTerminatedText = "Bluetooth has been turned off";
                                     terminator = true;
                                 }
                                 else{
-                                    notificationTitle = "Turning Hotspot on by "+returnStringFromTextView(process);
-                                    userTerminatedText = "Terminated. Hotspot has been turned on by user";
-                                    normalTerminatedText = "Hotspot has been turned on";
+                                    notificationTitle = "Turning Bluetooth on by "+ process.getText().toString().trim();
+                                    userTerminatedText = "Terminated. Bluetooth has been turned on by user";
+                                    normalTerminatedText = "Bluetooth has been turned on";
                                     terminator = false;
                                 }
-                            }
-                            catch(Exception e){
+                                ticker = new CountDownTimer(diff * 1000, 1000){
+                                    @Override
+                                    public void onTick(long millisUntilFinished){
 
-                            }
-                            ticker = new CountDownTimer(diff * 1000, 1000){
-                                @Override
-                                public void onTick(long millisUntilFinished){
+                                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
+                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        mng.notify(0, notification);
 
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
-                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                    mng.notify(0, notification);
-
-                                    try{
                                         if(terminator){
-                                            if(!(terminator && (Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13)){
+                                            if(!(terminator && bluetoothAdapter.isEnabled())){
                                                 happyEnding = false;
                                                 ticker.cancel();
                                                 mng.cancel(0);
@@ -438,7 +307,7 @@ public class AllNetworks extends AppCompatActivity{
                                             }
                                         }
                                         else{
-                                            if(!(!terminator && !((Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13))){
+                                            if(!(!terminator && !bluetoothAdapter.isEnabled())){
                                                 happyEnding = false;
                                                 ticker.cancel();
                                                 mng.cancel(0);
@@ -446,120 +315,257 @@ public class AllNetworks extends AppCompatActivity{
                                             }
                                         }
                                     }
-                                    catch(Exception e){
 
-                                    }
-                                }
-
-                                @Override
-                                public void onFinish() {
-                                    if(happyEnding){
-                                        final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
-                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                        mng.notify(0, finalNotif);
-
-                                    }
-                                    else{
-                                        final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
-                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                        mng.notify(0, finalNotiff);
-                                    }
-                                }
-                            }.start();
-                            break;
-
-
-                        //Data Conn.................................................................
-
-
-                        case "Data Conn.":
-                            if(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()){
-                                notificationTitle = "Turning Data Conn. off by "+returnStringFromTextView(process);
-                                userTerminatedText = "Terminated. Data Connection has been turned off by user";
-                                normalTerminatedText = "Data Conn. has been turned off";
-                                terminator = true;
-                            }
-                            else{
-                                notificationTitle = "Turning Data Conn. on by "+returnStringFromTextView(process);
-                                userTerminatedText = "Terminated. Data Conn. has been turned on by user";
-                                normalTerminatedText = "Data Conn. has been turned on";
-                                terminator = false;
-                            }
-                            ticker = new CountDownTimer(diff * 1000, 1000){
-                                @Override
-                                public void onTick(long millisUntilFinished){
-
-                                    final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
-                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                    mng.notify(0, notification);
-
-                                    if(terminator){
-                                        if(!(terminator && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected())){
-                                            happyEnding = false;
-                                            ticker.cancel();
-                                            mng.cancel(0);
-                                            ticker.onFinish();
-                                        }
-                                    }
-                                    else{
-                                        if(!(!terminator && !(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()))){
-                                            happyEnding = false;
-                                            ticker.cancel();
-                                            mng.cancel(0);
-                                            ticker.onFinish();
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFinish() {
-                                    if(happyEnding){
-                                        final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
-                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                        mng.notify(0, finalNotif);
-                                        if(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()){
-                                            try{
-                                                ConnectivityManager dataManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-                                                Method dataMtd = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
-                                                dataMtd.setAccessible(true);
-                                                dataMtd.invoke(dataManager, false);
+                                    @Override
+                                    public void onFinish() {
+                                        if(happyEnding){
+                                            final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
+                                            NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                            mng.notify(0, finalNotif);
+                                            if(bluetoothAdapter.isEnabled()){
+                                                bluetoothAdapter.disable();
                                             }
-                                            catch(Exception e){
-                                                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                            else{
+                                                bluetoothAdapter.enable();
                                             }
                                         }
                                         else{
-                                            try{
-                                                ConnectivityManager dataManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-                                                Method dataMtd = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
-                                                dataMtd.setAccessible(true);
-                                                dataMtd.invoke(dataManager, true);
-                                            }
-                                            catch(Exception e){
-                                                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                            final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
+                                            NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                            mng.notify(0, finalNotiff);
+                                        }
+                                    }
+                                }.start();
+                                break;
+
+
+                            //Flight mode...............................................................
+
+
+                            case "Flight mode":
+                                if(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1) {
+                                    notificationTitle = "Turning Flight mode off by "+ process.getText().toString().trim();
+                                    userTerminatedText = "Terminated. Flight mode has been turned off by user";
+                                    normalTerminatedText = "Flight mode has been turned off";
+                                    terminator = true;
+                                }
+                                else{
+                                    notificationTitle = "Turning Flight mode on by "+ process.getText().toString().trim();
+                                    userTerminatedText = "Terminated. Flight mode has been turned on by user";
+                                    normalTerminatedText = "Flight mode has been turned on";
+                                    terminator = false;
+                                }
+                                ticker = new CountDownTimer(diff * 1000, 1000){
+                                    @Override
+                                    public void onTick(long millisUntilFinished){
+
+                                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
+                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        mng.notify(0, notification);
+
+                                        if(terminator){
+                                            if(!(terminator && Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1)){
+                                                happyEnding = false;
+                                                ticker.cancel();
+                                                mng.cancel(0);
+                                                ticker.onFinish();
                                             }
                                         }
+                                        else{
+                                            if(!(!terminator && !(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1))){
+                                                happyEnding = false;
+                                                ticker.cancel();
+                                                mng.cancel(0);
+                                                ticker.onFinish();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFinish(){
+                                        if(happyEnding){
+                                            final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
+                                            NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                            mng.notify(0, finalNotif);
+                                            if(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1){
+                                                //PUT CODE HERE
+                                            }
+                                            else{
+                                                //PUT CODE HERE
+                                            }
+                                        }
+                                        else{
+                                            final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
+                                            NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                            mng.notify(0, finalNotiff);
+                                        }
+                                    }
+                                }.start();
+                                break;
+
+
+                            //Hotspot.......................................................................
+
+
+                            case "Hotspot":
+                                try{
+                                    if((Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13) {
+                                        notificationTitle = "Turning Hotspot off by "+ process.getText().toString().trim();
+                                        userTerminatedText = "Terminated. Hotspot has been turned off by user";
+                                        normalTerminatedText = "Hotspot has been turned off";
+                                        terminator = true;
+                                    }
+                                    else{
+                                        notificationTitle = "Turning Hotspot on by "+ process.getText().toString().trim();
+                                        userTerminatedText = "Terminated. Hotspot has been turned on by user";
+                                        normalTerminatedText = "Hotspot has been turned on";
+                                        terminator = false;
+                                    }
+                                }
+                                catch(Exception e){
+
+                                }
+                                ticker = new CountDownTimer(diff * 1000, 1000){
+                                    @Override
+                                    public void onTick(long millisUntilFinished){
+
+                                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
+                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        mng.notify(0, notification);
+
+                                        try{
+                                            if(terminator){
+                                                if(!(terminator && (Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13)){
+                                                    happyEnding = false;
+                                                    ticker.cancel();
+                                                    mng.cancel(0);
+                                                    ticker.onFinish();
+                                                }
+                                            }
+                                            else{
+                                                if(!(!terminator && !((Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13))){
+                                                    happyEnding = false;
+                                                    ticker.cancel();
+                                                    mng.cancel(0);
+                                                    ticker.onFinish();
+                                                }
+                                            }
+                                        }
+                                        catch(Exception e){
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+                                        if(happyEnding){
+                                            final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
+                                            NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                            mng.notify(0, finalNotif);
+
+                                        }
+                                        else{
+                                            final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
+                                            NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                            mng.notify(0, finalNotiff);
+                                        }
+                                    }
+                                }.start();
+                                break;
+
+
+                            //Data Conn.................................................................
+
+
+                            case "Data Conn.":
+                                if(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()){
+                                    notificationTitle = "Turning Data Conn. off by "+ process.getText().toString().trim();
+                                    userTerminatedText = "Terminated. Data Connection has been turned off by user";
+                                    normalTerminatedText = "Data Conn. has been turned off";
+                                    terminator = true;
+                                }
+                                else{
+                                    notificationTitle = "Turning Data Conn. on by "+ process.getText().toString().trim();
+                                    userTerminatedText = "Terminated. Data Conn. has been turned on by user";
+                                    normalTerminatedText = "Data Conn. has been turned on";
+                                    terminator = false;
+                                }
+                                ticker = new CountDownTimer(diff * 1000, 1000){
+                                    @Override
+                                    public void onTick(long millisUntilFinished){
+
+                                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
+                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        mng.notify(0, notification);
+
+                                        if(terminator){
+                                            if(!(terminator && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected())){
+                                                happyEnding = false;
+                                                ticker.cancel();
+                                                mng.cancel(0);
+                                                ticker.onFinish();
+                                            }
+                                        }
+                                        else{
+                                            if(!(!terminator && !(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()))){
+                                                happyEnding = false;
+                                                ticker.cancel();
+                                                mng.cancel(0);
+                                                ticker.onFinish();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+                                        if(happyEnding){
+                                            final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
+                                            NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                            mng.notify(0, finalNotif);
+                                            if(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()){
+                                                try{
+                                                    ConnectivityManager dataManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                                                    Method dataMtd = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
+                                                    dataMtd.setAccessible(true);
+                                                    dataMtd.invoke(dataManager, false);
+                                                }
+                                                catch(Exception e){
+                                                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                            else{
+                                                try{
+                                                    ConnectivityManager dataManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                                                    Method dataMtd = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
+                                                    dataMtd.setAccessible(true);
+                                                    dataMtd.invoke(dataManager, true);
+                                                }
+                                                catch(Exception e){
+                                                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                                }
+                                            }
 //
+                                        }
+                                        else{
+                                            final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
+                                            NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                            mng.notify(0, finalNotiff);
+                                        }
                                     }
-                                    else{
-                                        final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
-                                        NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                        mng.notify(0, finalNotiff);
-                                    }
-                                }
-                            }.start();
-                            break;
+                                }.start();
+                                break;
 
+                        }
+
+                        Toast.makeText(getApplicationContext(), "Successful!!!", Toast.LENGTH_LONG).show();
+
+                        Intent kissTent = new Intent(getApplicationContext(), Display.class);
+                        startActivity(kissTent);
                     }
 
-                    Toast.makeText(getApplicationContext(), "Successful!!!", Toast.LENGTH_LONG).show();
 
-                    Intent kissTent = new Intent(getApplicationContext(), Display.class);
-                    startActivity(kissTent);
+
                 }
-
-
-
             }
         });
 
@@ -590,29 +596,6 @@ public class AllNetworks extends AppCompatActivity{
     public void showTimePickerDialog(View v){
         DialogFragment timeFragment = new TimePicker();
         timeFragment.show(getSupportFragmentManager(), "timePicker");
-    }
-
-
-
-
-    public String returnStringFromTextView(Button button){
-        char[] rawData = button.getText().toString().trim().toCharArray();
-        String ourStandardTime = "";
-
-        if(rawData[6] == 'f'){
-            for(int i = 12; i < rawData.length; i++){
-                ourStandardTime += (Character.toString(rawData[i]));
-            }
-        }
-
-
-        else if(rawData[6] == 'n'){
-            for(int i = 11; i < rawData.length; i++){
-                ourStandardTime += (Character.toString(rawData[i]));
-            }
-        }
-
-        return ourStandardTime.trim();
     }
 
 

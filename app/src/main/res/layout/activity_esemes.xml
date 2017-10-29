@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eee6e6"
+    android:background="#dffca7"
     tools:context="com.dabinu.apps.skeda.Esemes">
 
     <RelativeLayout

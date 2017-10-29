@@ -99,28 +99,6 @@ public class Esemes extends AppCompatActivity{
 
 
 
-    public String returnStringFromTextView(Button button){
-        char[] rawData = button.getText().toString().trim().toCharArray();
-        String ourStandardTime = "";
-
-        if(rawData[6] == 'f'){
-            for(int i = 12; i < rawData.length; i++){
-                ourStandardTime += (Character.toString(rawData[i]));
-            }
-        }
-
-
-        else if(rawData[6] == 'n'){
-            for(int i = 11; i < rawData.length; i++){
-                ourStandardTime += (Character.toString(rawData[i]));
-            }
-        }
-
-        return ourStandardTime.trim();
-    }
-
-
-
     @Override
     public void onBackPressed(){
         cancel.performClick();

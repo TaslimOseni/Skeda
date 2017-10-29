@@ -4,74 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eee6e6"
+    android:background="#dffca7"
     tools:context="com.dabinu.apps.skeda.AllNetworks">
 
     <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/header"
         android:background="#0e490d">
 
         <ImageButton
+            android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_marginStart="15dp"
-            android:src="@drawable/cancel"
-            android:id="@+id/cancel"
-            android:background="#0e490d"/>
+            android:background="#0e490d"
+            android:src="@drawable/cancel" />
 
         <TextView
+            android:id="@+id/nameOfCarrierIntent"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:id="@+id/nameOfCarrierIntent"
-            android:textColor="#a6bd9f"
-            android:textSize="30dp"
-            android:textStyle="bold" />
+            android:textColor="#13f6d8"
+            android:textSize="25sp" />
 
         <ImageButton
+            android:id="@+id/ahead"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="15dp"
-            android:src="@drawable/ahead"
-            android:id="@+id/ahead"
-            android:background="#0e490d"/>
+            android:background="#0e490d"
+            android:src="@drawable/ahead" />
     </RelativeLayout>
-
 
 
     <RelativeLayout
         android:id="@+id/second"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginTop="60dp"
         android:layout_below="@+id/header"
+        android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:layout_marginTop="60dp">
 
         <TextView
-            android:textSize="30sp"
-            android:textStyle="italic"
-            android:textColor="@android:color/holo_blue_dark"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/curry"
-            android:id="@+id/textView2"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
+            android:layout_marginStart="10dp"
+            android:text="@string/curry"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="30sp"
+            android:textStyle="italic" />
 
         <Switch
             android:id="@+id/state"
             android:layout_width="wrap_content"
-            android:gravity="center"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView2"
             android:layout_alignBottom="@+id/textView2"
-            android:layout_alignParentEnd="true" />
+            android:layout_marginStart="100dp"
+            android:layout_toEndOf="@+id/textView2"
+            android:gravity="center" />
 
     </RelativeLayout>
 
@@ -80,40 +81,39 @@
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:layout_below="@+id/second"
-        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="100dp">
 
         <TextView
+            android:id="@+id/turnonofftext"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="30sp"
-            android:id="@+id/turnonofftext"
-            android:layout_marginStart="10dp" />
+            android:layout_marginStart="10dp"
+            android:textSize="30sp" />
 
         <Button
             android:id="@+id/chooseTime"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
-            android:textStyle="normal"
             android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/dummytext"
-            android:textColor="@android:color/holo_green_dark"
             android:text="Choose time"
             android:textAllCaps="false"
-            android:textSize="20sp" />
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="20sp"
+            android:textStyle="normal" />
 
         <Spinner
             android:id="@+id/today"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_alignEnd="@+id/chooseTime"
-            android:spinnerMode="dropdown"
-            android:popupElevation="10dp"
-            android:dropDownSelector="@android:color/holo_green_light"
             android:layout_alignParentBottom="true"
-            android:background="?attr/colorButtonNormal">
+            android:background="?attr/colorButtonNormal"
+            android:dropDownSelector="@android:color/holo_green_light"
+            android:popupElevation="10dp"
+            android:spinnerMode="dropdown">
 
         </Spinner>
     </RelativeLayout>
