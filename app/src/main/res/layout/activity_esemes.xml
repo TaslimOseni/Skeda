@@ -29,9 +29,10 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="SMS"
-            android:textColor="#a6bd9f"
-            android:textSize="30dp"
-            android:textStyle="bold" />
+            android:textColor="#13f6d8"
+            android:textStyle="bold"
+            android:fontFamily="serif"
+            android:textSize="25sp" />
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -60,6 +61,7 @@
             android:background="#ffffff"
             android:fontFamily="casual"
             android:maxLines="1"
+            android:defaultFocusHighlightEnabled="true"
             android:padding="5dp"
             android:inputType="phone"
             android:shadowColor="#ffffff"

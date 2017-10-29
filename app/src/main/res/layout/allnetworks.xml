@@ -30,7 +30,9 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:textColor="#13f6d8"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:fontFamily="serif"/>
 
         <ImageButton
             android:id="@+id/ahead"
