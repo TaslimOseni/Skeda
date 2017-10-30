@@ -4,16 +4,14 @@ package com.dabinu.apps.skeda;
 
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.CountDownTimer;
-import android.provider.Settings;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
+import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,8 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -44,7 +40,7 @@ public class Esemes extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_esemes);
-        ActionBar actionBar = getSupportActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
         cancel = (ImageButton) findViewById(R.id.cancel);
@@ -99,6 +95,9 @@ public class Esemes extends AppCompatActivity{
                 if(process.getText().toString().equals("Choose time")){
                     Toast.makeText(getApplicationContext(), "Choose a valid time", Toast.LENGTH_LONG).show();
                 }
+                else if(!(android.util.Patterns.PHONE.matcher(actualNumber).matches())){
+                    Toast.makeText(getApplicationContext(), "Invalid phone number", Toast.LENGTH_LONG).show();
+                }
                 else{
                     String currentTime = new SimpleDateFormat("hh:mm a").format(new Date());
 
@@ -133,7 +132,7 @@ public class Esemes extends AppCompatActivity{
                                     NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                     mng.notify(0, finalNotif);
                                 }
-                                catch (Exception ex){
+                                catch(Exception ex){
                                     final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(failedText).setContentText("").setAutoCancel(true).build();
                                     NotificationManager mngr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                     mngr.notify(0, finalNotiff);

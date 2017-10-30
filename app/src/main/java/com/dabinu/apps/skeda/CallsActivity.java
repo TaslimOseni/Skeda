@@ -88,6 +88,10 @@ public class CallsActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Choose a valid time", Toast.LENGTH_LONG).show();
                 }
 
+                else if(!(android.util.Patterns.PHONE.matcher(actualNumber).matches())){
+                    Toast.makeText(getApplicationContext(), "Invalid phone number", Toast.LENGTH_LONG).show();
+                }
+
                 else{
                     String currentTime = new SimpleDateFormat("hh:mm a").format(new Date());
 
