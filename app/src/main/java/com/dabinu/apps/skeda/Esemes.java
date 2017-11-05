@@ -11,7 +11,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
-import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -24,13 +23,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
+
 public class Esemes extends AppCompatActivity{
+
+
 
     private EditText text, number;
     ImageButton cancel, ahead;
     private Button process;
     Spinner today;
     ArrayAdapter tod;
+    ImageButton gotoocontacts;
     String notificationTitle = "", normalTerminatedText = "", failedText = "";
     CountDownTimer ticker;
     String actualText = "", actualNumber = "";
@@ -48,6 +51,17 @@ public class Esemes extends AppCompatActivity{
         text = (EditText) findViewById(R.id.text);
         number = (EditText) findViewById(R.id.numb);
         process = (Button) findViewById(R.id.chooseTime);
+
+        gotoocontacts = (ImageButton) findViewById(R.id.goToContacts);
+
+        final Intent intent = new Intent(this, ContactDisplayFragment.class);
+
+        gotoocontacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                startActivity(intent);
+            }
+        });
 
 
         today = (Spinner) findViewById(R.id.today);
@@ -154,7 +168,6 @@ public class Esemes extends AppCompatActivity{
                 }
             }
         });
-
 
 
         process.setOnClickListener(new View.OnClickListener(){

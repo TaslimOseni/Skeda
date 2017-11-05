@@ -152,6 +152,7 @@ public class CallsActivity extends AppCompatActivity {
     }
 
 
+
     public void showTimePickerDialog(View v) {
         DialogFragment timeFragment = new TimePicker();
         timeFragment.setCancelable(true);
@@ -159,11 +160,13 @@ public class CallsActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     public void onBackPressed(){
         cancel.performClick();
     }
 
+    
 
 
     public long convertTimeStringsToTime(String timeFormattedString){
