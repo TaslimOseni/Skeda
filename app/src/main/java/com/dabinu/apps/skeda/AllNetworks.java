@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.CountDownTimer;
 import android.provider.Settings;
@@ -39,6 +40,7 @@ public class AllNetworks extends AppCompatActivity{
     boolean terminator, happyEnding = true;
     Spinner today;
     ArrayAdapter tod;
+
 
 
 
@@ -86,18 +88,18 @@ public class AllNetworks extends AppCompatActivity{
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
 
-        today = (Spinner) findViewById(R.id.today);
+        today = findViewById(R.id.today);
         tod = ArrayAdapter.createFromResource(this, R.array.today, android.R.layout.simple_spinner_item);
         tod.setDropDownViewResource(R.layout.spin);
         today.setAdapter(tod);
 
 
-        head = (TextView) findViewById(R.id.nameOfCarrierIntent);
-        turner = (TextView) findViewById(R.id.turnonofftext);
-        cancel = (ImageButton) findViewById(R.id.cancel);
-        ahead = (ImageButton) findViewById(R.id.ahead);
-        stateSwitch = (Switch) findViewById(R.id.state);
-        process = (Button) findViewById(R.id.chooseTime);
+        head = findViewById(R.id.nameOfCarrierIntent);
+        turner = findViewById(R.id.turnonofftext);
+        cancel = findViewById(R.id.cancel);
+        ahead = findViewById(R.id.ahead);
+        stateSwitch = findViewById(R.id.state);
+        process = findViewById(R.id.chooseTime);
 
 
 
@@ -257,7 +259,7 @@ public class AllNetworks extends AppCompatActivity{
                                             final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
                                             NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                             mng.notify(0, finalNotif);
-                                            if(wifiManager.getWifiState() != 1){
+                                            if(wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED){
                                                 wifiManager.setWifiEnabled(false);
                                             }
                                             else{
@@ -409,12 +411,14 @@ public class AllNetworks extends AppCompatActivity{
 
                             case "Hotspot":
                                 try{
-                                    if((Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13) {
+                                    if((Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13){
                                         notificationTitle = "Turning Hotspot off by "+ process.getText().toString().trim();
                                         userTerminatedText = "Terminated. Hotspot has been turned off by user";
                                         normalTerminatedText = "Hotspot has been turned off";
                                         terminator = true;
                                     }
+
+
                                     else{
                                         notificationTitle = "Turning Hotspot on by "+ process.getText().toString().trim();
                                         userTerminatedText = "Terminated. Hotspot has been turned on by user";
@@ -462,6 +466,46 @@ public class AllNetworks extends AppCompatActivity{
                                             final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
                                             NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                             mng.notify(0, finalNotif);
+
+                                            try{
+                                                if((Integer) wifiManager.getClass().getMethod("getWifiApState").invoke(wifiManager) == 13){
+                                                    WifiConfiguration wifiConfiguration = new WifiConfiguration();
+                                                    wifiConfiguration.SSID = "Connect-to-me";
+                                                    wifiConfiguration.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
+                                                    wifiConfiguration.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
+                                                    wifiConfiguration.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
+
+                                                    try{
+                                                        Method turnHotspotOn = wifiManager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class);
+                                                        turnHotspotOn.invoke(wifiManager, wifiConfiguration, false);
+                                                    }
+                                                    catch(Exception e){
+
+                                                    }
+                                                }
+                                                else{
+                                                    if(wifiManager.isWifiEnabled()){
+                                                        wifiManager.setWifiEnabled(false);
+                                                        }
+                                                    WifiConfiguration wifiConfiguration = new WifiConfiguration();
+                                                    wifiConfiguration.SSID = "Connect-to-me";
+                                                    wifiConfiguration.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
+                                                    wifiConfiguration.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
+                                                    wifiConfiguration.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
+
+                                                    try{
+                                                        Method turnHotspotOn = wifiManager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class);
+                                                        turnHotspotOn.invoke(wifiManager, wifiConfiguration, true);
+                                                    }
+                                                    catch(Exception e){
+
+                                                    }
+                                                }
+                                            }
+                                            catch(Exception e){
+
+                                            }
+
 
                                         }
                                         else{

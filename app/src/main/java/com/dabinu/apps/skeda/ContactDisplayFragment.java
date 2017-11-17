@@ -72,7 +72,7 @@ public class ContactDisplayFragment extends Fragment implements LoaderManager.Lo
 
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        mContactsList = (ListView) getActivity().findViewById(R.id.listOfContacts);
+        mContactsList = getActivity().findViewById(R.id.listOfContacts);
         mCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.entire_contact_list_guy, null, FROM_COLUMNS, TO_IDS, 0);
         mContactsList.setAdapter(mCursorAdapter);
         mContactsList.setOnItemClickListener(this);
