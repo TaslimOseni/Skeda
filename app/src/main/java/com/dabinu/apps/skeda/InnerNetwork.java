@@ -10,7 +10,9 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.provider.Settings;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,11 +30,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class AllNetworks extends AppCompatActivity{
+public class InnerNetwork extends AppCompatActivity{
 
 
     TextView head, turner;
-    ImageButton cancel, ahead;
+    ImageButton cancel;
+    FloatingActionButton ahead;
     Button process;
     Switch stateSwitch;
     CountDownTimer ticker;
@@ -40,21 +43,41 @@ public class AllNetworks extends AppCompatActivity{
     boolean terminator, happyEnding = true;
     Spinner today;
     ArrayAdapter tod;
+    Vibrator vibrator;
 
 
 
 
     public long convertTimeStringsToTime(String timeFormattedString){
         long result = 0;
-
         char rawFormOfTime[] = timeFormattedString.trim().toCharArray();
+        char[] newRaw = new char[11];
 
-        if(rawFormOfTime[6] == 'A' || rawFormOfTime[6] == 'a'){
-            if(rawFormOfTime[0] == '1' && rawFormOfTime[1] == '2'){
-                result = (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+        if(timeFormattedString.length() == 8){
+            for(int i = 0; i < 5; i++){
+                newRaw[i] = rawFormOfTime[i];
+            }
+            newRaw[5] = ':';
+            newRaw[6] = '0';
+            newRaw[7] = '0';
+
+            for(int j = 5; j < 8; j++){
+                newRaw[j + 3] = rawFormOfTime[j];
+            }
+        }
+
+        else{
+            newRaw = timeFormattedString.toCharArray();
+        }
+
+
+
+        if(newRaw[9] == 'A' || newRaw[9] == 'a'){
+            if(newRaw[0] == '1' && newRaw[1] == '2'){
+                result = (Integer.parseInt(Character.toString(newRaw[3]).concat(Character.toString(newRaw[4]))) * 60) + (Integer.parseInt(Character.toString(newRaw[6]).concat(Character.toString(newRaw[7]))));
             }
             else{
-                result = (Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+                result = (Integer.parseInt(Character.toString(newRaw[0]).concat(Character.toString(newRaw[1]))) * 3600) + (Integer.parseInt(Character.toString(newRaw[3]).concat(Character.toString(newRaw[4]))) * 60) + (Integer.parseInt(Character.toString(newRaw[6]).concat(Character.toString(newRaw[7]))));
             }
         }
 
@@ -62,10 +85,10 @@ public class AllNetworks extends AppCompatActivity{
 
         else if(rawFormOfTime[6] == 'P' || rawFormOfTime[6] == 'p'){
             if(rawFormOfTime[0] == '1' && rawFormOfTime[1] == '2'){
-                result = (12 * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+                result = (12 * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60) + (Integer.parseInt(Character.toString(newRaw[6]).concat(Character.toString(newRaw[7]))));
             }
             else{
-                result = ((Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) + 12) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+                result = ((Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) + 12) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60) + (Integer.parseInt(Character.toString(newRaw[6]).concat(Character.toString(newRaw[7]))));
             }
 
         }
@@ -93,6 +116,7 @@ public class AllNetworks extends AppCompatActivity{
         tod.setDropDownViewResource(R.layout.spin);
         today.setAdapter(tod);
 
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         head = findViewById(R.id.nameOfCarrierIntent);
         turner = findViewById(R.id.turnonofftext);
@@ -197,7 +221,7 @@ public class AllNetworks extends AppCompatActivity{
                     Toast.makeText(getApplicationContext(), "Choose a valid time", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    String currentTime = new SimpleDateFormat("hh:mm a").format(new Date());
+                    String currentTime = new SimpleDateFormat("hh:mm:ss a").format(new Date());
 
                     long diff = convertTimeStringsToTime(process.getText().toString().trim()) - convertTimeStringsToTime(currentTime);
 
@@ -215,7 +239,7 @@ public class AllNetworks extends AppCompatActivity{
 
 
                             case "WiFi":
-                                if(wifiManager.getWifiState() == 1){
+                                if(wifiManager.getWifiState() == WifiManager.WIFI_STATE_DISABLED){
                                     notificationTitle = "Turning WiFi on by "+ process.getText().toString().trim();
                                     userTerminatedText = "Terminated. WiFi has been turned on by user";
                                     normalTerminatedText = "WiFi has been turned on";
@@ -231,9 +255,9 @@ public class AllNetworks extends AppCompatActivity{
                                     @Override
                                     public void onTick(long millisUntilFinished){
 
-                                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
+                                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setPriority(1).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
                                         NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                        mng.notify(0, notification);
+                                        mng.notify(1, notification);
 
                                         if(terminator){
                                             if(!(terminator && wifiManager.getWifiState() != 1)){
@@ -265,8 +289,10 @@ public class AllNetworks extends AppCompatActivity{
                                             else{
                                                 wifiManager.setWifiEnabled(true);
                                             }
+                                            vibrator.vibrate(2000);
                                         }
                                         else{
+                                            vibrator.vibrate(1200);
                                             final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
                                             NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                             mng.notify(0, finalNotiff);
@@ -319,7 +345,7 @@ public class AllNetworks extends AppCompatActivity{
                                     }
 
                                     @Override
-                                    public void onFinish() {
+                                    public void onFinish(){
                                         if(happyEnding){
                                             final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
                                             NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -330,8 +356,10 @@ public class AllNetworks extends AppCompatActivity{
                                             else{
                                                 bluetoothAdapter.enable();
                                             }
+                                            vibrator.vibrate(2000);
                                         }
                                         else{
+                                            vibrator.vibrate(1200);
                                             final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
                                             NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                             mng.notify(0, finalNotiff);
@@ -395,8 +423,10 @@ public class AllNetworks extends AppCompatActivity{
                                             else{
                                                 //PUT CODE HERE
                                             }
+                                            vibrator.vibrate(2000);
                                         }
                                         else{
+                                            vibrator.vibrate(1200);
                                             final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
                                             NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                             mng.notify(0, finalNotiff);
@@ -482,6 +512,7 @@ public class AllNetworks extends AppCompatActivity{
                                                     catch(Exception e){
 
                                                     }
+
                                                 }
                                                 else{
                                                     if(wifiManager.isWifiEnabled()){
@@ -506,9 +537,11 @@ public class AllNetworks extends AppCompatActivity{
 
                                             }
 
+                                            vibrator.vibrate(2000);
 
                                         }
                                         else{
+                                            vibrator.vibrate(1200);
                                             final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
                                             NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                             mng.notify(0, finalNotiff);
@@ -588,9 +621,11 @@ public class AllNetworks extends AppCompatActivity{
                                                     Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
                                                 }
                                             }
-//
+
+                                            vibrator.vibrate(2000);
                                         }
                                         else{
+                                            vibrator.vibrate(1200);
                                             final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
                                             NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                             mng.notify(0, finalNotiff);

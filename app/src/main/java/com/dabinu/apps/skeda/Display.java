@@ -37,7 +37,7 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
         int[] icons = new int[5];
 
         WifiManager wifiManager = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        if(wifiManager.getWifiState() == 1) {
+        if(wifiManager.getWifiState() == WifiManager.WIFI_STATE_DISABLED) {
                     icons[0] = R.drawable.wifioff;
                 }
                 else{
@@ -229,7 +229,7 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
