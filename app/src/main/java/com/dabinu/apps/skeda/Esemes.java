@@ -6,6 +6,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,14 +30,13 @@ public class Esemes extends AppCompatActivity{
 
 
     private EditText text, number;
-    ImageButton cancel, ahead;
+    ImageButton cancel, gotoocontacts;
     private Button process;
     Spinner today;
+    FloatingActionButton ahead;
     ArrayAdapter tod;
-    ImageButton gotoocontacts;
-    String notificationTitle = "", normalTerminatedText = "", failedText = "";
+    String notificationTitle = "", normalTerminatedText = "", failedText = "", actualText = "", actualNumber = "";
     CountDownTimer ticker;
-    String actualText = "", actualNumber = "";
 
 
     @Override
@@ -46,13 +46,12 @@ public class Esemes extends AppCompatActivity{
         final ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        cancel = (ImageButton) findViewById(R.id.cancel);
-        ahead = (ImageButton)findViewById(R.id.ahead);
-        text = (EditText) findViewById(R.id.text);
-        number = (EditText) findViewById(R.id.numb);
-        process = (Button) findViewById(R.id.chooseTime);
-
-        gotoocontacts = (ImageButton) findViewById(R.id.goToContacts);
+        cancel = findViewById(R.id.cancel);
+        ahead = findViewById(R.id.ahead);
+        text = findViewById(R.id.text);
+        number = findViewById(R.id.numb);
+        process = findViewById(R.id.chooseTime);
+        gotoocontacts = findViewById(R.id.goToContacts);
 
         final Intent intent = new Intent(this, ContactDisplayFragment.class);
 
@@ -64,7 +63,7 @@ public class Esemes extends AppCompatActivity{
         });
 
 
-        today = (Spinner) findViewById(R.id.today);
+        today = findViewById(R.id.today);
         tod = ArrayAdapter.createFromResource(this, R.array.today, android.R.layout.simple_spinner_item);
         tod.setDropDownViewResource(R.layout.spin);
         today.setAdapter(tod);
@@ -113,7 +112,7 @@ public class Esemes extends AppCompatActivity{
                     Toast.makeText(getApplicationContext(), "Invalid phone number", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    String currentTime = new SimpleDateFormat("hh:mm a").format(new Date());
+                    String currentTime = new SimpleDateFormat("hh:mm:ss a").format(new Date());
 
                     long diff = convertTimeStringsToTime(process.getText().toString().trim()) - convertTimeStringsToTime(currentTime);
 
@@ -204,15 +203,34 @@ public class Esemes extends AppCompatActivity{
 
     public long convertTimeStringsToTime(String timeFormattedString){
         long result = 0;
-
         char rawFormOfTime[] = timeFormattedString.trim().toCharArray();
+        char[] newRaw = new char[11];
 
-        if(rawFormOfTime[6] == 'A' || rawFormOfTime[6] == 'a'){
-            if(rawFormOfTime[0] == '1' && rawFormOfTime[1] == '2'){
-                result = (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+        if(timeFormattedString.length() == 8){
+            for(int i = 0; i < 5; i++){
+                newRaw[i] = rawFormOfTime[i];
+            }
+            newRaw[5] = ':';
+            newRaw[6] = '0';
+            newRaw[7] = '0';
+
+            for(int j = 5; j < 8; j++){
+                newRaw[j + 3] = rawFormOfTime[j];
+            }
+        }
+
+        else{
+            newRaw = timeFormattedString.toCharArray();
+        }
+
+
+
+        if(newRaw[9] == 'A' || newRaw[9] == 'a'){
+            if(newRaw[0] == '1' && newRaw[1] == '2'){
+                result = (Integer.parseInt(Character.toString(newRaw[3]).concat(Character.toString(newRaw[4]))) * 60) + (Integer.parseInt(Character.toString(newRaw[6]).concat(Character.toString(newRaw[7]))));
             }
             else{
-                result = (Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+                result = (Integer.parseInt(Character.toString(newRaw[0]).concat(Character.toString(newRaw[1]))) * 3600) + (Integer.parseInt(Character.toString(newRaw[3]).concat(Character.toString(newRaw[4]))) * 60) + (Integer.parseInt(Character.toString(newRaw[6]).concat(Character.toString(newRaw[7]))));
             }
         }
 
@@ -220,16 +238,17 @@ public class Esemes extends AppCompatActivity{
 
         else if(rawFormOfTime[6] == 'P' || rawFormOfTime[6] == 'p'){
             if(rawFormOfTime[0] == '1' && rawFormOfTime[1] == '2'){
-                result = (12 * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+                result = (12 * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60) + (Integer.parseInt(Character.toString(newRaw[6]).concat(Character.toString(newRaw[7]))));
             }
             else{
-                result = ((Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) + 12) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+                result = ((Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) + 12) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60) + (Integer.parseInt(Character.toString(newRaw[6]).concat(Character.toString(newRaw[7]))));
             }
 
         }
 
         return result;
     }
+
 
 
 }

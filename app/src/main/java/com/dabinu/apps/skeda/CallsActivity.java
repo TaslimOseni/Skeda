@@ -2,10 +2,13 @@ package com.dabinu.apps.skeda;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -30,28 +33,30 @@ public class CallsActivity extends AppCompatActivity {
     ArrayAdapter tod;
     String actualNumber,  notificationTitle = "", normalTerminatedText = "", failedText = "";
     CountDownTimer ticker;
+    Context context;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calls);
-        ActionBar actionBar = getSupportActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        today = (Spinner) findViewById(R.id.today);
+        today = findViewById(R.id.today);
         tod = ArrayAdapter.createFromResource(this, R.array.today, android.R.layout.simple_spinner_item);
         tod.setDropDownViewResource(R.layout.spin);
         today.setAdapter(tod);
 
+        context = this;
 
         final Intent moonWalkIntent = new Intent(this, Display.class);
 
 
-        number = (EditText) findViewById(R.id.numb);
-        process = (Button) findViewById(R.id.chooseTime);
-        cancel = (ImageButton) findViewById(R.id.cancel);
-        ahead = (ImageButton)findViewById(R.id.ahead);
+        number = findViewById(R.id.numb);
+        process = findViewById(R.id.chooseTime);
+        cancel = findViewById(R.id.cancel);
+        ahead = findViewById(R.id.ahead);
 
         number.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +98,7 @@ public class CallsActivity extends AppCompatActivity {
                 }
 
                 else{
-                    String currentTime = new SimpleDateFormat("hh:mm a").format(new Date());
+                    String currentTime = new SimpleDateFormat("hh:mm:ss a").format(new Date());
 
                     long diff = convertTimeStringsToTime(process.getText().toString().trim()) - convertTimeStringsToTime(currentTime);
 
@@ -120,10 +125,27 @@ public class CallsActivity extends AppCompatActivity {
                             @Override
                             public void onFinish(){
                                 try{
-                                    //PUT CODE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                                    final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
-                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                    mng.notify(0, finalNotif);
+                                    new AlertDialog.Builder(context)
+                                            .setMessage(String.format("Call %s now?", actualNumber))
+                                            .setCancelable(true)
+                                            .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                                                public void onClick(DialogInterface dialog, int id){
+                                                    //Calling code here!
+                                                    final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
+                                                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                                    mng.notify(0, finalNotif);
+                                                }
+                                            })
+                                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(failedText).setContentText("").setAutoCancel(true).build();
+                                                    NotificationManager mngr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                                    mngr.notify(0, finalNotiff);
+                                                }
+                                            })
+                                            .show();
+
                                 }
                                 catch (Exception ex){
                                     final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(failedText).setContentText("").setAutoCancel(true).build();
@@ -166,20 +188,39 @@ public class CallsActivity extends AppCompatActivity {
         cancel.performClick();
     }
 
-    
+
 
 
     public long convertTimeStringsToTime(String timeFormattedString){
         long result = 0;
-
         char rawFormOfTime[] = timeFormattedString.trim().toCharArray();
+        char[] newRaw = new char[11];
 
-        if(rawFormOfTime[6] == 'A' || rawFormOfTime[6] == 'a'){
-            if(rawFormOfTime[0] == '1' && rawFormOfTime[1] == '2'){
-                result = (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+        if(timeFormattedString.length() == 8){
+            for(int i = 0; i < 5; i++){
+                newRaw[i] = rawFormOfTime[i];
+            }
+            newRaw[5] = ':';
+            newRaw[6] = '0';
+            newRaw[7] = '0';
+
+            for(int j = 5; j < 8; j++){
+                newRaw[j + 3] = rawFormOfTime[j];
+            }
+        }
+
+        else{
+            newRaw = timeFormattedString.toCharArray();
+        }
+
+
+
+        if(newRaw[9] == 'A' || newRaw[9] == 'a'){
+            if(newRaw[0] == '1' && newRaw[1] == '2'){
+                result = (Integer.parseInt(Character.toString(newRaw[3]).concat(Character.toString(newRaw[4]))) * 60) + (Integer.parseInt(Character.toString(newRaw[6]).concat(Character.toString(newRaw[7]))));
             }
             else{
-                result = (Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+                result = (Integer.parseInt(Character.toString(newRaw[0]).concat(Character.toString(newRaw[1]))) * 3600) + (Integer.parseInt(Character.toString(newRaw[3]).concat(Character.toString(newRaw[4]))) * 60) + (Integer.parseInt(Character.toString(newRaw[6]).concat(Character.toString(newRaw[7]))));
             }
         }
 
@@ -187,10 +228,10 @@ public class CallsActivity extends AppCompatActivity {
 
         else if(rawFormOfTime[6] == 'P' || rawFormOfTime[6] == 'p'){
             if(rawFormOfTime[0] == '1' && rawFormOfTime[1] == '2'){
-                result = (12 * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+                result = (12 * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60) + (Integer.parseInt(Character.toString(newRaw[6]).concat(Character.toString(newRaw[7]))));
             }
             else{
-                result = ((Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) + 12) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60);
+                result = ((Integer.parseInt(Character.toString(rawFormOfTime[0]).concat(Character.toString(rawFormOfTime[1]))) + 12) * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60) + (Integer.parseInt(Character.toString(newRaw[6]).concat(Character.toString(newRaw[7]))));
             }
 
         }

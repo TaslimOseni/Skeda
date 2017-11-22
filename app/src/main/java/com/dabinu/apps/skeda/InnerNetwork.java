@@ -255,9 +255,11 @@ public class InnerNetwork extends AppCompatActivity{
                                     @Override
                                     public void onTick(long millisUntilFinished){
 
-                                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setPriority(1).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
+                                        android.support.v4.app.NotificationCompat.InboxStyle extra = new android.support.v4.app.NotificationCompat.InboxStyle();
+                                        extra.setBigContentTitle("Click to dismiss");
+                                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setStyle(extra).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
                                         NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                        mng.notify(1, notification);
+                                        mng.notify(0, notification);
 
                                         if(terminator){
                                             if(!(terminator && wifiManager.getWifiState() != 1)){
@@ -661,8 +663,6 @@ public class InnerNetwork extends AppCompatActivity{
     }
 
 
-
-
     @Override
     public void onBackPressed(){
         cancel.performClick();
@@ -670,14 +670,10 @@ public class InnerNetwork extends AppCompatActivity{
 
 
 
-
-
     public void showTimePickerDialog(View v){
         DialogFragment timeFragment = new TimePicker();
         timeFragment.show(getSupportFragmentManager(), "timePicker");
     }
-
-
 
 
 }

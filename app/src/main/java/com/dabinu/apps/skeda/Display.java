@@ -85,7 +85,7 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
         NetworkInfo activeNetwork = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
 
-        if (isConnected){
+        if(isConnected){
             icons[4] = R.drawable.dataon;
             }
         else{
@@ -93,8 +93,7 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
             }
 
 
-
-                return icons;
+            return icons;
     }
 
 
@@ -228,14 +227,14 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed(){
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
         else{
             new AlertDialog.Builder(this)
-                    .setMessage("Are you sure you wantsb to exit?")
+                    .setMessage("Are you sure you want to exit?")
                     .setCancelable(true)
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
                         public void onClick(DialogInterface dialog, int id){

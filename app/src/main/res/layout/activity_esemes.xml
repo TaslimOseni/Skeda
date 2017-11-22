@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_marginStart="15dp"
-            android:src="@drawable/cancel"
+            android:src="@drawable/back"
             android:id="@+id/cancel"
             android:background="#0e490d"/>
 
@@ -33,15 +33,6 @@
             android:textStyle="bold"
             android:fontFamily="serif"
             android:textSize="25sp" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/ahead"
-            android:id="@+id/ahead"
-            android:background="#0e490d"/>
     </RelativeLayout>
 
 
@@ -49,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/header"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/lay1">
 
         <EditText
@@ -90,7 +81,7 @@
         android:layout_marginEnd="10dp"
         android:background="#ffffff"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="casual"
         android:padding="5dp"
         android:gravity="top"
@@ -104,42 +95,52 @@
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:layout_below="@+id/text"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:id="@+id/relativeLayout2">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Send text by: "
-            android:textSize="30sp"
-            android:id="@+id/dummytext"
-            android:layout_marginStart="10dp" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:text="Send text by: "-->
+            <!--android:textSize="30sp"-->
+            <!--android:id="@+id/dummytext"-->
+            <!--android:layout_marginStart="10dp" />-->
 
         <Button
             android:id="@+id/chooseTime"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
-            android:textStyle="normal"
             android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/dummytext"
-            android:textColor="@android:color/holo_green_dark"
+            android:layout_marginStart="10dp"
             android:text="Choose time"
             android:textAllCaps="false"
-            android:textSize="20sp" />
+            android:textColor="#3a5601"
+            android:textSize="20sp"
+            android:textStyle="normal" />
 
         <Spinner
             android:id="@+id/today"
-            android:layout_width="150dp"
+            android:layout_width="130dp"
             android:layout_height="50dp"
             android:layout_alignEnd="@+id/chooseTime"
             android:spinnerMode="dropdown"
-            android:popupElevation="10dp"
             android:dropDownSelector="@android:color/holo_green_light"
             android:layout_alignParentBottom="true"
             android:background="?attr/colorButtonNormal">
 
         </Spinner>
     </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/ahead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/text"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="17dp"
+        android:src="@drawable/send_message"
+        app:backgroundTint="#c5fabd" />
 
 
 </RelativeLayout>
