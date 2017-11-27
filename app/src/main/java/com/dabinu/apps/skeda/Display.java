@@ -104,14 +104,14 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
         overridePendingTransition(0, 0);
 
 
-        theListViewGanGan = (ExpandableListView) findViewById(R.id.expansionSlot);
+        theListViewGanGan = findViewById(R.id.expansionSlot);
         listToPaste = doTheArrangement();
         foreignAdapter = new AdapterForExpandableListView(Display.this, listToPaste);
         theListViewGanGan.setAdapter(foreignAdapter);
@@ -122,13 +122,13 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -215,7 +215,7 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
         Child aligo2 = new Child();
         aligo1.setName("Silent mode");
-        netChild.add(aligo1);
+        netChild.add(aligo2);
 
         netGroup.setItems(netChild);
         list.add(netGroup);

@@ -127,7 +127,7 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
             LayoutInflater inf = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             convertView = inf.inflate(R.layout.groupsguy, null);
         }
-        TextView tv = (TextView) convertView.findViewById(R.id.headerOfList);
+        TextView tv = convertView.findViewById(R.id.headerOfList);
         tv.setText(group.getName());
         return convertView;
     }

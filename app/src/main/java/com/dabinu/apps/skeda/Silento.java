@@ -12,6 +12,7 @@ import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -232,5 +233,29 @@ public class Silento extends AppCompatActivity {
                 }
             }
         });
+
+
+        process.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                showTimePickerDialog(view);
+            }
+        });
+
+
     }
+
+
+    @Override
+    public void onBackPressed(){
+        cancel.performClick();
+    }
+
+
+
+    public void showTimePickerDialog(View v){
+        DialogFragment timeFragment = new TimePicker();
+        timeFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+
 }
