@@ -41,12 +41,11 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
 
         Child child = (Child) getChild(groupPosition, childPosition);
         if (theViewWeWant == null) {
-            LayoutInflater infalInflater = (LayoutInflater) context
-                    .getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             theViewWeWant = infalInflater.inflate(R.layout.itemsguy, null);
         }
-        TextView tv = (TextView) theViewWeWant.findViewById(R.id.textItem);
-        ImageView iv = (ImageView) theViewWeWant.findViewById(R.id.imageItem);
+        TextView tv = theViewWeWant.findViewById(R.id.textItem);
+        ImageView iv = theViewWeWant.findViewById(R.id.imageItem);
 
 
         tv.setText(child.getName());

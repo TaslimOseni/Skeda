@@ -4,8 +4,11 @@ package com.dabinu.apps.skeda;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
@@ -13,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,6 +24,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -250,5 +257,60 @@ public class Esemes extends AppCompatActivity{
     }
 
 
+
+    public static boolean sendSMS(Context ctx, int simID, String toNum, String centerNum, String smsText, PendingIntent sentIntent, PendingIntent deliveryIntent) {
+        String name;
+
+        try {
+            if (simID == 0) {
+                name = "isms0";
+            } else if (simID == 1) {
+                name = "isms1";
+            } else {
+                throw new Exception("can not get service which for sim '" + simID + "', only 0,1 accepted as values");
+            }
+
+            try
+            {
+                Method method = Class.forName("android.os.ServiceManager").getDeclaredMethod("getService", new Class[]{String.class});
+                method.setAccessible(true);
+                Object param = method.invoke(null, new Object[]{name});
+                if (param == null)
+                {
+                    throw new RuntimeException("can not get service which is named '" + name + "'");
+                }
+                method = Class.forName("com.android.internal.telephony.ISms$Stub").getDeclaredMethod("asInterface", new Class[]{IBinder.class});
+                method.setAccessible(true);
+                Object stubObj = method.invoke(null, new Object[]{param});
+                method = stubObj.getClass().getMethod("sendText", String.class, String.class, String.class, String.class, PendingIntent.class, PendingIntent.class);
+                method.invoke(stubObj, ctx.getPackageName(), toNum, centerNum, smsText, sentIntent, deliveryIntent);
+            } catch (ClassNotFoundException e)
+            {
+                throw new RuntimeException(e);
+            } catch (NoSuchMethodException e)
+            {
+                throw new RuntimeException(e);
+            } catch (InvocationTargetException e)
+            {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e)
+            {
+                throw new RuntimeException(e);
+            }
+
+            return true;
+        } catch (ClassNotFoundException e) {
+            Log.e("Exception", "ClassNotFoundException:" + e.getMessage());
+        } catch (NoSuchMethodException e) {
+            Log.e("Exception", "NoSuchMethodException:" + e.getMessage());
+        } catch (InvocationTargetException e) {
+            Log.e("Exception", "InvocationTargetException:" + e.getMessage());
+        } catch (IllegalAccessException e) {
+            Log.e("Exception", "IllegalAccessException:" + e.getMessage());
+        } catch (Exception e) {
+            Log.e("Exception", "Exception:" + e);
+        }
+        return false;
+    }
 
 }

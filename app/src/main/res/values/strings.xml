@@ -19,7 +19,10 @@
         <item>Tomorrow</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="mode">
+        <item>Normal</item>
+        <item>Vibration</item>
+        <item>Silent</item>
+    </string-array>
 
 </resources>

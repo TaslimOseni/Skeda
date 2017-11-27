@@ -133,7 +133,7 @@ public class InnerNetwork extends AppCompatActivity{
         switch(leadString){
             case "WiFi":
                 head.setText(leadString);
-                if(wifiManager.getWifiState() == 1){
+                if(wifiManager.getWifiState() == WifiManager.WIFI_STATE_DISABLED){
                     turner.setText(R.string.turnOnString);
                     stateSwitch.setChecked(false);
                 }
@@ -262,7 +262,7 @@ public class InnerNetwork extends AppCompatActivity{
                                         mng.notify(0, notification);
 
                                         if(terminator){
-                                            if(!(terminator && wifiManager.getWifiState() != 1)){
+                                            if(!(terminator && wifiManager.getWifiState() != WifiManager.WIFI_STATE_DISABLED)){
                                                 happyEnding = false;
                                                 ticker.cancel();
                                                 mng.cancel(0);
@@ -270,7 +270,7 @@ public class InnerNetwork extends AppCompatActivity{
                                             }
                                         }
                                         else{
-                                            if(!(!terminator && wifiManager.getWifiState() == 1)){
+                                            if(!(!terminator && wifiManager.getWifiState() == WifiManager.WIFI_STATE_DISABLED)){
                                                 happyEnding = false;
                                                 ticker.cancel();
                                                 mng.cancel(0);
@@ -420,10 +420,10 @@ public class InnerNetwork extends AppCompatActivity{
                                             NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                             mng.notify(0, finalNotif);
                                             if(Settings.System.getInt(getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1){
-                                                //PUT CODE HERE
+                                                Settings.System.putInt(getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0);
                                             }
                                             else{
-                                                //PUT CODE HERE
+                                                Settings.System.putInt(getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 1);
                                             }
                                             vibrator.vibrate(2000);
                                         }
@@ -519,7 +519,7 @@ public class InnerNetwork extends AppCompatActivity{
                                                 else{
                                                     if(wifiManager.isWifiEnabled()){
                                                         wifiManager.setWifiEnabled(false);
-                                                        }
+                                                    }
                                                     WifiConfiguration wifiConfiguration = new WifiConfiguration();
                                                     wifiConfiguration.SSID = "Connect-to-me";
                                                     wifiConfiguration.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
