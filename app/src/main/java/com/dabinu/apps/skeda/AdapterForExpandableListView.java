@@ -51,9 +51,6 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
         tv.setText(child.getName());
         iv.setImageResource(child.getImage());
 
-        final Intent intent = new Intent(context, InnerNetwork.class);
-        final Intent intentSms = new Intent(context, Esemes.class);
-        final Intent intentCalls = new Intent(context, CallsActivity.class);
 
 
         theViewWeWant.setOnClickListener(new View.OnClickListener() {
@@ -62,24 +59,19 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
                 if(groupPosition == 1){
                     switch(childPosition){
                         case 0:
-                            intent.putExtra("NAME", "WiFi");
-                            context.startActivity(intent);
+                            context.startActivity(new Intent(context, InnerNetwork.class).putExtra("NAME", "WiFi"));
                             break;
                         case 1:
-                            intent.putExtra("NAME", "Bluetooth");
-                            context.startActivity(intent);
+                            context.startActivity(new Intent(context, InnerNetwork.class).putExtra("NAME", "Bluetooth"));
                             break;
                         case 2:
-                            intent.putExtra("NAME", "Flight mode");
-                            context.startActivity(intent);
+                            context.startActivity(new Intent(context, InnerNetwork.class).putExtra("NAME", "Flight mode"));
                             break;
                         case 3:
-                            intent.putExtra("NAME", "Hotspot");
-                            context.startActivity(intent);
+                            context.startActivity(new Intent(context, InnerNetwork.class).putExtra("NAME", "Hotspot"));
                             break;
                         case 4:
-                            intent.putExtra("NAME", "Data Conn.");
-                            context.startActivity(intent);
+                            context.startActivity(new Intent(context, InnerNetwork.class).putExtra("NAME", "Data Conn."));
                             break;
 
                     }
@@ -87,12 +79,18 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
                 else if(groupPosition == 0){
                         switch(childPosition){
                             case 1:
-                                context.startActivity(intentSms);
+                                context.startActivity(new Intent(context, Esemes.class));
                                 break;
                             case 0:
-                                context.startActivity(intentCalls);
+                                context.startActivity(new Intent(context, CallsActivity.class));
                                 break;
                         }
+                }
+                else if(groupPosition == 2){
+                    switch(childPosition){
+                        case 1:
+                            context.startActivity(new Intent(context, Silento.class));
+                    }
                 }
             }
         });
