@@ -1,4 +1,4 @@
-package com.dabinu.apps.skeda;
+package com.dabinu.apps.skeda.adapters;
 
 
 import android.content.Context;
@@ -9,17 +9,26 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.dabinu.apps.skeda.activities.CallsActivity;
+import com.dabinu.apps.skeda.models.Child;
+import com.dabinu.apps.skeda.activities.Esemes;
+import com.dabinu.apps.skeda.activities.FirstActivity;
+import com.dabinu.apps.skeda.models.Group;
+import com.dabinu.apps.skeda.activities.InnerNetwork;
+import com.dabinu.apps.skeda.R;
+import com.dabinu.apps.skeda.activities.Silento;
+
 import java.util.ArrayList;
 
 
-class AdapterForExpandableListView extends BaseExpandableListAdapter{
+public class AdapterForExpandableListView extends BaseExpandableListAdapter{
 
 
     private Context context;
     private ArrayList<Group> groups;
 
 
-    AdapterForExpandableListView(Context context, ArrayList<Group> groups) {
+    public AdapterForExpandableListView(Context context, ArrayList<Group> groups) {
         this.context = context;
         this.groups = groups;
     }
@@ -39,7 +48,7 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View theViewWeWant, ViewGroup parent){
 
         Child child = (Child) getChild(groupPosition, childPosition);
-        if (theViewWeWant == null) {
+        if(theViewWeWant == null) {
             LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             theViewWeWant = infalInflater.inflate(R.layout.itemsguy, null);
         }

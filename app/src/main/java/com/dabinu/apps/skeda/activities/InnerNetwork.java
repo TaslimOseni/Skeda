@@ -1,4 +1,4 @@
-package com.dabinu.apps.skeda;
+package com.dabinu.apps.skeda.activities;
 
 
 import android.app.Notification;
@@ -7,7 +7,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.CountDownTimer;
@@ -18,7 +17,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,10 +26,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Field;
+import com.dabinu.apps.skeda.R;
+import com.dabinu.apps.skeda.deleteSoon.Display;
+import com.dabinu.apps.skeda.utilities.TimePicker;
+
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 

@@ -1,8 +1,10 @@
-package com.dabinu.apps.skeda;
+package com.dabinu.apps.skeda.models;
+
+import com.dabinu.apps.skeda.models.Child;
 
 import java.util.ArrayList;
 
-class Group {
+public class Group {
 
     private String Name;
     private ArrayList<Child> Items;

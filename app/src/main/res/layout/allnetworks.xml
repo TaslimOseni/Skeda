@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#dffca7"
-    tools:context="com.dabinu.apps.skeda.InnerNetwork">
+    tools:context="com.dabinu.apps.skeda.activities.InnerNetwork">
 
     <RelativeLayout
         android:id="@+id/header"

@@ -1,6 +1,6 @@
-package com.dabinu.apps.skeda;
+package com.dabinu.apps.skeda.models;
 
-class Child {
+public class Child {
 
     private String Name;
     private int Image;
@@ -13,11 +13,11 @@ class Child {
         this.Name = Name;
     }
 
-    int getImage(){
+    public int getImage(){
         return Image;
     }
 
-    void setImage(int Image){
+    public void setImage(int Image){
         this.Image = Image;
     }
 }

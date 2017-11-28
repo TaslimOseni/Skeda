@@ -1,4 +1,4 @@
-package com.dabinu.apps.skeda;
+package com.dabinu.apps.skeda.activities;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -12,7 +12,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
-import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,7 +20,10 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.lang.reflect.Method;
+import com.dabinu.apps.skeda.R;
+import com.dabinu.apps.skeda.deleteSoon.Display;
+import com.dabinu.apps.skeda.utilities.TimePicker;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

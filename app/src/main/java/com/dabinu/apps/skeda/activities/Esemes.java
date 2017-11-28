@@ -1,4 +1,4 @@
-package com.dabinu.apps.skeda;
+package com.dabinu.apps.skeda.activities;
 
 
 
@@ -24,6 +24,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.dabinu.apps.skeda.R;
+import com.dabinu.apps.skeda.deleteSoon.Display;
+import com.dabinu.apps.skeda.utilities.TimePicker;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -60,14 +64,7 @@ public class Esemes extends AppCompatActivity{
         process = findViewById(R.id.chooseTime);
         gotoocontacts = findViewById(R.id.goToContacts);
 
-        final Intent intent = new Intent(this, ContactDisplayFragment.class);
 
-        gotoocontacts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                startActivity(intent);
-            }
-        });
 
 
         today = findViewById(R.id.today);

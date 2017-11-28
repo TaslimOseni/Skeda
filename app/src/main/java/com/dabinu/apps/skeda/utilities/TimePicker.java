@@ -1,4 +1,4 @@
-package com.dabinu.apps.skeda;
+package com.dabinu.apps.skeda.utilities;
 
 
 import android.app.Dialog;
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
 import android.widget.Button;
+
+import com.dabinu.apps.skeda.R;
+
 import java.util.Calendar;
 
 

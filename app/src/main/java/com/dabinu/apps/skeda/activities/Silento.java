@@ -1,16 +1,12 @@
-package com.dabinu.apps.skeda;
+package com.dabinu.apps.skeda.activities;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.net.ConnectivityManager;
-import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiManager;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +21,11 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.dabinu.apps.skeda.R;
+import com.dabinu.apps.skeda.deleteSoon.Display;
+import com.dabinu.apps.skeda.utilities.TimePicker;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

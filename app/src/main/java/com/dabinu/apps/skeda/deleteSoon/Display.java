@@ -1,4 +1,4 @@
-package com.dabinu.apps.skeda;
+package com.dabinu.apps.skeda.deleteSoon;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -19,6 +19,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
+
+import com.dabinu.apps.skeda.R;
+import com.dabinu.apps.skeda.adapters.AdapterForExpandableListView;
+import com.dabinu.apps.skeda.models.Child;
+import com.dabinu.apps.skeda.models.Group;
+
 import java.util.ArrayList;
 
 
