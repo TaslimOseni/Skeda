@@ -134,7 +134,6 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
 
 
 
-
     private ArrayList<Group> doTheArrangement(){
 
         ArrayList<Group> list = new ArrayList<>();
@@ -210,11 +209,11 @@ public class Display extends AppCompatActivity implements NavigationView.OnNavig
         netChild.add(aligo0);
 
         Child aligo1 = new Child();
-        aligo1.setName("Battery saver");
+        aligo1.setName("Silent mode");
         netChild.add(aligo1);
 
         Child aligo2 = new Child();
-        aligo1.setName("Silent mode");
+        aligo2.setName("Battery saver");
         netChild.add(aligo2);
 
         netGroup.setItems(netChild);

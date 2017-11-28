@@ -36,10 +36,13 @@
         </activity>
         <activity
             android:name=".InnerNetwork"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Esemes"></activity>
-        <activity android:name=".CallsActivity"></activity>
-        <activity android:name=".Silento"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Esemes" />
+        <activity android:name=".CallsActivity" />
+        <activity android:name=".Silento" />
+        <activity
+            android:name=".FirstActivity"
+            android:label="@string/title_activity_first"></activity>
     </application>
 
 </manifest>

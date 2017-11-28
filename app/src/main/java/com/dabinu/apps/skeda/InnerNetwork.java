@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.CountDownTimer;
@@ -17,6 +18,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,8 +27,11 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -192,7 +197,7 @@ public class InnerNetwork extends AppCompatActivity{
             case "Data Conn.":
                 head.setText(leadString);
 
-                if (((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()){
+                if(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()){
                     turner.setText(R.string.turnOffString);
                     stateSwitch.setChecked(true);
                 }
@@ -601,27 +606,16 @@ public class InnerNetwork extends AppCompatActivity{
                                             final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
                                             NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                             mng.notify(0, finalNotif);
-                                            if(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()){
-                                                try{
-                                                    ConnectivityManager dataManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-                                                    Method dataMtd = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
-                                                    dataMtd.setAccessible(true);
-                                                    dataMtd.invoke(dataManager, false);
-                                                }
-                                                catch(Exception e){
-                                                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
-                                                }
+
+                                            ConnectivityManager conman = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                                            try{
+                                                Method setMobileDataEnabledMethod = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
+                                                setMobileDataEnabledMethod.setAccessible(true);
+                                                setMobileDataEnabledMethod.invoke(conman, !(((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()));
                                             }
-                                            else{
-                                                try{
-                                                    ConnectivityManager dataManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-                                                    Method dataMtd = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
-                                                    dataMtd.setAccessible(true);
-                                                    dataMtd.invoke(dataManager, true);
-                                                }
-                                                catch(Exception e){
-                                                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
-                                                }
+                                            catch(Exception e){
+                                                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
                                             }
 
                                             vibrator.vibrate(2000);
@@ -674,6 +668,25 @@ public class InnerNetwork extends AppCompatActivity{
         DialogFragment timeFragment = new TimePicker();
         timeFragment.show(getSupportFragmentManager(), "timePicker");
     }
+
+
+    public boolean isNetworkTypeMobile(int networkType){
+        switch (networkType) {
+            case ConnectivityManager.TYPE_MOBILE:
+            case ConnectivityManager.TYPE_MOBILE_MMS:
+            case ConnectivityManager.TYPE_MOBILE_SUPL:
+            case ConnectivityManager.TYPE_MOBILE_DUN:
+            case ConnectivityManager.TYPE_MOBILE_HIPRI:
+            case 10:
+            case 11:
+            case 12:
+            case 14:
+                return true;
+            default:
+                return false;
+        }
+    }
+
 
 
 }

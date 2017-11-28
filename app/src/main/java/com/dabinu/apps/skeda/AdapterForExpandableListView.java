@@ -36,8 +36,7 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
     }
 
     @Override
-    public View getChildView(final int groupPosition, final int childPosition,
-                             boolean isLastChild, View theViewWeWant, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View theViewWeWant, ViewGroup parent){
 
         Child child = (Child) getChild(groupPosition, childPosition);
         if (theViewWeWant == null) {
@@ -88,6 +87,9 @@ class AdapterForExpandableListView extends BaseExpandableListAdapter{
                 }
                 else if(groupPosition == 2){
                     switch(childPosition){
+                        case 0:
+                            context.startActivity(new Intent(context, FirstActivity.class));
+                            break;
                         case 1:
                             context.startActivity(new Intent(context, Silento.class));
                     }
