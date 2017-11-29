@@ -1,7 +1,5 @@
 package com.dabinu.apps.skeda.models;
 
-import com.dabinu.apps.skeda.models.Child;
-
 import java.util.ArrayList;
 
 public class Group {

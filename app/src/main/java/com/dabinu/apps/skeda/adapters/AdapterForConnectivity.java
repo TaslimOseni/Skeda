@@ -1,13 +1,18 @@
 package com.dabinu.apps.skeda.adapters;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import com.dabinu.apps.skeda.R;
+import com.dabinu.apps.skeda.activities.InnerNetwork;
 import com.dabinu.apps.skeda.templates.ConnectivityRally;
 import java.util.List;
 
@@ -17,10 +22,12 @@ public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConne
 
 
     private List<ConnectivityRally> list;
+    private Context context;
 
 
-    public AdapterForConnectivity(List<ConnectivityRally> list) {
+    public AdapterForConnectivity(Context context, List<ConnectivityRally> list){
         this.list = list;
+        this.context = context;
     }
 
 
@@ -32,12 +39,21 @@ public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConne
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        ConnectivityRally item = list.get(position);
+    public void onBindViewHolder(ViewHolder holder, int position){
+        final ConnectivityRally item = list.get(position);
 
         holder.textView.setText(item.getName());
         holder.imageView.setImageResource(item.getImage());
+        holder.switcher.setChecked(item.isState());
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, InnerNetwork.class).putExtra("NAME", item.getName()));
+            }
+        });
     }
+
+
 
     @Override
     public int getItemCount(){
@@ -48,6 +64,8 @@ public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConne
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView textView;
         ImageView imageView;
+        Switch switcher;
+        RelativeLayout card;
 
         ViewHolder(View itemView){
 
@@ -55,6 +73,9 @@ public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConne
 
             textView = itemView.findViewById(R.id.textItem);
             imageView = itemView.findViewById(R.id.imageItem);
+            switcher = itemView.findViewById(R.id.switcher);
+            card = itemView.findViewById(R.id.listItemOfList);
+
         }
     }
 }
