@@ -27,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dabinu.apps.skeda.R;
-import com.dabinu.apps.skeda.deleteSoon.Display;
 import com.dabinu.apps.skeda.utilities.TimePicker;
 
 import java.lang.reflect.Method;
@@ -38,7 +37,7 @@ import java.util.Date;
 public class InnerNetwork extends AppCompatActivity{
 
 
-    TextView head, turner;
+    TextView head, turner, underlinedHeader;
     ImageButton cancel;
     FloatingActionButton ahead;
     Button process;
@@ -129,6 +128,10 @@ public class InnerNetwork extends AppCompatActivity{
         ahead = findViewById(R.id.ahead);
         stateSwitch = findViewById(R.id.state);
         process = findViewById(R.id.chooseTime);
+        underlinedHeader = findViewById(R.id.addd);
+
+
+
 
 
 
@@ -212,7 +215,7 @@ public class InnerNetwork extends AppCompatActivity{
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goBack = new Intent(getApplicationContext(), Display.class);
+                Intent goBack = new Intent(getApplicationContext(), FirstActivity.class);
                 startActivity(goBack);
             }
         });
@@ -634,7 +637,7 @@ public class InnerNetwork extends AppCompatActivity{
 
                         Toast.makeText(getApplicationContext(), "Successful!!!", Toast.LENGTH_LONG).show();
 
-                        Intent kissTent = new Intent(getApplicationContext(), Display.class);
+                        Intent kissTent = new Intent(getApplicationContext(), FirstActivity.class);
                         startActivity(kissTent);
                     }
 

@@ -25,16 +25,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".deleteSoon.Display"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".activities.InnerNetwork"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.Esemes" />
@@ -42,8 +32,13 @@
         <activity android:name=".activities.Silento" />
         <activity
             android:name=".activities.FirstActivity"
-            android:label="@string/title_activity_first"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

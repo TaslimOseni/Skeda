@@ -16,6 +16,7 @@ import com.dabinu.apps.skeda.activities.InnerNetwork;
 import com.dabinu.apps.skeda.templates.ConnectivityRally;
 import java.util.List;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 
 public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConnectivity.ViewHolder>{
@@ -48,7 +49,7 @@ public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConne
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, InnerNetwork.class).putExtra("NAME", item.getName()));
+                context.startActivity(new Intent(context, InnerNetwork.class).putExtra("NAME", item.getName()).addFlags(FLAG_ACTIVITY_NEW_TASK));
             }
         });
     }

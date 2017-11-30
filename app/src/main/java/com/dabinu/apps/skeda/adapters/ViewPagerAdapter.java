@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.dabinu.apps.skeda.fragments.CommunFragment;
 import com.dabinu.apps.skeda.fragments.ConnectivityFragment;
 import com.dabinu.apps.skeda.fragments.SystemFragment;
 
@@ -27,7 +28,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new ConnectivityFragment();
             case 2:
-                return new SystemFragment();
+                return new CommunFragment();
         }
         return null;
     }

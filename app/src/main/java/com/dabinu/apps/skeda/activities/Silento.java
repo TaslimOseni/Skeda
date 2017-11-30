@@ -23,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dabinu.apps.skeda.R;
-import com.dabinu.apps.skeda.deleteSoon.Display;
 import com.dabinu.apps.skeda.utilities.TimePicker;
 
 import java.text.SimpleDateFormat;
@@ -225,7 +224,7 @@ public class Silento extends AppCompatActivity {
 
                         Toast.makeText(getApplicationContext(), "Successful!!!", Toast.LENGTH_LONG).show();
 
-                        Intent kissTent = new Intent(getApplicationContext(), Display.class);
+                        Intent kissTent = new Intent(getApplicationContext(), FirstActivity.class);
                         startActivity(kissTent);
                     }
 

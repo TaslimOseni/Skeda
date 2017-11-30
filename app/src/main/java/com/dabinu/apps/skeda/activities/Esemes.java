@@ -26,7 +26,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dabinu.apps.skeda.R;
-import com.dabinu.apps.skeda.deleteSoon.Display;
 import com.dabinu.apps.skeda.utilities.TimePicker;
 
 import java.lang.reflect.InvocationTargetException;
@@ -73,7 +72,7 @@ public class Esemes extends AppCompatActivity{
         today.setAdapter(tod);
 
 
-        final Intent moonWalkIntent = new Intent(this, Display.class);
+        final Intent moonWalkIntent = new Intent(this, FirstActivity.class);
 
 
         cancel.setOnClickListener(new View.OnClickListener(){
@@ -162,7 +161,7 @@ public class Esemes extends AppCompatActivity{
 
                         Toast.makeText(getApplicationContext(), "Successful!!!", Toast.LENGTH_LONG).show();
 
-                        Intent kissTent = new Intent(getApplicationContext(), Display.class);
+                        Intent kissTent = new Intent(getApplicationContext(), FirstActivity.class);
                         startActivity(kissTent);
                     }
 
