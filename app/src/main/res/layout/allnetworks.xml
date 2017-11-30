@@ -48,7 +48,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="170dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/header"
         android:background="#8af6e0"
@@ -66,12 +66,12 @@
             android:id="@+id/chooseTime"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:layout_toEndOf="@+id/turnonofftext"
             android:layout_centerInParent="true"
-            android:text="Choose time"
             android:layout_marginStart="23dp"
+            android:layout_toEndOf="@+id/turnonofftext"
+            android:text="Choose time"
             android:textAllCaps="false"
-            android:textColor="@android:color/holo_green_dark"
+            android:textColor="#990003"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -100,12 +100,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="15dp"
-            android:password="false"
             android:text="Additional settings"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="#990003"
             android:textIsSelectable="false"
             android:textSize="15sp"
-            android:textStyle="normal" />
+            android:textStyle="bold" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -186,6 +185,29 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/textView6"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Repeat everyday "
+                        android:textSize="20sp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="0dp"
+                        android:id="@+id/textView7" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/textView7"
                         android:layout_alignParentEnd="true" />
 
                 </RelativeLayout>
