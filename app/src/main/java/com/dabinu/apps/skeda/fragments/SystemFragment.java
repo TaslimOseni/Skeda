@@ -18,6 +18,7 @@ public class SystemFragment extends Fragment {
 
 
     public SystemFragment(){
+
     }
 
 
@@ -26,6 +27,7 @@ public class SystemFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_system, container, false);
 
         GridView greedy = v.findViewById(R.id.theGreedyView);
+        greedy.setNumColumns(3);
 
         return v;
     }

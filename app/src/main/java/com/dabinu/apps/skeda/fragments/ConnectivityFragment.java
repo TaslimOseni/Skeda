@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.dabinu.apps.skeda.R;
 import com.dabinu.apps.skeda.adapters.AdapterForConnectivity;
-import com.dabinu.apps.skeda.templates.ConnectivityRally;
+import com.dabinu.apps.skeda.templates.ConnectivityTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class ConnectivityFragment extends Fragment {
     RecyclerView recyclerView;
 
     AdapterForConnectivity adapterForConnectivity;
-    List<ConnectivityRally> listOfStuff = new ArrayList<>();
+    List<ConnectivityTemplate> listOfStuff = new ArrayList<>();
 
     public ConnectivityFragment(){
 
@@ -51,11 +51,11 @@ public class ConnectivityFragment extends Fragment {
         }
 
 
-        listOfStuff.add(new ConnectivityRally("WiFi", ((WifiManager) this.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE)).getWifiState() == WifiManager.WIFI_STATE_ENABLED));
-        listOfStuff.add(new ConnectivityRally("Bluetooth", (BluetoothAdapter.getDefaultAdapter()).isEnabled()));
-        listOfStuff.add(new ConnectivityRally("Flight mode", Settings.System.getInt(getContext().getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1));
-        listOfStuff.add(new ConnectivityRally("Hotspot", leke));
-        listOfStuff.add(new ConnectivityRally("Data Conn.", ((ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()));
+        listOfStuff.add(new ConnectivityTemplate("WiFi", ((WifiManager) this.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE)).getWifiState() == WifiManager.WIFI_STATE_ENABLED));
+        listOfStuff.add(new ConnectivityTemplate("Bluetooth", (BluetoothAdapter.getDefaultAdapter()).isEnabled()));
+        listOfStuff.add(new ConnectivityTemplate("Flight mode", Settings.System.getInt(getContext().getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1));
+        listOfStuff.add(new ConnectivityTemplate("Hotspot", leke));
+        listOfStuff.add(new ConnectivityTemplate("Data Conn.", ((ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()));
 
         adapterForConnectivity = new AdapterForConnectivity(getContext().getApplicationContext(), listOfStuff);
 

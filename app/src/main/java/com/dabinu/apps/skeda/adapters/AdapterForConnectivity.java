@@ -13,7 +13,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import com.dabinu.apps.skeda.R;
 import com.dabinu.apps.skeda.activities.ConnectivityOnClick;
-import com.dabinu.apps.skeda.templates.ConnectivityRally;
+import com.dabinu.apps.skeda.templates.ConnectivityTemplate;
 import java.util.List;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -22,11 +22,11 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConnectivity.ViewHolder>{
 
 
-    private List<ConnectivityRally> list;
+    private List<ConnectivityTemplate> list;
     private Context context;
 
 
-    public AdapterForConnectivity(Context context, List<ConnectivityRally> list){
+    public AdapterForConnectivity(Context context, List<ConnectivityTemplate> list){
         this.list = list;
         this.context = context;
     }
@@ -35,13 +35,13 @@ public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConne
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemsguy, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.templateConnectivity, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
-        final ConnectivityRally item = list.get(position);
+        final ConnectivityTemplate item = list.get(position);
 
         holder.textView.setText(item.getName());
         holder.imageView.setImageResource(item.getImage());
