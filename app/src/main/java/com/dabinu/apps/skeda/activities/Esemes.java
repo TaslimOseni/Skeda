@@ -20,8 +20,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -47,6 +50,8 @@ public class Esemes extends AppCompatActivity{
     ArrayAdapter tod;
     String notificationTitle = "", normalTerminatedText = "", failedText = "", actualText = "", actualNumber = "";
     CountDownTimer ticker;
+    CheckBox wando;
+    RelativeLayout hider;
 
 
     @Override
@@ -62,6 +67,21 @@ public class Esemes extends AppCompatActivity{
         number = findViewById(R.id.numb);
         process = findViewById(R.id.chooseTime);
         gotoocontacts = findViewById(R.id.goToContacts);
+        hider = findViewById(R.id.wando);
+        wando = findViewById(R.id.showWando);
+
+        wando.setChecked(true);
+        wando.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    hider.setVisibility(View.VISIBLE);
+                }
+                else{
+                    hider.setVisibility(View.GONE);
+                }
+            }
+        });
 
 
 
@@ -72,13 +92,12 @@ public class Esemes extends AppCompatActivity{
         today.setAdapter(tod);
 
 
-        final Intent moonWalkIntent = new Intent(this, FirstActivity.class);
 
 
         cancel.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                startActivity(moonWalkIntent);
+            public void onClick(View v){
+                onBackPressed();
             }
         });
 
@@ -198,7 +217,7 @@ public class Esemes extends AppCompatActivity{
 
     @Override
     public void onBackPressed(){
-        cancel.performClick();
+        super.onBackPressed();
     }
 
 

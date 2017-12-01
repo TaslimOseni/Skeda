@@ -4,38 +4,47 @@
     android:layout_height="match_parent"
     tools:context="com.dabinu.apps.skeda.fragments.SystemFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Power"
-        android:textSize="35sp"
-        android:id="@+id/power"
-        android:gravity="center"/>
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Power"-->
+        <!--android:textSize="35sp"-->
+        <!--android:id="@+id/power"-->
+        <!--android:gravity="center"/>-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Silent mode"
-        android:layout_below="@+id/power"
-        android:textSize="35sp"
-        android:id="@+id/silento"
-        android:gravity="center"/>
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Silent mode"-->
+        <!--android:layout_below="@+id/power"-->
+        <!--android:textSize="35sp"-->
+        <!--android:id="@+id/silento"-->
+        <!--android:gravity="center"/>-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Battery saver"
-        android:textSize="35sp"
-        android:layout_below="@+id/silento"
-        android:id="@+id/bSaver"
-        android:gravity="center"/>
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Battery saver"-->
+        <!--android:textSize="35sp"-->
+        <!--android:layout_below="@+id/silento"-->
+        <!--android:id="@+id/bSaver"-->
+        <!--android:gravity="center"/>-->
 
-    <TextView
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Reminder"-->
+        <!--android:textSize="35sp"-->
+        <!--android:id="@+id/reminder"-->
+        <!--android:layout_below="@+id/bSaver"-->
+        <!--android:gravity="center"/>-->
+
+    <GridView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Reminder"
-        android:textSize="35sp"
-        android:id="@+id/reminder"
-        android:layout_below="@+id/bSaver"
-        android:gravity="center"/>
+        android:layout_height="match_parent"
+        android:id="@+id/theGreedyView">
+
+    </GridView>
+
+
 </RelativeLayout>

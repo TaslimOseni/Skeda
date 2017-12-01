@@ -4,43 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dffca7"
     tools:context="com.dabinu.apps.skeda.activities.Esemes">
 
     <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/header"
         android:background="#0e490d">
 
         <ImageButton
+            android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_marginStart="15dp"
-            android:src="@drawable/back"
-            android:id="@+id/cancel"
-            android:background="#0e490d"/>
+            android:background="#0e490d"
+            android:src="@drawable/back" />
 
         <TextView
+            android:id="@+id/nameOfCarrierIntent"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="SMS"
-            android:textColor="#13f6d8"
-            android:textStyle="bold"
-            android:fontFamily="serif"
-            android:textSize="25sp" />
+            android:layout_centerInParent="true"
+            android:textColor="#ff0101"
+            android:text="SMS schedule"
+            android:textSize="30sp"
+            android:layout_marginStart="25dp"
+            android:textStyle="bold|italic"
+            android:fontFamily="cursive"/>
+
     </RelativeLayout>
 
+
+    <TextView
+        android:id="@+id/addd0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
+        android:text="Phone number"
+        android:layout_below="@+id/header"
+        android:textColor="#990003"
+        android:layout_marginTop="10dp"
+        android:textIsSelectable="false"
+        android:textSize="12sp"
+        android:textStyle="bold" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/header"
-        android:layout_marginTop="20dp"
+        android:layout_below="@+id/addd0"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
         android:id="@+id/lay1">
 
         <EditText
@@ -48,99 +65,261 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
-            android:background="#ffffff"
             android:fontFamily="casual"
+            android:background="#ecfdec"
             android:maxLines="1"
-            android:defaultFocusHighlightEnabled="true"
-            android:padding="5dp"
+            android:padding="7dp"
             android:inputType="phone"
             android:shadowColor="#ffffff"
             android:text="Number"
             android:textStyle="italic" />
 
         <ImageButton
+            android:id="@+id/goToContacts"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/contact"
-            android:scaleType="fitCenter"
-            android:layout_marginStart="10dp"
-            android:id="@+id/goToContacts"
-            android:padding="10dp"
-            android:layout_toStartOf="@+id/numb"
             android:layout_alignParentEnd="true"
-            android:background="#eee6e6"/>
+            android:background="#d7d3cd"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/contact" />
     </RelativeLayout>
 
 
-    <EditText
-        android:id="@+id/text"
+
+    <TextView
+        android:id="@+id/addd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
+        android:text="Text"
+        android:layout_below="@+id/lay1"
+        android:textColor="#990003"
+        android:layout_marginTop="20dp"
+        android:textIsSelectable="false"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_below="@+id/lay1"
-        android:layout_marginEnd="10dp"
-        android:background="#ffffff"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
-        android:fontFamily="casual"
-        android:padding="5dp"
-        android:gravity="top"
-        android:shadowColor="#ffffff"
-        android:text="Text"
-        android:textStyle="italic" />
+        android:id="@+id/textAreaCardy"
+        android:layout_below="@+id/addd"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginTop="5dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        app:cardMaxElevation="30dp">
 
+        <EditText
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ecfdec"
+            android:fontFamily="casual"
+            android:gravity="top"
+            android:padding="10dp"
+            android:text="Type message here..."
+            android:textStyle="italic" />
+
+    </android.support.v7.widget.CardView>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:layout_below="@+id/text"
-        android:layout_marginTop="30dp"
-        android:id="@+id/relativeLayout2">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textAreaCardy"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="20dp">
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text="Send text by: "-->
-            <!--android:textSize="30sp"-->
-            <!--android:id="@+id/dummytext"-->
-            <!--android:layout_marginStart="10dp" />-->
-
-        <Button
-            android:id="@+id/chooseTime"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:text="Choose time"
-            android:textAllCaps="false"
-            android:textColor="#3a5601"
-            android:textSize="20sp"
-            android:textStyle="normal" />
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp"
+            android:text="Settings"
+            android:textColor="#990003"
+            android:textIsSelectable="false"
+            android:textSize="12sp"
+            android:id="@+id/texty"
+            android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/today"
-            android:layout_width="130dp"
-            android:layout_height="50dp"
-            android:layout_alignEnd="@+id/chooseTime"
-            android:spinnerMode="dropdown"
-            android:dropDownSelector="@android:color/holo_green_light"
-            android:layout_alignParentBottom="true"
-            android:background="?attr/colorButtonNormal">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="165dp"
+            android:layout_below="@+id/texty"
+            android:layout_marginTop="5dp">
 
-        </Spinner>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Send SMS at"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="0dp"
+                        android:id="@+id/textView4" />
+
+
+                    <Button
+                        android:id="@+id/chooseTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:text="Choose time"
+                        android:textAllCaps="false"
+                        android:textColor="#3a5601"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Choose sim"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="0dp"
+                        android:id="@+id/choo" />
+
+
+                    <Button
+                        android:id="@+id/chooseSim"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:text="MTN-NG"
+                        android:textAllCaps="false"
+                        android:textColor="#3a5601"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Send today"
+                        android:textSize="20sp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="0dp"
+                        android:id="@+id/se" />
+
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/showWando"
+                        android:layout_alignBaseline="@+id/se"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:visibility="gone"
+                    android:id="@+id/wando">
+
+                    <Spinner
+                        android:id="@+id/today"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:background="#f2efef"
+                        android:dropDownSelector="@android:color/holo_green_light"
+                        android:spinnerMode="dropdown">
+
+                    </Spinner>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Vibrate when done "
+                        android:textSize="20sp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="0dp"
+                        android:id="@+id/textView5" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/shouldIVibrate"
+                        android:layout_alignBaseline="@+id/textView5"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Ring out when done "
+                        android:textSize="20sp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="0dp"
+                        android:id="@+id/textView6" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/shouldIRing"
+                        android:layout_alignBaseline="@+id/textView6"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
+
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/ahead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/text"
+        android:layout_alignEnd="@+id/textAreaCardy"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="18dp"
         android:src="@drawable/send_message"
         app:backgroundTint="#c5fabd" />
 
-
-</RelativeLayout>
+    </RelativeLayout>

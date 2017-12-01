@@ -210,29 +210,6 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="27dp"
-                    android:layout_marginTop="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Ring out when done "
-                        android:textSize="20sp"
-                        android:paddingStart="15dp"
-                        android:paddingEnd="0dp"
-                        android:id="@+id/textView6" />
-
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:id="@+id/shouldIRing"
-                        android:layout_alignBaseline="@+id/textView6"
-                        android:layout_alignParentEnd="true" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:layout_marginTop="10dp">
 
@@ -268,6 +245,6 @@
         android:layout_marginBottom="25dp"
         android:layout_marginEnd="21dp"
         app:backgroundTint="#ffa201"
-        app:srcCompat="@drawable/next" />
+        android:src="@drawable/send_message" />
 
 </RelativeLayout>
