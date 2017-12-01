@@ -4,44 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dffca7"
     tools:context="com.dabinu.apps.skeda.activities.CallsActivity">
 
     <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/header"
         android:background="#0e490d">
 
         <ImageButton
+            android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_marginStart="15dp"
-            android:src="@drawable/cancel"
-            android:id="@+id/cancel"
-            android:background="#0e490d"/>
+            android:background="#0e490d"
+            android:src="@drawable/back" />
 
         <TextView
+            android:id="@+id/nameOfCarrierIntent"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="Phone call"
             android:gravity="center"
-            android:textColor="#13f6d8"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:fontFamily="serif"/>
+            android:textColor="#ff0101"
+            android:textSize="30sp"
+            android:text="Call schedule"
+            android:layout_centerInParent="true"
+            android:textStyle="bold|italic"
+            android:fontFamily="cursive"/>
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/ahead"
-            android:id="@+id/ahead"
-            android:background="#0e490d"/>
     </RelativeLayout>
 
 
@@ -125,4 +116,15 @@
         </Spinner>
     </RelativeLayout>
 
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/ahead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="21dp"
+        app:backgroundTint="#ffa201"
+        app:srcCompat="@drawable/next" />
 </RelativeLayout>

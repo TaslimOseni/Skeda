@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import com.dabinu.apps.skeda.R;
-import com.dabinu.apps.skeda.activities.InnerNetwork;
+import com.dabinu.apps.skeda.activities.ConnectivityOnClick;
 import com.dabinu.apps.skeda.templates.ConnectivityRally;
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConne
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, InnerNetwork.class).putExtra("NAME", item.getName()).addFlags(FLAG_ACTIVITY_NEW_TASK));
+                context.startActivity(new Intent(context, ConnectivityOnClick.class).putExtra("NAME", item.getName()).addFlags(FLAG_ACTIVITY_NEW_TASK));
             }
         });
     }

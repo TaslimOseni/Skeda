@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -30,7 +31,8 @@ public class CallsActivity extends AppCompatActivity {
 
     EditText number;
     Button process;
-    ImageButton cancel, ahead;
+    ImageButton cancel;
+    FloatingActionButton ahead;
     Spinner today;
     ArrayAdapter tod;
     String actualNumber,  notificationTitle = "", normalTerminatedText = "", failedText = "";
@@ -39,7 +41,7 @@ public class CallsActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calls);
         final ActionBar actionBar = getSupportActionBar();
@@ -51,8 +53,6 @@ public class CallsActivity extends AppCompatActivity {
         today.setAdapter(tod);
 
         context = this;
-
-        final Intent moonWalkIntent = new Intent(this, FirstActivity.class);
 
 
         number = findViewById(R.id.numb);
@@ -81,7 +81,7 @@ public class CallsActivity extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                startActivity(moonWalkIntent);
+                onBackPressed();
             }
         });
 
@@ -184,14 +184,10 @@ public class CallsActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onBackPressed(){
-        cancel.performClick();
+        super.onBackPressed();
     }
-
-
-
 
     public long convertTimeStringsToTime(String timeFormattedString){
         long result = 0;

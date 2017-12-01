@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
@@ -20,7 +21,10 @@ import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -34,7 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class InnerNetwork extends AppCompatActivity{
+public class ConnectivityOnClick extends AppCompatActivity{
 
 
     TextView head, turner, underlinedHeader;
@@ -48,7 +52,8 @@ public class InnerNetwork extends AppCompatActivity{
     Spinner today;
     ArrayAdapter tod;
     Vibrator vibrator;
-
+    RelativeLayout wando;
+    CheckBox showWando, vibrate, ring;
 
 
 
@@ -108,9 +113,6 @@ public class InnerNetwork extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.allnetworks);
 
-        overridePendingTransition(0, 0);
-
-
         final WifiManager wifiManager = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -129,7 +131,27 @@ public class InnerNetwork extends AppCompatActivity{
         stateSwitch = findViewById(R.id.state);
         process = findViewById(R.id.chooseTime);
         underlinedHeader = findViewById(R.id.addd);
+        wando = findViewById(R.id.wando);
+        showWando = findViewById(R.id.showWando);
+        vibrate = findViewById(R.id.shouldIVibrate);
+        ring = findViewById(R.id.shouldIRing);
 
+
+        vibrate.setChecked(true);
+        showWando.setChecked(true);
+        showWando.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    wando.setVisibility(View.VISIBLE);
+                }
+                else{
+                    wando.setVisibility(View.GONE);
+                }
+            }
+        });
+
+//        underlinedHeader.setPaintFlags(underlinedHeader.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
 
 
@@ -212,11 +234,10 @@ public class InnerNetwork extends AppCompatActivity{
 
 
 
-        cancel.setOnClickListener(new View.OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent goBack = new Intent(getApplicationContext(), FirstActivity.class);
-                startActivity(goBack);
+                startActivity(new Intent(getApplicationContext(), FirstActivity.class));
             }
         });
 
