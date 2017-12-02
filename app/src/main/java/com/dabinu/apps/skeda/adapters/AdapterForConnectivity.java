@@ -35,7 +35,7 @@ public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConne
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.templateConnectivity, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.templateconnectivity, parent, false);
         return new ViewHolder(v);
     }
 

@@ -36,5 +36,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.0'
+    compile 'us.belka:androidtoggleswitch:1.2.2'
     testCompile 'junit:junit:4.12'
 }

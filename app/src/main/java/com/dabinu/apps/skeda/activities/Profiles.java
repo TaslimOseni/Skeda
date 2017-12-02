@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -28,7 +29,7 @@ import com.dabinu.apps.skeda.utilities.TimePicker;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Silento extends AppCompatActivity {
+public class Profiles extends AppCompatActivity {
 
 
     TextView currentstate;
@@ -101,6 +102,9 @@ public class Silento extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_silento);
 
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         today = findViewById(R.id.today);
         tod = ArrayAdapter.createFromResource(this, R.array.today, android.R.layout.simple_spinner_item);
         tod.setDropDownViewResource(R.layout.spin);
@@ -121,6 +125,12 @@ public class Silento extends AppCompatActivity {
         process = findViewById(R.id.chooseTime);
 
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         final AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         int md = am.getRingerMode();
 
@@ -248,7 +258,7 @@ public class Silento extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        cancel.performClick();
+        super.onBackPressed();
     }
 
 

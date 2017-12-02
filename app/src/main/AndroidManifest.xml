@@ -29,7 +29,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.Esemes" />
         <activity android:name=".activities.CallsActivity" />
-        <activity android:name=".activities.Silento" />
+        <activity android:name=".activities.Profiles" />
         <activity
             android:name=".activities.FirstActivity"
             android:theme="@style/AppTheme.NoActionBar">
