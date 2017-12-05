@@ -62,14 +62,14 @@
 
         <TextView
             android:id="@+id/currentState"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
             android:gravity="center"
             android:layout_centerInParent="true"
-            android:layout_marginTop="60dp"
-            android:background="#cccece"
-            android:textColor="@color/colorAccent"
-            android:textSize="30sp" />
+            android:layout_marginTop="80dp"
+            android:background="@color/gray_very_light"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
@@ -97,22 +97,22 @@
             android:textStyle="bold" />
 
         <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:id="@+id/newMode"
-            android:layout_marginTop="100dp"
-            android:background="#cccece"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
             android:layout_centerInParent="true"
-            android:textColor="@color/colorAccent"
-            android:textSize="30sp" />
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="80dp"
+            android:background="@color/gray_very_light"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/third"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
@@ -134,16 +134,15 @@
 
         <Button
             android:id="@+id/chooseTime"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="80dp"
             android:layout_marginStart="40dp"
             android:text="Choose time"
             android:layout_centerInParent="true"
             android:textAllCaps="false"
             android:textColor="@android:color/holo_green_dark"
-            android:textSize="20sp"
-            android:textStyle="normal" />
+            android:textSize="20sp" />
 
         <Spinner
             android:id="@+id/today"

@@ -6,7 +6,6 @@ import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
@@ -119,7 +118,7 @@ public class ConnectivityOnClick extends AppCompatActivity{
 
         today = findViewById(R.id.today);
         tod = ArrayAdapter.createFromResource(this, R.array.today, android.R.layout.simple_spinner_item);
-        tod.setDropDownViewResource(R.layout.spin);
+        tod.setDropDownViewResource(R.layout.for_spinner);
         today.setAdapter(tod);
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);

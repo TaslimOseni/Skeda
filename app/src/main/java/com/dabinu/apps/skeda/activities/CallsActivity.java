@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
@@ -49,7 +50,7 @@ public class CallsActivity extends AppCompatActivity {
 
         today = findViewById(R.id.today);
         tod = ArrayAdapter.createFromResource(this, R.array.today, android.R.layout.simple_spinner_item);
-        tod.setDropDownViewResource(R.layout.spin);
+        tod.setDropDownViewResource(R.layout.for_spinner);
         today.setAdapter(tod);
 
         context = this;
@@ -60,14 +61,17 @@ public class CallsActivity extends AppCompatActivity {
         cancel = findViewById(R.id.cancel);
         ahead = findViewById(R.id.ahead);
 
-        number.setOnClickListener(new View.OnClickListener() {
+        number.setSelectAllOnFocus(true);
+
+        number.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(number.getText().toString().trim().equals("Text")){
+                if(number.getText().toString().trim().equals("Number")){
                     number.setText("");
                 }
             }
         });
+
 
 
         process.setOnClickListener(new View.OnClickListener(){
@@ -132,7 +136,16 @@ public class CallsActivity extends AppCompatActivity {
                                             .setCancelable(true)
                                             .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
                                                 public void onClick(DialogInterface dialog, int id){
-                                                    //Calling code here!
+                                                    try{
+                                                        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel: "+ number.getText().toString())));
+                                                    }
+                                                    catch(SecurityException e){
+                                                        Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
+                                                    }
+                                                    catch(Exception e){
+                                                        Toast.makeText(getApplicationContext(), "Faied still", Toast.LENGTH_LONG).show();
+                                                    }
+
                                                     final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
                                                     NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                                     mng.notify(0, finalNotif);
@@ -162,8 +175,7 @@ public class CallsActivity extends AppCompatActivity {
 
                         Toast.makeText(getApplicationContext(), "Successful!!!", Toast.LENGTH_LONG).show();
 
-                        Intent kissTent = new Intent(getApplicationContext(), FirstActivity.class);
-                        startActivity(kissTent);
+                        startActivity(new Intent(getApplicationContext(), FirstActivity.class));
                     }
 
 
@@ -176,18 +188,12 @@ public class CallsActivity extends AppCompatActivity {
     }
 
 
-
     public void showTimePickerDialog(View v) {
         DialogFragment timeFragment = new TimePicker();
         timeFragment.setCancelable(true);
         timeFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
-
-    @Override
-    public void onBackPressed(){
-        super.onBackPressed();
-    }
 
     public long convertTimeStringsToTime(String timeFormattedString){
         long result = 0;

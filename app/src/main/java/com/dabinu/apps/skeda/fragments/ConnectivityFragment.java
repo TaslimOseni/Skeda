@@ -50,10 +50,14 @@ public class ConnectivityFragment extends Fragment {
             leke = false;
         }
 
+        //todo: how dare you disappear on me all the fucking time.. Uhn! I know I'm never going to see you again.
+
 
         listOfStuff.add(new ConnectivityTemplate("WiFi", ((WifiManager) this.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE)).getWifiState() == WifiManager.WIFI_STATE_ENABLED));
         listOfStuff.add(new ConnectivityTemplate("Bluetooth", (BluetoothAdapter.getDefaultAdapter()).isEnabled()));
         listOfStuff.add(new ConnectivityTemplate("Flight mode", Settings.System.getInt(getContext().getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) == 1));
+        //Location doesn't work from android 4.4
+        listOfStuff.add(new ConnectivityTemplate("Location", false));
         listOfStuff.add(new ConnectivityTemplate("Hotspot", leke));
         listOfStuff.add(new ConnectivityTemplate("Data Conn.", ((ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && ((ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()));
 

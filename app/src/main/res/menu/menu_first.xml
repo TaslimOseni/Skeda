@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.dabinu.apps.skeda.activities.FirstActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_about"
         android:orderInCategory="100"
         android:icon="@drawable/contact"
         android:title="About us"

@@ -16,6 +16,8 @@ import com.dabinu.apps.skeda.activities.ConnectivityOnClick;
 import com.dabinu.apps.skeda.templates.ConnectivityTemplate;
 import java.util.List;
 
+import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
+
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 
@@ -45,7 +47,7 @@ public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConne
 
         holder.textView.setText(item.getName());
         holder.imageView.setImageResource(item.getImage());
-        holder.switcher.setChecked(item.isState());
+        holder.switcher.setCheckedTogglePosition(item.getBooleanNumber());
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +67,7 @@ public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConne
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView textView;
         ImageView imageView;
-        Switch switcher;
+        ToggleSwitch switcher;
         RelativeLayout card;
 
         ViewHolder(View itemView){

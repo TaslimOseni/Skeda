@@ -84,11 +84,32 @@ public class Esemes extends AppCompatActivity{
         });
 
 
+        number.setSelectAllOnFocus(true);
+        text.setSelectAllOnFocus(true);
+
+
+        number.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(number.getText().toString().trim().equals("Number")){
+                    number.setText("");
+                }
+            }
+        });
+
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(text.getText().toString().trim().equals("Type message here...")){
+                    text.setText("");
+                }
+            }
+        });
 
 
         today = findViewById(R.id.today);
         tod = ArrayAdapter.createFromResource(this, R.array.today, android.R.layout.simple_spinner_item);
-        tod.setDropDownViewResource(R.layout.spin);
+        tod.setDropDownViewResource(R.layout.for_spinner);
         today.setAdapter(tod);
 
 

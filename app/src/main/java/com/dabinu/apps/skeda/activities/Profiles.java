@@ -100,20 +100,20 @@ public class Profiles extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_silento);
+        setContentView(R.layout.profiles);
 
         final ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
         today = findViewById(R.id.today);
         tod = ArrayAdapter.createFromResource(this, R.array.today, android.R.layout.simple_spinner_item);
-        tod.setDropDownViewResource(R.layout.spin);
+        tod.setDropDownViewResource(R.layout.for_spinner);
         today.setAdapter(tod);
 
 
         mode = findViewById(R.id.newMode);
         mod = ArrayAdapter.createFromResource(this, R.array.mode, android.R.layout.simple_spinner_item);
-        mod.setDropDownViewResource(R.layout.spin);
+        mod.setDropDownViewResource(R.layout.for_spinner);
         mode.setAdapter(mod);
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
