@@ -47,7 +47,7 @@ public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConne
 
         holder.textView.setText(item.getName());
         holder.imageView.setImageResource(item.getImage());
-        holder.switcher.setCheckedTogglePosition(item.getBooleanNumber());
+        holder.switcher.setChecked(item.isState());
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +67,7 @@ public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConne
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView textView;
         ImageView imageView;
-        ToggleSwitch switcher;
+        Switch switcher;
         RelativeLayout card;
 
         ViewHolder(View itemView){

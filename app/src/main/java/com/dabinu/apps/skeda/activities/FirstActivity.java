@@ -22,6 +22,7 @@ public class FirstActivity extends AppCompatActivity {
     private ViewPagerAdapter mViewPagerAdapter;
     int exitCount = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -70,6 +71,7 @@ public class FirstActivity extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if (item.getItemId() == R.id.action_settings){
@@ -79,6 +81,7 @@ public class FirstActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onBackPressed(){
