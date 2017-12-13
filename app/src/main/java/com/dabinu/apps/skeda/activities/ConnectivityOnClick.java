@@ -150,10 +150,6 @@ public class ConnectivityOnClick extends AppCompatActivity{
             }
         });
 
-//        underlinedHeader.setPaintFlags(underlinedHeader.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-
-
-
 
 
         String leadString = getIntent().getStringExtra("NAME");
@@ -285,7 +281,7 @@ public class ConnectivityOnClick extends AppCompatActivity{
 
                                         android.support.v4.app.NotificationCompat.InboxStyle extra = new android.support.v4.app.NotificationCompat.InboxStyle();
                                         extra.setBigContentTitle("Click to dismiss");
-                                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setStyle(extra).setContentTitle(notificationTitle).setContentText("").setAutoCancel(false).build();
+                                        final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setStyle(extra).setContentTitle(notificationTitle).setSmallIcon(R.drawable.notif_icon).setColor(getResources().getColor(R.color.white)).setContentText("").setAutoCancel(false).build();
                                         NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                         mng.notify(0, notification);
 
@@ -310,7 +306,7 @@ public class ConnectivityOnClick extends AppCompatActivity{
                                     @Override
                                     public void onFinish(){
                                         if(happyEnding){
-                                            final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
+                                            final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.drawable.imgg).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
                                             NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                             mng.notify(0, finalNotif);
                                             if(wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED){

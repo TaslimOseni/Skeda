@@ -31,9 +31,6 @@ public class CommunFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_commun, container, false);
 
-//        GridView gv = v.findViewById(R.id.greedy);
-//        ListAdapter gadapt = ArrayAdapter.createFromResource(getContext().getApplicationContext(), R.array.today, R.layout.greedy_layout);
-//        gv.setAdapter(gadapt);
 
         ImageView call = v.findViewById(R.id.calls);
         ImageView sms = v.findViewById(R.id.esemess);
