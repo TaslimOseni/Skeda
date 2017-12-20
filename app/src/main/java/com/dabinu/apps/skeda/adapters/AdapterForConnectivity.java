@@ -15,10 +15,8 @@ import com.dabinu.apps.skeda.R;
 import com.dabinu.apps.skeda.activities.ConnectivityOnClick;
 import com.dabinu.apps.skeda.templates.ConnectivityTemplate;
 import java.util.List;
-
-import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
-
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 
 
 public class AdapterForConnectivity extends RecyclerView.Adapter<AdapterForConnectivity.ViewHolder>{
