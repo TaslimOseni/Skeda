@@ -217,6 +217,7 @@
 
                 </RelativeLayout>
 
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -225,40 +226,23 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Send today"
+                        android:text="Schedule for"
                         android:textSize="20sp"
                         android:paddingStart="15dp"
-                        android:paddingEnd="0dp"
-                        android:id="@+id/se" />
+                        android:paddingEnd="0dp" />
 
-
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:id="@+id/showWando"
-                        android:layout_alignBaseline="@+id/se"
-                        android:layout_alignParentEnd="true" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:visibility="gone"
-                    android:id="@+id/wando">
 
                     <Spinner
                         android:id="@+id/today"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:background="#f2efef"
-                        android:dropDownSelector="@android:color/holo_green_light"
-                        android:spinnerMode="dropdown">
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true">
 
                     </Spinner>
 
                 </RelativeLayout>
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -283,6 +267,7 @@
 
                 </RelativeLayout>
 
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -305,7 +290,6 @@
                         android:layout_alignParentEnd="true" />
 
                 </RelativeLayout>
-
 
             </LinearLayout>
         </ScrollView>

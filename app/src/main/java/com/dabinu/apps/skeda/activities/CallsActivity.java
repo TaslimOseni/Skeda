@@ -230,7 +230,7 @@ public class CallsActivity extends AppCompatActivity {
 
 
 
-        else if(rawFormOfTime[6] == 'P' || rawFormOfTime[6] == 'p'){
+        else if(newRaw[9] == 'P' || newRaw[9] == 'p'){
             if(rawFormOfTime[0] == '1' && rawFormOfTime[1] == '2'){
                 result = (12 * 3600) + (Integer.parseInt(Character.toString(rawFormOfTime[3]).concat(Character.toString(rawFormOfTime[4]))) * 60) + (Integer.parseInt(Character.toString(newRaw[6]).concat(Character.toString(newRaw[7]))));
             }

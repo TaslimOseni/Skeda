@@ -22,8 +22,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -38,12 +36,8 @@ import java.util.Date;
 public class ConnectivityOnClick extends AppCompatActivity{
 
 
-    Button process;
     CountDownTimer ticker;
     boolean happyEnding = true;
-    ArrayAdapter tod;
-    RelativeLayout wando;
-    CheckBox showWando, vibrate, ring;
 
 
     @Override
@@ -53,32 +47,17 @@ public class ConnectivityOnClick extends AppCompatActivity{
 
         final Context context = this;
 
-        tod = ArrayAdapter.createFromResource(this, R.array.today, android.R.layout.simple_spinner_item);
-        tod.setDropDownViewResource(R.layout.for_spinner);
+        ArrayAdapter tod = ArrayAdapter.createFromResource(this, R.array.today, android.R.layout.simple_spinner_item);
+        tod.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         ((Spinner) findViewById(R.id.today)).setAdapter(tod);
+        ((Spinner) findViewById(R.id.today)).setSelection(0);
 
 
-        process = findViewById(R.id.chooseTime);
-        wando = findViewById(R.id.wando);
-        showWando = findViewById(R.id.showWando);
-        vibrate = findViewById(R.id.shouldIVibrate);
-        ring = findViewById(R.id.shouldIRing);
+        final Button process = findViewById(R.id.chooseTime);
 
 
-        vibrate.setChecked(true);
-        showWando.setChecked(true);
-        showWando.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(!isChecked){
-                    wando.setVisibility(View.VISIBLE);
-                }
-                else{
-                    wando.setVisibility(View.GONE);
-                }
-            }
-        });
-
+        ((CheckBox) findViewById(R.id.shouldIVibrate)).setChecked(true);
+        ((CheckBox) findViewById(R.id.shouldIRing)).setChecked(false);
 
 
         final String leadString = getIntent().getStringExtra("NAME").trim();
@@ -236,13 +215,18 @@ public class ConnectivityOnClick extends AppCompatActivity{
                     NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                     mng.notify(0, finalNotif);
                     settingSetter(name, !currentState);
-                    ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(2000);
+                    if(((CheckBox) findViewById(R.id.shouldIVibrate)).isChecked()){
+                        ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(2000);
+                    }
+
                 }
                 else{
                     final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
                     NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                     mng.notify(0, finalNotiff);
-                    ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(1200);
+                    if(((CheckBox) findViewById(R.id.shouldIVibrate)).isChecked()){
+                        ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(1200);
+                    }
                 }
             }
         }.start();

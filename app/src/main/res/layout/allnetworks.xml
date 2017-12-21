@@ -143,51 +143,34 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="27dp"
+                    android:layout_height="30dp"
                     android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Schedule for today:"
+                        android:text="Schedule for"
                         android:textSize="20sp"
                         android:paddingStart="15dp"
                         android:paddingEnd="0dp"
                         android:id="@+id/textView4" />
 
 
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:id="@+id/showWando"
-                        android:layout_alignBaseline="@+id/textView4"
-                        android:layout_alignParentEnd="true" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="27dp"
-                    android:visibility="gone"
-                    android:id="@+id/wando"
-                    android:layout_marginTop="10dp">
-
                     <Spinner
-                        android:id="@+id/today"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
-                        android:background="#f2efef"
-                        android:dropDownSelector="@android:color/holo_green_light"
-                        android:spinnerMode="dropdown">
+                        android:id="@+id/today"
+                        android:layout_alignParentBottom="true">
 
                     </Spinner>
 
                 </RelativeLayout>
 
+
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="27dp"
+                    android:layout_height="30dp"
                     android:layout_marginTop="10dp">
 
                     <TextView
@@ -208,15 +191,16 @@
 
                 </RelativeLayout>
 
+
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="30dp"
                     android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Repeat everyday "
+                        android:text="Ring out when done "
                         android:textSize="20sp"
                         android:paddingStart="15dp"
                         android:paddingEnd="0dp"
@@ -224,6 +208,7 @@
 
                     <CheckBox
                         android:layout_width="wrap_content"
+                        android:id="@+id/shouldIRing"
                         android:layout_height="match_parent"
                         android:layout_alignBaseline="@+id/textView7"
                         android:layout_alignParentEnd="true" />

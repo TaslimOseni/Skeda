@@ -31,6 +31,8 @@ public class ConnectivityTemplate {
                 return R.drawable.hotspot;
             case "Data Conn.":
                 return R.drawable.data;
+            case "Location":
+                return R.drawable.location;
         }
         return R.drawable.ahead;
     }
