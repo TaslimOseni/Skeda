@@ -1,8 +1,10 @@
 package com.dabinu.apps.skeda.activities;
 
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,6 +29,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.dabinu.apps.skeda.R;
+import com.dabinu.apps.skeda.broadcasts.MyBroadcastReceiver;
 import com.dabinu.apps.skeda.utilities.TimePicker;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -36,8 +39,12 @@ import java.util.Date;
 public class ConnectivityOnClick extends AppCompatActivity{
 
 
+    WifiManager wifiManager;
+    NotificationManager mng;
+    AlarmManager alarmManager;
+    Context context;
     CountDownTimer ticker;
-    boolean happyEnding = true;
+
 
 
     @Override
@@ -45,7 +52,7 @@ public class ConnectivityOnClick extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.allnetworks);
 
-        final Context context = this;
+        context = this;
 
         ArrayAdapter tod = ArrayAdapter.createFromResource(this, R.array.today, android.R.layout.simple_spinner_item);
         tod.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -62,8 +69,8 @@ public class ConnectivityOnClick extends AppCompatActivity{
 
         final String leadString = getIntent().getStringExtra("NAME").trim();
         ((TextView) findViewById(R.id.nameOfCarrierIntent)).setText(leadString);
-        ((Switch) findViewById(R.id.state)).setChecked(checkState(leadString));
-        ((TextView) findViewById(R.id.turnonofftext)).setText(String.format("Turn %s by:", stringReturner(checkState(leadString))));
+        ((Switch) findViewById(R.id.state)).setChecked(checkState(context, leadString));
+        ((TextView) findViewById(R.id.turnonofftext)).setText(String.format("Turn %s by:", stringReturner(checkState(context, leadString))));
 
 
         process.setOnClickListener(new View.OnClickListener(){
@@ -95,7 +102,7 @@ public class ConnectivityOnClick extends AppCompatActivity{
                     }
                     else{
                         new AlertDialog.Builder(context)
-                                .setMessage(String.format("Turn %s %s %s by %s?", leadString, stringReturner(checkState(leadString)), "today", process.getText().toString().trim()))
+                                .setMessage(String.format("Turn %s %s %s by %s?", leadString, stringReturner(checkState(context, leadString)), "today", process.getText().toString().trim()))
                                 .setCancelable(false)
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
                                     public void onClick(DialogInterface dialog, int id){
@@ -183,51 +190,51 @@ public class ConnectivityOnClick extends AppCompatActivity{
 
 
     public void implementCountDown(final String name, String timeToExplode, long diff){
-        final boolean currentState = checkState(name);
 
+        mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        final boolean currentState = checkState(context, name);
 
         final String notificationTitle = String.format("Turning %s %s by %s", name, stringReturner(currentState), timeToExplode);
-        final String userTerminatedText = String.format("Terminated. %s has been turned %s by user", name, stringReturner(currentState));
-        final String normalTerminatedText = String.format("%s has been turned %s", name, stringReturner(currentState));
+
+        Bundle bundle = new Bundle();
+        bundle.putString("NAME", name);
+        bundle.putBoolean("TASK", !checkState(context, name));
+
+        final Intent intent = new Intent(this, MyBroadcastReceiver.class);
+        intent.putExtras(bundle);
+        final PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), idSetter(name), intent, 0);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (diff * 1000), pendingIntent);
+
 
         ticker = new CountDownTimer(diff * 1000, 1000){
             @Override
             public void onTick(long millisUntilFinished){
 
-                android.support.v4.app.NotificationCompat.InboxStyle extra = new android.support.v4.app.NotificationCompat.InboxStyle();
-                extra.setBigContentTitle("Click to dismiss");
-                final Notification notification = new NotificationCompat.Builder(getApplicationContext()).setStyle(extra).setContentTitle(notificationTitle).setSmallIcon(R.drawable.notif_icon).setColor(getResources().getColor(R.color.white)).setContentText("").setAutoCancel(false).build();
-                NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                mng.notify(0, notification);
-
-                if(currentState != checkState(name)){
-                    happyEnding = false;
-                    ticker.cancel();
-                    mng.cancel(0);
-                    ticker.onFinish();
-                }
+                Notification notification = new NotificationCompat.Builder(getApplicationContext()).setPriority(idSetter(name) - 2).setContentTitle(notificationTitle).setSmallIcon(R.drawable.notif_icon).setColor(getResources().getColor(R.color.white)).setContentText("").setAutoCancel(false).build();
+                mng.notify(idSetter(name), notification);
+//
+//                if(currentState != checkState(name)){
+//                    mng.cancel(idSetter(name));
+//                    alarmManager.cancel(PendingIntent.getBroadcast(getApplicationContext(), idSetter(name), intent, 0));
+//
+//                    Bundle bundl = new Bundle();
+//                    bundl.putString("NAME", name);
+//                    bundl.putBoolean("TASK", checkState(name));
+//
+//                    Intent inten = new Intent(getApplicationContext(), TerminatedBroadcastReceiver.class);
+//                    inten.putExtras(bundl);
+//                    PendingIntent pendingIntention = PendingIntent.getBroadcast(getApplicationContext(), idSetter(name) + 100, inten, 0);
+//                    alarmManager.set(AlarmManager.RTC_WAKEUP, 1000, pendingIntention);
+//
+//                    ticker.onFinish();
+//                }
             }
 
             @Override
             public void onFinish(){
-                if(happyEnding){
-                    final Notification finalNotif = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.drawable.imgg).setContentTitle(normalTerminatedText).setContentText("").setAutoCancel(true).build();
-                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                    mng.notify(0, finalNotif);
-                    settingSetter(name, !currentState);
-                    if(((CheckBox) findViewById(R.id.shouldIVibrate)).isChecked()){
-                        ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(2000);
-                    }
-
-                }
-                else{
-                    final Notification finalNotiff = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(userTerminatedText).setContentText("").setAutoCancel(true).build();
-                    NotificationManager mng = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                    mng.notify(0, finalNotiff);
-                    if(((CheckBox) findViewById(R.id.shouldIVibrate)).isChecked()){
-                        ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(1200);
-                    }
-                }
+                mng.cancel(idSetter(name));
             }
         }.start();
 
@@ -242,8 +249,8 @@ public class ConnectivityOnClick extends AppCompatActivity{
     }
 
 
-    public boolean checkState(String name){
-        final WifiManager wifiManager = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+    public boolean checkState(Context context, String name){
+        final WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         switch(name){
@@ -269,9 +276,10 @@ public class ConnectivityOnClick extends AppCompatActivity{
     }
 
 
-    public void settingSetter(String name, boolean changeTo){
-        final WifiManager wifiManager = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+    public void settingSetter(Context context, String name, boolean changeTo){
+        wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
         switch(name){
             case "WiFi":
                 wifiManager.setWifiEnabled(changeTo);
@@ -329,11 +337,11 @@ public class ConnectivityOnClick extends AppCompatActivity{
                         catch(Exception e){
 
                         }
-                            }
-                        }
-                        catch(Exception e){
+                    }
+                }
+                catch(Exception e){
 
-                        }
+                }
             case "Data Conn.":
                 ConnectivityManager conman = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -346,7 +354,31 @@ public class ConnectivityOnClick extends AppCompatActivity{
                 }
 
         }
+
+        ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(1200);
     }
 
 
+    public int idSetter(String name){
+        switch(name){
+            case "WiFi":
+                return 0;
+            case "Bluetooth":
+                return 1;
+            case "Flight mode":
+                return 2;
+            case "Location":
+                return 3;
+            case "Hotspot":
+                return 0;
+            case "Data Conn.":
+                return 4;
+        }
+        return 98;
+    }
+
+
+    public String returnDoneString(){
+
+    }
 }
