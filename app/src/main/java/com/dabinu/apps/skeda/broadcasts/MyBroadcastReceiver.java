@@ -23,7 +23,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver{
         boolean task = bundle.getBoolean("TASK");
         new ConnectivityOnClick().settingSetter(context, name, task);
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setSmallIcon(R.drawable.notif_icon).setContentIntent(PendingIntent.getActivity(context, 0, new Intent(), 0)).setAutoCancel(true).setContentTitle("My notification").setContentText("");
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setSmallIcon(R.drawable.notif_icon).setContentIntent(PendingIntent.getActivity(context, 0, new Intent(), 0)).setAutoCancel(true).setContentTitle(new ConnectivityOnClick().returnDoneString(name, task)).setContentText("");
 
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(0, mBuilder.build());

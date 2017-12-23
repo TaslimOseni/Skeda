@@ -378,7 +378,8 @@ public class ConnectivityOnClick extends AppCompatActivity{
     }
 
 
-    public String returnDoneString(){
-
+    public String returnDoneString(String name, boolean state){
+        return String.format("%s has been turned %s", name, stringReturner(!state));
     }
+    //todo: fix fixed notification!
 }
